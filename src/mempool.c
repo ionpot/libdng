@@ -80,7 +80,7 @@ splitNode(struct Node * node, size_t by_size)
 		return node->next;
 
 	struct Node * new_node =
-		(struct Node *)((byte *)(node + 1) + by_size);
+		(struct Node *)((unsigned char *)(node + 1) + by_size);
 	new_node->size = new_size - sizeof(struct Node);
 	new_node->next = node->next;
 
