@@ -15,7 +15,10 @@
 #define debug_prefix(M, ...) \
 	debug_print("[%s:%d] " M, __FILE__, __LINE__, ##__VA_ARGS__)
 
-#define debug(M, ...) debug_if(\
-	debug_prefix(M "\n", ##__VA_ARGS__);)
+#define debug_wrap(x) \
+	do { if (DEBUG) x; } while (0)
+
+#define debug(M, ...) \
+	debug_wrap(debug_prefix(M "\n", ##__VA_ARGS__))
 
 #endif
