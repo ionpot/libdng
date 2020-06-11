@@ -6,15 +6,15 @@
 struct DNG_MemPool;
 
 struct DNG_MemPool *
-DNG_MemPoolCreate(size_t growth_size);
+DNG_MemPool_create(size_t growth_size);
 
 void
-DNG_MemPoolDestroy(struct DNG_MemPool *);
+DNG_MemPool_destroy(struct DNG_MemPool *);
 
 void *
-DNG_MemPoolAlloc(struct DNG_MemPool *, size_t request);
+DNG_MemPool_alloc(struct DNG_MemPool *, size_t request);
 
 void
-DNG_MemPoolFree(struct DNG_MemPool *, void * address);
+DNG_MemPool_free(struct DNG_MemPool *, void * address);
 
 #endif
