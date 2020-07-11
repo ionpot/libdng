@@ -6,11 +6,11 @@
 #define NUMBERS_COUNT 300
 
 const struct DNG_Dice
-	DNG_Dice_d4 = { .sides = 4 },
-	DNG_Dice_d6 = { .sides = 6 },
-	DNG_Dice_d8 = { .sides = 8 },
-	DNG_Dice_d20 = { .sides = 20 },
-	DNG_Dice_d100 = { .sides = 100 };
+DNG_Dice_d4 = { .sides = 4 },
+DNG_Dice_d6 = { .sides = 6 },
+DNG_Dice_d8 = { .sides = 8 },
+DNG_Dice_d20 = { .sides = 20 },
+DNG_Dice_d100 = { .sides = 100 };
 
 static char numbers[NUMBERS_COUNT];
 static int num_index;

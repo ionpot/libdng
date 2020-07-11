@@ -19,11 +19,11 @@ struct DNG_Dice_Chance {
 };
 
 const struct DNG_Dice
-	DNG_Dice_d4,
-	DNG_Dice_d6,
-	DNG_Dice_d8,
-	DNG_Dice_d20,
-	DNG_Dice_d100;
+DNG_Dice_d4,
+DNG_Dice_d6,
+DNG_Dice_d8,
+DNG_Dice_d20,
+DNG_Dice_d100;
 
 void
 DNG_Dice_init(void);
