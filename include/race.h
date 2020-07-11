@@ -14,4 +14,7 @@ struct DNG_Race_Bonus {
 const struct DNG_Race_Bonus *
 DNG_Race_getBonus(enum DNG_Race_Id);
 
+struct DNG_Race_Bonus
+DNG_Race_invertBonus(struct DNG_Race_Bonus);
+
 #endif

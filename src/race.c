@@ -18,3 +18,12 @@ DNG_Race_getBonus(enum DNG_Race_Id id)
 		return NULL;
 	}
 }
+
+struct DNG_Race_Bonus
+DNG_Race_invertBonus(struct DNG_Race_Bonus bonus)
+{
+	return (struct DNG_Race_Bonus){
+		.strength = bonus.strength * -1,
+		.intellect = bonus.intellect * -1
+	};
+}
