@@ -29,7 +29,7 @@ void
 DNG_Dice_init();
 
 struct DNG_Dice_Roll
-DNG_Dice_roll(const struct DNG_Dice *);
+DNG_Dice_roll(struct DNG_Dice);
 
 struct DNG_Dice_Chance
 DNG_Dice_rollChance(int percent);
