@@ -26,7 +26,7 @@ const struct DNG_Dice
 	DNG_Dice_d100;
 
 void
-DNG_Dice_init();
+DNG_Dice_init(void);
 
 struct DNG_Dice_Roll
 DNG_Dice_roll(struct DNG_Dice);
