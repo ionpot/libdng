@@ -61,5 +61,7 @@ clean:
 	rm -rf $(DDIR) $(ODIR) $(OUT)
 
 .PHONY: check
+check: CFLAGS += -fsyntax-only
+check: HFILES := $(wildcard $(IDIR)/*.h)
 check:
-	$(CC) $(CFLAGS) -fsyntax-only $(CFILES)
+	$(CC) $(CFLAGS) $(HFILES) $(CFILES)
