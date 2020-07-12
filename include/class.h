@@ -2,7 +2,6 @@
 #define LIBDNG_CLASS_H
 
 enum DNG_Class_Id {
-	DNG_CLASS_HYBRID,
 	DNG_CLASS_MAGE,
 	DNG_CLASS_WARRIOR
 };
