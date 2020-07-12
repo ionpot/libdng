@@ -49,7 +49,7 @@ int
 DNG_Attr_getRollTotal(const struct DNG_Attr_Roll *);
 
 int
-DNG_Attr_getTotal(const struct DNG_Attr *);
+DNG_Attr_getTotal(struct DNG_Attr);
 
 struct DNG_Attr_Roll_Primary
 DNG_Attr_rollPrimary(void);
