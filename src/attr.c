@@ -4,15 +4,6 @@
 
 #include <assert.h>
 
-static struct DNG_Attr
-fromBase(int amount)
-{
-	return (struct DNG_Attr){
-		.base = amount,
-		.bonus = 0
-	};
-}
-
 static struct DNG_Attr_Roll
 rollAttr(void)
 {
@@ -29,6 +20,15 @@ sumAttr(struct DNG_Attr a, struct DNG_Attr b)
 	return (struct DNG_Attr){
 		.base = a.base + b.base,
 		.bonus = a.bonus + b.bonus
+	};
+}
+
+struct DNG_Attr
+DNG_Attr_fromBase(int amount)
+{
+	return (struct DNG_Attr){
+		.base = amount,
+		.bonus = 0
 	};
 }
 
@@ -76,9 +76,9 @@ DNG_Attr_input2primary(const struct DNG_Attr_Input * input)
 {
 	assert(input);
 	return (struct DNG_Attr_Primary){
-		.agility = fromBase(input->agility),
-		.intellect = fromBase(input->intellect),
-		.strength = fromBase(input->strength)
+		.agility = DNG_Attr_fromBase(input->agility),
+		.intellect = DNG_Attr_fromBase(input->intellect),
+		.strength = DNG_Attr_fromBase(input->strength)
 	};
 }
 
@@ -87,7 +87,7 @@ DNG_Attr_primary2secondary(const struct DNG_Attr_Primary * primary)
 {
 	assert(primary);
 	return (struct DNG_Attr_Secondary){
-		.armor = fromBase(0),
+		.armor = DNG_Attr_fromBase(0),
 		.dodge = primary->agility,
 		.initiative = sumAttr(primary->agility, primary->intellect),
 		.will = primary->intellect

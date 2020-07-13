@@ -39,6 +39,9 @@ struct DNG_Attr_Secondary {
 	struct DNG_Attr will;
 };
 
+struct DNG_Attr
+DNG_Attr_fromBase(int);
+
 void
 DNG_Attr_addBase(struct DNG_Attr *, int);
 
