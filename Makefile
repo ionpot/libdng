@@ -47,7 +47,7 @@ $(OUT): $(OFILES)
 $(OPAT) $(DPAT): $(SPAT)
 	$(COMPILE) -o $(OFILE) -c $<
 
-$(DFILES): | $(DDIR)
+$(DFILES): | $(DDIR) $(ODIR)
 $(OFILES): | $(ODIR)
 
 $(DDIR):
