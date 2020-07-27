@@ -56,9 +56,10 @@ DNG_Attr_getRollTotal(const struct DNG_Attr_Roll * roll)
 }
 
 int
-DNG_Attr_getTotal(struct DNG_Attr attr)
+DNG_Attr_getTotal(const struct DNG_Attr * attr)
 {
-	return attr.base + attr.bonus;
+	assert(attr);
+	return attr->base + attr->bonus;
 }
 
 struct DNG_Attr_Roll_Primary
@@ -103,4 +104,11 @@ DNG_Attr_primaryRoll2input(const struct DNG_Attr_Roll_Primary * primary)
 		.intellect = DNG_Attr_getRollTotal(&primary->intellect),
 		.strength = DNG_Attr_getRollTotal(&primary->strength)
 	};
+}
+
+void
+DNG_Attr_setBonus(struct DNG_Attr * attr, int bonus)
+{
+	assert(attr);
+	attr->bonus = bonus;
 }

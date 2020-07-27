@@ -52,7 +52,7 @@ int
 DNG_Attr_getRollTotal(const struct DNG_Attr_Roll *);
 
 int
-DNG_Attr_getTotal(struct DNG_Attr);
+DNG_Attr_getTotal(const struct DNG_Attr *);
 
 struct DNG_Attr_Roll_Primary
 DNG_Attr_rollPrimary(void);
@@ -65,5 +65,8 @@ DNG_Attr_primary2secondary(const struct DNG_Attr_Primary *);
 
 struct DNG_Attr_Input
 DNG_Attr_primaryRoll2input(const struct DNG_Attr_Roll_Primary *);
+
+void
+DNG_Attr_setBonus(struct DNG_Attr *, int);
 
 #endif

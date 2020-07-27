@@ -11,16 +11,14 @@ struct DNG_Class {
 	int level;
 };
 
-struct DNG_Class_Bonus {
-	int attack;
-	int health;
-};
-
 struct DNG_Class
 DNG_Class_create(enum DNG_Class_Id);
 
-struct DNG_Class_Bonus
-DNG_Class_getBonus(struct DNG_Class);
+int
+DNG_Class_getBonusAttack(const struct DNG_Class *);
+
+int
+DNG_Class_getBonusHealth(const struct DNG_Class *);
 
 void
 DNG_Class_levelUp(struct DNG_Class *);

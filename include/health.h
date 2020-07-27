@@ -11,6 +11,9 @@ struct DNG_Health {
 };
 
 struct DNG_Health
+DNG_Health_fromAttr(const struct DNG_Attr *);
+
+struct DNG_Health
 DNG_Health_fromBase(int);
 
 void
@@ -27,5 +30,8 @@ DNG_Health_hasRemaining(const struct DNG_Health *);
 
 void
 DNG_Health_lose(struct DNG_Health *, int);
+
+void
+DNG_Health_setBonus(struct DNG_Health *, int);
 
 #endif

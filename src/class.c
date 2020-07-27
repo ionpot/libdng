@@ -12,25 +12,34 @@ DNG_Class_create(enum DNG_Class_Id id)
 	};
 }
 
-struct DNG_Class_Bonus
-DNG_Class_getBonus(struct DNG_Class klass)
+int
+DNG_Class_getBonusAttack(const struct DNG_Class * klass)
 {
-	struct DNG_Class_Bonus bonus;
+	assert(klass);
 
-	switch (klass.id) {
+	switch (klass->id) {
 	case DNG_CLASS_MAGE:
-		bonus.attack = 2;
-		bonus.health = 2;
-		break;
+		return 2 * klass->level;
 	case DNG_CLASS_WARRIOR:
-		bonus.attack = 4;
-		bonus.health = 4;
-		break;
+		return 4 * klass->level;
 	default:
 		assert(false);
 	}
+}
 
-	return bonus;
+int
+DNG_Class_getBonusHealth(const struct DNG_Class * klass)
+{
+	assert(klass);
+
+	switch (klass->id) {
+	case DNG_CLASS_MAGE:
+		return 2 * klass->level;
+	case DNG_CLASS_WARRIOR:
+		return 4 * klass->level;
+	default:
+		assert(false);
+	}
 }
 
 void
