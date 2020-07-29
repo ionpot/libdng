@@ -1,14 +1,17 @@
 #include "race.h"
 
+#include "attr.h"
+
 #include <stddef.h>
 
-static const struct DNG_Race_Bonus
+static const struct DNG_Attr_Primary_Bonus
 orc_bonus = {
-	.strength = 2,
-	.intellect = -2
+	.agility = 0,
+	.intellect = -2,
+	.strength = 2
 };
 
-const struct DNG_Race_Bonus *
+const struct DNG_Attr_Primary_Bonus *
 DNG_Race_getBonus(enum DNG_Race_Id id)
 {
 	switch (id) {
@@ -17,13 +20,4 @@ DNG_Race_getBonus(enum DNG_Race_Id id)
 	default:
 		return NULL;
 	}
-}
-
-struct DNG_Race_Bonus
-DNG_Race_invertBonus(struct DNG_Race_Bonus bonus)
-{
-	return (struct DNG_Race_Bonus){
-		.strength = bonus.strength * -1,
-		.intellect = bonus.intellect * -1
-	};
 }

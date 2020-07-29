@@ -20,6 +20,12 @@ struct DNG_Attr_Primary {
 	struct DNG_Attr strength;
 };
 
+struct DNG_Attr_Primary_Bonus {
+	int agility;
+	int intellect;
+	int strength;
+};
+
 struct DNG_Attr_Roll {
 	struct DNG_Dice_Roll roll_1;
 	struct DNG_Dice_Roll roll_2;
@@ -47,6 +53,12 @@ DNG_Attr_addBase(struct DNG_Attr *, int);
 
 void
 DNG_Attr_addBonus(struct DNG_Attr *, int);
+
+void
+DNG_Attr_addPrimaryBonusToBase(
+	struct DNG_Attr_Primary *,
+	const struct DNG_Attr_Primary_Bonus *
+);
 
 int
 DNG_Attr_getRollTotal(const struct DNG_Attr_Roll *);

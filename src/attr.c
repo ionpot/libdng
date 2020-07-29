@@ -46,6 +46,18 @@ DNG_Attr_addBonus(struct DNG_Attr * attr, int amount)
 	attr->bonus += amount;
 }
 
+void
+DNG_Attr_addPrimaryBonusToBase(
+	struct DNG_Attr_Primary * attr,
+	const struct DNG_Attr_Primary_Bonus * bonus
+) {
+	assert(attr);
+	assert(bonus);
+	DNG_Attr_addBase(&attr->agility, bonus->agility);
+	DNG_Attr_addBase(&attr->intellect, bonus->intellect);
+	DNG_Attr_addBase(&attr->strength, bonus->strength);
+}
+
 int
 DNG_Attr_getRollTotal(const struct DNG_Attr_Roll * roll)
 {

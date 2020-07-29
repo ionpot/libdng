@@ -36,6 +36,12 @@ DNG_Entity_fromInput(const struct DNG_Entity_Input * input)
 	struct DNG_Attr_Primary attr_p =
 		DNG_Attr_input2primary(&input->attr);
 
+	const struct DNG_Attr_Primary_Bonus * race_bonus =
+		DNG_Race_getBonus(input->race);
+
+	if (race_bonus)
+		DNG_Attr_addPrimaryBonusToBase(&attr_p, race_bonus);
+
 	return (struct DNG_Entity){
 		.race = input->race,
 		.weapon = input->weapon,
