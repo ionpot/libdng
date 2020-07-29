@@ -18,6 +18,10 @@ struct DNG_Entity {
 	struct DNG_Health health;
 };
 
+struct DNG_Entity_HitChance {
+	int klass;
+};
+
 struct DNG_Entity_Input {
 	enum DNG_Class_Id klass;
 	enum DNG_Race_Id race;
@@ -32,6 +36,9 @@ struct DNG_Entity_Pair {
 
 struct DNG_Entity
 DNG_Entity_fromInput(const struct DNG_Entity_Input *);
+
+struct DNG_Entity_HitChance
+DNG_Entity_getHitChance(const struct DNG_Entity *);
 
 bool
 DNG_Entity_isAlive(const struct DNG_Entity *);
