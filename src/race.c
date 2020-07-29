@@ -2,6 +2,8 @@
 
 #include "attr.h"
 
+#include <assert.h>
+#include <stdbool.h>
 #include <stddef.h>
 
 static const struct DNG_Attr_Primary_Bonus
@@ -15,9 +17,11 @@ const struct DNG_Attr_Primary_Bonus *
 DNG_Race_getBonus(enum DNG_Race_Id id)
 {
 	switch (id) {
+	case DNG_RACE_HUMAN:
+		return NULL;
 	case DNG_RACE_ORC:
 		return &orc_bonus;
 	default:
-		return NULL;
+		assert(false);
 	}
 }
