@@ -58,5 +58,6 @@ DNG_Entity_getHitChance(const struct DNG_Entity * entity)
 bool
 DNG_Entity_isAlive(const struct DNG_Entity * entity)
 {
+	assert(entity);
 	return DNG_Health_getRemaining(&entity->health) > 0;
 }
