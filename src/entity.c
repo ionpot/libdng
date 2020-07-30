@@ -53,15 +53,6 @@ DNG_Entity_fromInput(const struct DNG_Entity_Input * input)
 	};
 }
 
-struct DNG_Entity_HitChance
-DNG_Entity_getHitChance(const struct DNG_Entity * entity)
-{
-	assert(entity);
-	return (struct DNG_Entity_HitChance){
-		.klass = DNG_Class_getBonusAttack(&entity->klass)
-	};
-}
-
 bool
 DNG_Entity_isAlive(const struct DNG_Entity * entity)
 {
