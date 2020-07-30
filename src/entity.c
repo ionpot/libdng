@@ -1,6 +1,7 @@
 #include "entity.h"
 
-#include "attr.h"
+#include "attr-primary.h"
+#include "attr-secondary.h"
 #include "class.h"
 #include "health.h"
 
@@ -9,7 +10,7 @@
 
 static struct DNG_Health
 toHealth(
-	const struct DNG_Attr_Primary * attr_p,
+	const struct DNG_AttrPrimary * attr_p,
 	const struct DNG_Class * klass
 ) {
 	assert(attr_p);
@@ -33,20 +34,20 @@ DNG_Entity_fromInput(const struct DNG_Entity_Input * input)
 	struct DNG_Class klass =
 		DNG_Class_create(input->klass);
 
-	struct DNG_Attr_Primary attr_p =
-		DNG_Attr_input2primary(&input->attr);
+	struct DNG_AttrPrimary attr_p =
+		DNG_AttrPrimary_fromInput(&input->attr);
 
-	const struct DNG_Attr_Primary_Bonus * race_bonus =
+	const struct DNG_AttrPrimary_Input * race_bonus =
 		DNG_Race_getBonus(input->race);
 
 	if (race_bonus)
-		DNG_Attr_addPrimaryBonusToBase(&attr_p, race_bonus);
+		DNG_AttrPrimary_addInputToBase(&attr_p, race_bonus);
 
 	return (struct DNG_Entity){
 		.race = input->race,
 		.weapon = input->weapon,
 		.attr_p = attr_p,
-		.attr_s = DNG_Attr_primary2secondary(&attr_p),
+		.attr_s = DNG_AttrSecondary_fromPrimary(&attr_p),
 		.klass = klass,
 		.health = toHealth(&attr_p, &klass)
 	};

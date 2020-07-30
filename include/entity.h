@@ -1,7 +1,8 @@
 #ifndef LIBDNG_ENTITY_H
 #define LIBDNG_ENTITY_H
 
-#include "attr.h"
+#include "attr-primary.h"
+#include "attr-secondary.h"
 #include "class.h"
 #include "health.h"
 #include "race.h"
@@ -12,8 +13,8 @@
 struct DNG_Entity {
 	enum DNG_Race_Id race;
 	enum DNG_Weapon_Id weapon;
-	struct DNG_Attr_Primary attr_p;
-	struct DNG_Attr_Secondary attr_s;
+	struct DNG_AttrPrimary attr_p;
+	struct DNG_AttrSecondary attr_s;
 	struct DNG_Class klass;
 	struct DNG_Health health;
 };
@@ -26,7 +27,7 @@ struct DNG_Entity_Input {
 	enum DNG_Class_Id klass;
 	enum DNG_Race_Id race;
 	enum DNG_Weapon_Id weapon;
-	struct DNG_Attr_Input attr;
+	struct DNG_AttrPrimary_Input attr;
 };
 
 struct DNG_Entity_Pair {

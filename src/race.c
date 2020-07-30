@@ -1,19 +1,19 @@
 #include "race.h"
 
-#include "attr.h"
+#include "attr-primary.h"
 
 #include <assert.h>
 #include <stdbool.h>
 #include <stddef.h>
 
-static const struct DNG_Attr_Primary_Bonus
+static const struct DNG_AttrPrimary_Input
 orc_bonus = {
 	.agility = 0,
 	.intellect = -2,
 	.strength = 2
 };
 
-const struct DNG_Attr_Primary_Bonus *
+const struct DNG_AttrPrimary_Input *
 DNG_Race_getBonus(enum DNG_Race_Id id)
 {
 	switch (id) {
