@@ -5,17 +5,17 @@
 #include "class.h"
 #include "entity.h"
 
-struct DNG_HitChance_Attacker {
+struct DNG_HitChance_Source {
 	struct DNG_Class klass;
 };
 
-struct DNG_HitChance_Defender {
+struct DNG_HitChance_Target {
 	struct DNG_Attr dodge;
 };
 
 struct DNG_HitChance {
-	struct DNG_HitChance_Attacker attacker;
-	struct DNG_HitChance_Defender defender;
+	struct DNG_HitChance_Source source;
+	struct DNG_HitChance_Target target;
 };
 
 struct DNG_HitChance
