@@ -3,6 +3,8 @@
 
 #include "entity.h"
 
+#include <stdbool.h>
+
 #define DNG_GRID_SLOTS 12
 
 /*  ________________________ ________________________
@@ -19,20 +21,20 @@
  * |___________|____________|____________|___________|
  */
 
-enum DNG_Grid_Line_Id {
-	DNG_GRIDLINE_FRONT,
-	DNG_GRIDLINE_BACK
+enum DNG_Grid_LineId {
+	DNG_GRID_LINE_FRONT,
+	DNG_GRID_LINE_BACK
 };
 
-enum DNG_Grid_Side_Id {
-	DNG_GRIDSIDE_A,
-	DNG_GRIDSIDE_B
+enum DNG_Grid_SideId {
+	DNG_GRID_SIDE_A,
+	DNG_GRID_SIDE_B
 };
 
-enum DNG_Grid_Slot_Id {
-	DNG_GRIDSLOT_1,
-	DNG_GRIDSLOT_2,
-	DNG_GRIDSLOT_3
+enum DNG_Grid_SlotId {
+	DNG_GRID_SLOT_1,
+	DNG_GRID_SLOT_2,
+	DNG_GRID_SLOT_3
 };
 
 struct DNG_Grid_Line {
@@ -42,9 +44,9 @@ struct DNG_Grid_Line {
 };
 
 struct DNG_Grid_Position {
-	enum DNG_Grid_Line_Id line;
-	enum DNG_Grid_Side_Id side;
-	enum DNG_Grid_Slot_Id slot;
+	enum DNG_Grid_LineId line;
+	enum DNG_Grid_SideId side;
+	enum DNG_Grid_SlotId slot;
 };
 
 struct DNG_Grid_Side {
@@ -57,11 +59,15 @@ struct DNG_Grid {
 	struct DNG_Grid_Side side_b;
 };
 
-void
-DNG_Grid_clear(struct DNG_Grid *);
+bool
+DNG_Grid_canReach(
+	const struct DNG_Grid *,
+	const struct DNG_Grid_Position * source,
+	const struct DNG_Grid_Position * target
+);
 
 void
-DNG_Grid_clearLine(struct DNG_Grid_Line *);
+DNG_Grid_clear(struct DNG_Grid *);
 
 void
 DNG_Grid_clearSide(struct DNG_Grid_Side *);
