@@ -5,7 +5,7 @@
 
 #include <stdbool.h>
 
-#define DNG_GRID_SLOTS 12
+#define dngGrid_SLOTS 12
 
 /*  ________________________ ________________________
  * |                        |                        |
@@ -21,68 +21,68 @@
  * |___________|____________|____________|___________|
  */
 
-enum DNG_Grid_LineId {
-	DNG_GRID_LINE_FRONT,
-	DNG_GRID_LINE_BACK
+enum dngGrid_LineId {
+	dngGrid_LINE_FRONT,
+	dngGrid_LINE_BACK
 };
 
-enum DNG_Grid_SideId {
-	DNG_GRID_SIDE_A,
-	DNG_GRID_SIDE_B
+enum dngGrid_SideId {
+	dngGrid_SIDE_A,
+	dngGrid_SIDE_B
 };
 
-enum DNG_Grid_SlotId {
-	DNG_GRID_SLOT_1,
-	DNG_GRID_SLOT_2,
-	DNG_GRID_SLOT_3
+enum dngGrid_SlotId {
+	dngGrid_SLOT_1,
+	dngGrid_SLOT_2,
+	dngGrid_SLOT_3
 };
 
-struct DNG_Grid_Line {
-	struct DNG_Entity * slot_1;
-	struct DNG_Entity * slot_2;
-	struct DNG_Entity * slot_3;
+struct dngGrid_Line {
+	struct dngEntity * slot_1;
+	struct dngEntity * slot_2;
+	struct dngEntity * slot_3;
 };
 
-struct DNG_Grid_Position {
-	enum DNG_Grid_LineId line;
-	enum DNG_Grid_SideId side;
-	enum DNG_Grid_SlotId slot;
+struct dngGrid_Position {
+	enum dngGrid_LineId line;
+	enum dngGrid_SideId side;
+	enum dngGrid_SlotId slot;
 };
 
-struct DNG_Grid_Side {
-	struct DNG_Grid_Line back;
-	struct DNG_Grid_Line front;
+struct dngGrid_Side {
+	struct dngGrid_Line back;
+	struct dngGrid_Line front;
 };
 
-struct DNG_Grid {
-	struct DNG_Grid_Side side_a;
-	struct DNG_Grid_Side side_b;
+struct dngGrid {
+	struct dngGrid_Side side_a;
+	struct dngGrid_Side side_b;
 };
 
 bool
-DNG_Grid_canReach(
-	const struct DNG_Grid *,
-	const struct DNG_Grid_Position * source,
-	const struct DNG_Grid_Position * target
+dngGrid_canReach(
+	const struct dngGrid *,
+	const struct dngGrid_Position * source,
+	const struct dngGrid_Position * target
 );
 
 void
-DNG_Grid_clear(struct DNG_Grid *);
+dngGrid_clear(struct dngGrid *);
 
 void
-DNG_Grid_clearSide(struct DNG_Grid_Side *);
+dngGrid_clearSide(struct dngGrid_Side *);
 
-struct DNG_Entity *
-DNG_Grid_getEntity(
-	const struct DNG_Grid *,
-	struct DNG_Grid_Position
+struct dngEntity *
+dngGrid_getEntity(
+	const struct dngGrid *,
+	struct dngGrid_Position
 );
 
 void
-DNG_Grid_putEntity(
-	struct DNG_Grid *,
-	struct DNG_Grid_Position,
-	struct DNG_Entity *
+dngGrid_putEntity(
+	struct dngGrid *,
+	struct dngGrid_Position,
+	struct dngEntity *
 );
 
 #endif

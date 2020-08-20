@@ -4,29 +4,29 @@
 #include "attack.h"
 #include "dice.h"
 
-enum DNG_Damage_Type {
-	DNG_DAMAGE_MAGIC,
-	DNG_DAMAGE_PHYSICAL
+enum dngDamage_Type {
+	dngDamage_MAGIC,
+	dngDamage_PHYSICAL
 };
 
-struct DNG_Damage_Bonus {
+struct dngDamage_Bonus {
 	int intellect;
 	int strength;
 };
 
-struct DNG_Damage_Roll {
-	enum DNG_Damage_Type type;
-	struct DNG_Damage_Bonus bonus;
-	struct DNG_Dice_Roll roll;
+struct dngDamage_Roll {
+	enum dngDamage_Type type;
+	struct dngDamage_Bonus bonus;
+	struct dngDice_Roll roll;
 };
 
-struct DNG_Damage_Roll
-DNG_Damage_roll(const struct DNG_Attack_Input *);
+struct dngDamage_Roll
+dngDamage_roll(const struct dngAttack_Input *);
 
 int
-DNG_Damage_getTotalBonus(const struct DNG_Damage_Bonus *);
+dngDamage_getTotalBonus(const struct dngDamage_Bonus *);
 
 int
-DNG_Damage_getTotalRoll(const struct DNG_Damage_Roll *);
+dngDamage_getTotalRoll(const struct dngDamage_Roll *);
 
 #endif

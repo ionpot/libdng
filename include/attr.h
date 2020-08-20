@@ -3,39 +3,39 @@
 
 #include "dice.h"
 
-struct DNG_Attr {
+struct dngAttr {
 	int base;
 	int bonus;
 };
 
-struct DNG_Attr_Roll {
-	struct DNG_Dice_Roll roll_1;
-	struct DNG_Dice_Roll roll_2;
-	struct DNG_Dice_Roll roll_3;
+struct dngAttr_Roll {
+	struct dngDice_Roll roll_1;
+	struct dngDice_Roll roll_2;
+	struct dngDice_Roll roll_3;
 };
 
-struct DNG_Attr
-DNG_Attr_fromBase(int);
+struct dngAttr
+dngAttr_fromBase(int);
 
-struct DNG_Attr
-DNG_Attr_add(struct DNG_Attr, struct DNG_Attr);
-
-void
-DNG_Attr_addBase(struct DNG_Attr *, int);
+struct dngAttr
+dngAttr_add(struct dngAttr, struct dngAttr);
 
 void
-DNG_Attr_addBonus(struct DNG_Attr *, int);
+dngAttr_addBase(struct dngAttr *, int);
+
+void
+dngAttr_addBonus(struct dngAttr *, int);
 
 int
-DNG_Attr_getRollTotal(const struct DNG_Attr_Roll *);
+dngAttr_getRollTotal(const struct dngAttr_Roll *);
 
 int
-DNG_Attr_getTotal(const struct DNG_Attr *);
+dngAttr_getTotal(const struct dngAttr *);
 
-struct DNG_Attr_Roll
-DNG_Attr_roll(void);
+struct dngAttr_Roll
+dngAttr_roll(void);
 
 void
-DNG_Attr_setBonus(struct DNG_Attr *, int);
+dngAttr_setBonus(struct dngAttr *, int);
 
 #endif

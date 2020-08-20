@@ -15,13 +15,13 @@ struct Pool {
 	struct Pool * next;
 };
 
-struct DNG_MemPool {
+struct dngMemPool {
 	size_t growth_size;
 	struct Pool * pools;
 	struct Node * avlb;
 };
 
-typedef struct DNG_MemPool T;
+typedef struct dngMemPool T;
 
 static const size_t min_node_size = sizeof(int);
 static const size_t min_split_size =
@@ -93,7 +93,7 @@ splitNode(struct Node * node, size_t by_size)
 // public
 
 T *
-DNG_MemPool_create(size_t initial_size)
+dngMemPool_create(size_t initial_size)
 {
 	if (initial_size < min_split_size)
 		return NULL;
@@ -115,7 +115,7 @@ DNG_MemPool_create(size_t initial_size)
 }
 
 void
-DNG_MemPool_destroy(T * self)
+dngMemPool_destroy(T * self)
 {
 	assert(self);
 	struct Pool * pool = self->pools;
@@ -129,7 +129,7 @@ DNG_MemPool_destroy(T * self)
 }
 
 void *
-DNG_MemPool_alloc(T * self, size_t request)
+dngMemPool_alloc(T * self, size_t request)
 {
 	assert(self);
 
@@ -159,7 +159,7 @@ DNG_MemPool_alloc(T * self, size_t request)
 }
 
 void
-DNG_MemPool_free(T * self, void * address)
+dngMemPool_free(T * self, void * address)
 {
 	assert(self);
 	assert(address);

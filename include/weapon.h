@@ -3,23 +3,23 @@
 
 #include "dice.h"
 
-enum DNG_Weapon_Id {
-	DNG_WEAPON_DAGGER,
-	DNG_WEAPON_LONG_AXE,
-	DNG_WEAPON_SWORD
+enum dngWeapon_Id {
+	dngWeapon_DAGGER,
+	dngWeapon_LONG_AXE,
+	dngWeapon_SWORD
 };
 
-struct DNG_Weapon_Bonus {
+struct dngWeapon_Bonus {
 	int initiative;
 };
 
-const struct DNG_Weapon_Bonus *
-DNG_Weapon_getBonus(enum DNG_Weapon_Id);
+const struct dngWeapon_Bonus *
+dngWeapon_getBonus(enum dngWeapon_Id);
 
-struct DNG_Dice
-DNG_Weapon_getDice(enum DNG_Weapon_Id);
+struct dngDice
+dngWeapon_getDice(enum dngWeapon_Id);
 
-struct DNG_Weapon_Bonus
-DNG_Weapon_invertBonus(struct DNG_Weapon_Bonus);
+struct dngWeapon_Bonus
+dngWeapon_invertBonus(struct dngWeapon_Bonus);
 
 #endif

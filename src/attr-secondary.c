@@ -5,14 +5,14 @@
 
 #include <assert.h>
 
-struct DNG_AttrSecondary
-DNG_AttrSecondary_fromPrimary(const struct DNG_AttrPrimary * primary)
+struct dngAttrSecondary
+dngAttrSecondary_fromPrimary(const struct dngAttrPrimary * primary)
 {
 	assert(primary);
-	return (struct DNG_AttrSecondary){
-		.armor = DNG_Attr_fromBase(0),
+	return (struct dngAttrSecondary){
+		.armor = dngAttr_fromBase(0),
 		.dodge = primary->agility,
-		.initiative = DNG_Attr_add(primary->agility, primary->intellect),
+		.initiative = dngAttr_add(primary->agility, primary->intellect),
 		.will = primary->intellect
 	};
 }

@@ -4,43 +4,43 @@
 #include "dice.h"
 #include "entity.h"
 
-enum DNG_Attack_Result {
-	DNG_ATTACK_HIT,
-	DNG_ATTACK_MISS
+enum dngAttack_Result {
+	dngAttack_HIT,
+	dngAttack_MISS
 };
 
-enum DNG_Attack_Type {
-	DNG_ATTACK_MAGIC,
-	DNG_ATTACK_WEAPON
+enum dngAttack_Type {
+	dngAttack_MAGIC,
+	dngAttack_WEAPON
 };
 
-struct DNG_Attack_Bonus {
+struct dngAttack_Bonus {
 	int armor;
 	int dodge;
 	int level;
 	int will;
 };
 
-struct DNG_Attack_Input {
-	enum DNG_Attack_Type type;
-	struct DNG_Entity_Pair entities;
+struct dngAttack_Input {
+	enum dngAttack_Type type;
+	struct dngEntity_Pair entities;
 };
 
-struct DNG_Attack_Roll {
-	struct DNG_Attack_Bonus bonus;
-	struct DNG_Dice_Roll roll;
+struct dngAttack_Roll {
+	struct dngAttack_Bonus bonus;
+	struct dngDice_Roll roll;
 };
 
-struct DNG_Attack_Roll
-DNG_Attack_roll(const struct DNG_Attack_Input *);
+struct dngAttack_Roll
+dngAttack_roll(const struct dngAttack_Input *);
 
-enum DNG_Attack_Result
-DNG_Attack_getResult(const struct DNG_Attack_Roll *);
-
-int
-DNG_Attack_getTotalBonus(const struct DNG_Attack_Bonus *);
+enum dngAttack_Result
+dngAttack_getResult(const struct dngAttack_Roll *);
 
 int
-DNG_Attack_getTotalRoll(const struct DNG_Attack_Roll *);
+dngAttack_getTotalBonus(const struct dngAttack_Bonus *);
+
+int
+dngAttack_getTotalRoll(const struct dngAttack_Roll *);
 
 #endif

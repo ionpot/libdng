@@ -6,31 +6,31 @@
 
 #include <stddef.h>
 
-struct DNG_DicePool;
+struct dngDicePool;
 
-struct DNG_DicePool_Input {
+struct dngDicePool_Input {
 	int count;
-	struct DNG_Dice dice;
+	struct dngDice dice;
 };
 
-struct DNG_DicePool_Roll {
+struct dngDicePool_Roll {
 	int result;
-	struct DNG_DicePool_Roll * next;
+	struct dngDicePool_Roll * next;
 };
 
-struct DNG_DicePool_Result {
+struct dngDicePool_Result {
 	int total;
-	struct DNG_DicePool_Input input;
-	struct DNG_DicePool_Roll * roll;
+	struct dngDicePool_Input input;
+	struct dngDicePool_Roll * roll;
 };
 
-struct DNG_DicePool
-DNG_DicePool_create(struct DNG_MemPool *);
+struct dngDicePool
+dngDicePool_create(struct dngMemPool *);
 
 void
-DNG_DicePool_reset(struct DNG_DicePool *);
+dngDicePool_reset(struct dngDicePool *);
 
-struct DNG_DicePool_Result
-DNG_DicePool_roll(struct DNG_DicePool *, struct DNG_DicePool_Input);
+struct dngDicePool_Result
+dngDicePool_roll(struct dngDicePool *, struct dngDicePool_Input);
 
 #endif

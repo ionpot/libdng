@@ -3,12 +3,12 @@
 
 #include "attr-primary.h"
 
-enum DNG_Race_Id {
-	DNG_RACE_HUMAN,
-	DNG_RACE_ORC
+enum dngRace_Id {
+	dngRace_HUMAN,
+	dngRace_ORC
 };
 
-const struct DNG_AttrPrimary_Input *
-DNG_Race_getBonus(enum DNG_Race_Id);
+const struct dngAttrPrimary_Input *
+dngRace_getBonus(enum dngRace_Id);
 
 #endif

@@ -10,31 +10,31 @@
 
 #include <stdbool.h>
 
-struct DNG_Entity {
-	enum DNG_Race_Id race;
-	enum DNG_Weapon_Id weapon;
-	struct DNG_AttrPrimary attr_p;
-	struct DNG_AttrSecondary attr_s;
-	struct DNG_Class klass;
-	struct DNG_Health health;
+struct dngEntity {
+	enum dngRace_Id race;
+	enum dngWeapon_Id weapon;
+	struct dngAttrPrimary attr_p;
+	struct dngAttrSecondary attr_s;
+	struct dngClass klass;
+	struct dngHealth health;
 };
 
-struct DNG_Entity_Input {
-	enum DNG_Class_Id klass;
-	enum DNG_Race_Id race;
-	enum DNG_Weapon_Id weapon;
-	struct DNG_AttrPrimary_Input attr;
+struct dngEntity_Input {
+	enum dngClass_Id klass;
+	enum dngRace_Id race;
+	enum dngWeapon_Id weapon;
+	struct dngAttrPrimary_Input attr;
 };
 
-struct DNG_Entity_Pair {
-	struct DNG_Entity * source;
-	struct DNG_Entity * target;
+struct dngEntity_Pair {
+	struct dngEntity * source;
+	struct dngEntity * target;
 };
 
-struct DNG_Entity
-DNG_Entity_fromInput(const struct DNG_Entity_Input *);
+struct dngEntity
+dngEntity_fromInput(const struct dngEntity_Input *);
 
 bool
-DNG_Entity_isAlive(const struct DNG_Entity *);
+dngEntity_isAlive(const struct dngEntity *);
 
 #endif

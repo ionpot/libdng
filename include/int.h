@@ -2,6 +2,6 @@
 #define LIBDNG_INT_H
 
 void
-DNG_Int_decr(int *, int);
+dngInt_decr(int *, int);
 
 #endif

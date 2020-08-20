@@ -6,25 +6,25 @@
 
 #include <stdbool.h>
 
-struct DNG_Combat_Turn {
-	struct DNG_Entity * entity;
-	struct DNG_Grid_Position position;
+struct dngCombat_Turn {
+	struct dngEntity * entity;
+	struct dngGrid_Position position;
 };
 
-struct DNG_Combat {
+struct dngCombat {
 	int round;
 	int turn_index;
 	int used;
-	struct DNG_Combat_Turn turns[DNG_GRID_SLOTS];
+	struct dngCombat_Turn turns[dngGrid_SLOTS];
 };
 
-struct DNG_Combat
-DNG_Combat_fromGrid(struct DNG_Grid);
+struct dngCombat
+dngCombat_fromGrid(struct dngGrid);
 
 bool
-DNG_Combat_nextRound(struct DNG_Combat *);
+dngCombat_nextRound(struct dngCombat *);
 
-const struct DNG_Combat_Turn *
-DNG_Combat_nextTurn(struct DNG_Combat *);
+const struct dngCombat_Turn *
+dngCombat_nextTurn(struct dngCombat *);
 
 #endif

@@ -10,18 +10,18 @@
 #define NODES_PER_ALLOC 5
 
 struct Node {
-	struct DNG_DicePool_Roll roll;
+	struct dngDicePool_Roll roll;
 	struct Node * next;
 };
 
-struct DNG_DicePool {
-	struct DNG_MemPool * mempool;
+struct dngDicePool {
+	struct dngMemPool * mempool;
 	struct Node * avlb;
 	struct Node * used;
 	struct Node * used_last;
 };
 
-typedef struct DNG_DicePool T;
+typedef struct dngDicePool T;
 
 static struct Node *
 allocAvlb(T * self, int amount)
@@ -33,7 +33,7 @@ allocAvlb(T * self, int amount)
 
 	size_t size = sizeof(struct Node) * amount;
 	struct Node * node =
-		DNG_MemPool_alloc(self->mempool, size);
+		dngMemPool_alloc(self->mempool, size);
 
 	if (!node)
 		return NULL;
@@ -80,7 +80,7 @@ nextNode(T * self)
 }
 
 T
-DNG_DicePool_create(struct DNG_MemPool * mem)
+dngDicePool_create(struct dngMemPool * mem)
 {
 	assert(mem);
 	return (T){
@@ -92,7 +92,7 @@ DNG_DicePool_create(struct DNG_MemPool * mem)
 }
 
 void
-DNG_DicePool_reset(T * self)
+dngDicePool_reset(T * self)
 {
 	assert(self);
 	struct Node * last = self->used_last;
@@ -104,13 +104,13 @@ DNG_DicePool_reset(T * self)
 	}
 }
 
-struct DNG_DicePool_Result
-DNG_DicePool_roll(T * self, struct DNG_DicePool_Input input)
+struct dngDicePool_Result
+dngDicePool_roll(T * self, struct dngDicePool_Input input)
 {
 	assert(self);
 	struct Node * node;
-	struct DNG_DicePool_Roll * roll = NULL;
-	struct DNG_DicePool_Roll * last = NULL;
+	struct dngDicePool_Roll * roll = NULL;
+	struct dngDicePool_Roll * last = NULL;
 	int total = 0;
 
 	while (input.count-- > 0) {
@@ -118,13 +118,13 @@ DNG_DicePool_roll(T * self, struct DNG_DicePool_Input input)
 		if (!node)
 			break;
 		roll = &node->roll;
-		roll->result = DNG_Dice_roll(input.dice).result;
+		roll->result = dngDice_roll(input.dice).result;
 		total += roll->result;
 		roll->next = last;
 		last = roll;
 	}
 
-	return (struct DNG_DicePool_Result){
+	return (struct dngDicePool_Result){
 		.total = total,
 		.input = input,
 		.roll = roll

@@ -1,26 +1,26 @@
 #ifndef LIBDNG_CLASS_H
 #define LIBDNG_CLASS_H
 
-enum DNG_Class_Id {
-	DNG_CLASS_MAGE,
-	DNG_CLASS_WARRIOR
+enum dngClass_Id {
+	dngClass_MAGE,
+	dngClass_WARRIOR
 };
 
-struct DNG_Class {
-	enum DNG_Class_Id id;
+struct dngClass {
+	enum dngClass_Id id;
 	int level;
 };
 
-struct DNG_Class
-DNG_Class_create(enum DNG_Class_Id);
+struct dngClass
+dngClass_create(enum dngClass_Id);
 
 int
-DNG_Class_getBonusAttack(const struct DNG_Class *);
+dngClass_getBonusAttack(const struct dngClass *);
 
 int
-DNG_Class_getBonusHealth(const struct DNG_Class *);
+dngClass_getBonusHealth(const struct dngClass *);
 
 void
-DNG_Class_levelUp(struct DNG_Class *);
+dngClass_levelUp(struct dngClass *);
 
 #endif

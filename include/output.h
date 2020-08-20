@@ -10,43 +10,43 @@
 /*
  * attack: entity -> entity
  */
-struct DNG_Output_Attack {
-	enum DNG_Attack_Result result;
-	enum DNG_Attack_Type type;
-	struct DNG_Attack_Roll roll;
-	struct DNG_Entity_Pair pair;
+struct dngOutput_Attack {
+	enum dngAttack_Result result;
+	enum dngAttack_Type type;
+	struct dngAttack_Roll roll;
+	struct dngEntity_Pair pair;
 };
 
-struct DNG_Output_Attack
-DNG_Output_doAttack(struct DNG_Context *);
+struct dngOutput_Attack
+dngOutput_doAttack(struct dngContext *);
 
 /*
  * we have entered combat
  */
-const struct DNG_Combat *
-DNG_Output_doCombatBegin(struct DNG_Context *);
+const struct dngCombat *
+dngOutput_doCombatBegin(struct dngContext *);
 
 /*
  * combat ended
  */
-const struct DNG_Combat *
-DNG_Output_doCombatEnd(struct DNG_Context *);
+const struct dngCombat *
+dngOutput_doCombatEnd(struct dngContext *);
 
 /*
  * damage done to an entity
  */
-struct DNG_Output_Damage {
-	struct DNG_Damage_Roll roll;
-	struct DNG_Entity_Pair pair;
+struct dngOutput_Damage {
+	struct dngDamage_Roll roll;
+	struct dngEntity_Pair pair;
 };
 
-struct DNG_Output_Damage
-DNG_Output_doDamage(struct DNG_Context *);
+struct dngOutput_Damage
+dngOutput_doDamage(struct dngContext *);
 
 /*
  * next combat round
  */
 int
-DNG_Output_doNextRound(struct DNG_Context *);
+dngOutput_doNextRound(struct dngContext *);
 
 #endif

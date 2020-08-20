@@ -4,40 +4,40 @@
 
 #include <assert.h>
 
-struct DNG_Attr
-DNG_Attr_fromBase(int amount)
+struct dngAttr
+dngAttr_fromBase(int amount)
 {
-	return (struct DNG_Attr){
+	return (struct dngAttr){
 		.base = amount,
 		.bonus = 0
 	};
 }
 
-struct DNG_Attr
-DNG_Attr_add(struct DNG_Attr a, struct DNG_Attr b)
+struct dngAttr
+dngAttr_add(struct dngAttr a, struct dngAttr b)
 {
-	return (struct DNG_Attr){
+	return (struct dngAttr){
 		.base = a.base + b.base,
 		.bonus = a.bonus + b.bonus
 	};
 }
 
 void
-DNG_Attr_addBase(struct DNG_Attr * attr, int amount)
+dngAttr_addBase(struct dngAttr * attr, int amount)
 {
 	assert(attr);
 	attr->base += amount;
 }
 
 void
-DNG_Attr_addBonus(struct DNG_Attr * attr, int amount)
+dngAttr_addBonus(struct dngAttr * attr, int amount)
 {
 	assert(attr);
 	attr->bonus += amount;
 }
 
 int
-DNG_Attr_getRollTotal(const struct DNG_Attr_Roll * roll)
+dngAttr_getRollTotal(const struct dngAttr_Roll * roll)
 {
 	assert(roll);
 	return roll->roll_1.result
@@ -46,24 +46,24 @@ DNG_Attr_getRollTotal(const struct DNG_Attr_Roll * roll)
 }
 
 int
-DNG_Attr_getTotal(const struct DNG_Attr * attr)
+dngAttr_getTotal(const struct dngAttr * attr)
 {
 	assert(attr);
 	return attr->base + attr->bonus;
 }
 
-struct DNG_Attr_Roll
-DNG_Attr_roll(void)
+struct dngAttr_Roll
+dngAttr_roll(void)
 {
-	return (struct DNG_Attr_Roll){
-		.roll_1 = DNG_Dice_roll(DNG_Dice_d6),
-		.roll_2 = DNG_Dice_roll(DNG_Dice_d6),
-		.roll_3 = DNG_Dice_roll(DNG_Dice_d6)
+	return (struct dngAttr_Roll){
+		.roll_1 = dngDice_roll(dngDice_d6),
+		.roll_2 = dngDice_roll(dngDice_d6),
+		.roll_3 = dngDice_roll(dngDice_d6)
 	};
 }
 
 void
-DNG_Attr_setBonus(struct DNG_Attr * attr, int bonus)
+dngAttr_setBonus(struct dngAttr * attr, int bonus)
 {
 	assert(attr);
 	attr->bonus = bonus;

@@ -8,54 +8,54 @@
 #include <assert.h>
 #include <stdbool.h>
 
-static struct DNG_Health
+static struct dngHealth
 toHealth(
-	const struct DNG_AttrPrimary * attr_p,
-	const struct DNG_Class * klass
+	const struct dngAttrPrimary * attr_p,
+	const struct dngClass * klass
 ) {
 	assert(attr_p);
 	assert(klass);
 
-	struct DNG_Health health =
-		DNG_Health_fromAttr(&attr_p->strength);
+	struct dngHealth health =
+		dngHealth_fromAttr(&attr_p->strength);
 
-	int bonus = DNG_Class_getBonusHealth(klass);
+	int bonus = dngClass_getBonusHealth(klass);
 
-	DNG_Health_setBonus(&health, bonus);
+	dngHealth_setBonus(&health, bonus);
 
 	return health;
 }
 
-struct DNG_Entity
-DNG_Entity_fromInput(const struct DNG_Entity_Input * input)
+struct dngEntity
+dngEntity_fromInput(const struct dngEntity_Input * input)
 {
 	assert(input);
 
-	struct DNG_Class klass =
-		DNG_Class_create(input->klass);
+	struct dngClass klass =
+		dngClass_create(input->klass);
 
-	struct DNG_AttrPrimary attr_p =
-		DNG_AttrPrimary_fromInput(&input->attr);
+	struct dngAttrPrimary attr_p =
+		dngAttrPrimary_fromInput(&input->attr);
 
-	const struct DNG_AttrPrimary_Input * race_bonus =
-		DNG_Race_getBonus(input->race);
+	const struct dngAttrPrimary_Input * race_bonus =
+		dngRace_getBonus(input->race);
 
 	if (race_bonus)
-		DNG_AttrPrimary_addInputToBase(&attr_p, race_bonus);
+		dngAttrPrimary_addInputToBase(&attr_p, race_bonus);
 
-	return (struct DNG_Entity){
+	return (struct dngEntity){
 		.race = input->race,
 		.weapon = input->weapon,
 		.attr_p = attr_p,
-		.attr_s = DNG_AttrSecondary_fromPrimary(&attr_p),
+		.attr_s = dngAttrSecondary_fromPrimary(&attr_p),
 		.klass = klass,
 		.health = toHealth(&attr_p, &klass)
 	};
 }
 
 bool
-DNG_Entity_isAlive(const struct DNG_Entity * entity)
+dngEntity_isAlive(const struct dngEntity * entity)
 {
 	assert(entity);
-	return DNG_Health_getRemaining(&entity->health) > 0;
+	return dngHealth_getRemaining(&entity->health) > 0;
 }

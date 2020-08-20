@@ -5,12 +5,12 @@
 
 #define NUMBERS_COUNT 300
 
-const struct DNG_Dice
-DNG_Dice_d4 = { .sides = 4 },
-DNG_Dice_d6 = { .sides = 6 },
-DNG_Dice_d8 = { .sides = 8 },
-DNG_Dice_d20 = { .sides = 20 },
-DNG_Dice_d100 = { .sides = 100 };
+const struct dngDice
+dngDice_d4 = { .sides = 4 },
+dngDice_d6 = { .sides = 6 },
+dngDice_d8 = { .sides = 8 },
+dngDice_d20 = { .sides = 20 },
+dngDice_d100 = { .sides = 100 };
 
 static char numbers[NUMBERS_COUNT];
 static int num_index;
@@ -47,7 +47,7 @@ rollDice(int sides)
 }
 
 void
-DNG_Dice_init(void)
+dngDice_init(void)
 {
 	for (int i = 0; i < NUMBERS_COUNT; ++i)
 		numbers[i] = i % 100;
@@ -55,22 +55,22 @@ DNG_Dice_init(void)
 	num_index = 0;
 }
 
-struct DNG_Dice_Roll
-DNG_Dice_roll(struct DNG_Dice dice)
+struct dngDice_Roll
+dngDice_roll(struct dngDice dice)
 {
-	return (struct DNG_Dice_Roll){
+	return (struct dngDice_Roll){
 		.result = rollDice(dice.sides),
 		.sides = dice.sides
 	};
 }
 
-struct DNG_Dice_Chance
-DNG_Dice_rollChance(int percent)
+struct dngDice_Chance
+dngDice_rollChance(int percent)
 {
-	struct DNG_Dice_Roll roll =
-		DNG_Dice_roll(DNG_Dice_d100);
+	struct dngDice_Roll roll =
+		dngDice_roll(dngDice_d100);
 
-	return (struct DNG_Dice_Chance){
+	return (struct dngDice_Chance){
 		.success = roll.result <= percent,
 		.percent = percent,
 		.roll = roll

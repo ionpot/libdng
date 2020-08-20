@@ -6,44 +6,44 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-static const struct DNG_Weapon_Bonus
+static const struct dngWeapon_Bonus
 dagger_bonus = { .initiative = 2 },
 long_axe_bonus = { .initiative = -2 };
 
-const struct DNG_Weapon_Bonus *
-DNG_Weapon_getBonus(enum DNG_Weapon_Id id)
+const struct dngWeapon_Bonus *
+dngWeapon_getBonus(enum dngWeapon_Id id)
 {
 	switch (id) {
-	case DNG_WEAPON_DAGGER:
+	case dngWeapon_DAGGER:
 		return &dagger_bonus;
-	case DNG_WEAPON_LONG_AXE:
+	case dngWeapon_LONG_AXE:
 		return &long_axe_bonus;
-	case DNG_WEAPON_SWORD:
+	case dngWeapon_SWORD:
 		return NULL;
 	default:
 		assert(false);
 	}
 }
 
-struct DNG_Dice
-DNG_Weapon_getDice(enum DNG_Weapon_Id id)
+struct dngDice
+dngWeapon_getDice(enum dngWeapon_Id id)
 {
 	switch (id) {
-	case DNG_WEAPON_DAGGER:
-		return DNG_Dice_d4;
-	case DNG_WEAPON_LONG_AXE:
-		return DNG_Dice_d8;
-	case DNG_WEAPON_SWORD:
-		return DNG_Dice_d6;
+	case dngWeapon_DAGGER:
+		return dngDice_d4;
+	case dngWeapon_LONG_AXE:
+		return dngDice_d8;
+	case dngWeapon_SWORD:
+		return dngDice_d6;
 	default:
 		assert(false);
 	}
 }
 
-struct DNG_Weapon_Bonus
-DNG_Weapon_invertBonus(struct DNG_Weapon_Bonus bonus)
+struct dngWeapon_Bonus
+dngWeapon_invertBonus(struct dngWeapon_Bonus bonus)
 {
-	return (struct DNG_Weapon_Bonus){
+	return (struct dngWeapon_Bonus){
 		.initiative = bonus.initiative * -1
 	};
 }

@@ -5,33 +5,33 @@
 
 #include <stdbool.h>
 
-struct DNG_Health {
-	struct DNG_Attr total;
+struct dngHealth {
+	struct dngAttr total;
 	int lost;
 };
 
-struct DNG_Health
-DNG_Health_fromAttr(const struct DNG_Attr *);
+struct dngHealth
+dngHealth_fromAttr(const struct dngAttr *);
 
-struct DNG_Health
-DNG_Health_fromBase(int);
+struct dngHealth
+dngHealth_fromBase(int);
 
 void
-DNG_Health_gain(struct DNG_Health *, int);
+dngHealth_gain(struct dngHealth *, int);
 
 int
-DNG_Health_getRemaining(const struct DNG_Health *);
+dngHealth_getRemaining(const struct dngHealth *);
 
 int
-DNG_Health_getTotal(const struct DNG_Health *);
+dngHealth_getTotal(const struct dngHealth *);
 
 bool
-DNG_Health_hasRemaining(const struct DNG_Health *);
+dngHealth_hasRemaining(const struct dngHealth *);
 
 void
-DNG_Health_lose(struct DNG_Health *, int);
+dngHealth_lose(struct dngHealth *, int);
 
 void
-DNG_Health_setBonus(struct DNG_Health *, int);
+dngHealth_setBonus(struct dngHealth *, int);
 
 #endif

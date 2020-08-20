@@ -3,21 +3,21 @@
 
 #include "event.h"
 
-struct DNG_Context;
+struct dngContext;
 
-struct DNG_Context *
-DNG_Context_create();
+struct dngContext *
+dngContext_create();
 
 void
-DNG_Context_destroy(struct DNG_Context *);
+dngContext_destroy(struct dngContext *);
 
-enum DNG_Event_Id
-DNG_Context_firstEvent(struct DNG_Context *);
+enum dngEvent_Id
+dngContext_firstEvent(struct dngContext *);
 
-enum DNG_Event_Id
-DNG_Context_nextEvent(struct DNG_Context *);
+enum dngEvent_Id
+dngContext_nextEvent(struct dngContext *);
 
-const struct DNG_Grid *
-DNG_Context_getGrid(const struct DNG_Context *);
+const struct dngGrid *
+dngContext_getGrid(const struct dngContext *);
 
 #endif

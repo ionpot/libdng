@@ -3,35 +3,35 @@
 
 #include <stdbool.h>
 
-struct DNG_Dice {
+struct dngDice {
 	int sides;
 };
 
-struct DNG_Dice_Roll {
+struct dngDice_Roll {
 	int result;
 	int sides;
 };
 
-struct DNG_Dice_Chance {
+struct dngDice_Chance {
 	bool success;
 	int percent;
-	struct DNG_Dice_Roll roll;
+	struct dngDice_Roll roll;
 };
 
-const struct DNG_Dice
-DNG_Dice_d4,
-DNG_Dice_d6,
-DNG_Dice_d8,
-DNG_Dice_d20,
-DNG_Dice_d100;
+const struct dngDice
+dngDice_d4,
+dngDice_d6,
+dngDice_d8,
+dngDice_d20,
+dngDice_d100;
 
 void
-DNG_Dice_init(void);
+dngDice_init(void);
 
-struct DNG_Dice_Roll
-DNG_Dice_roll(struct DNG_Dice);
+struct dngDice_Roll
+dngDice_roll(struct dngDice);
 
-struct DNG_Dice_Chance
-DNG_Dice_rollChance(int percent);
+struct dngDice_Chance
+dngDice_rollChance(int percent);
 
 #endif

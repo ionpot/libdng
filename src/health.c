@@ -6,60 +6,60 @@
 #include <assert.h>
 #include <stdbool.h>
 
-struct DNG_Health
-DNG_Health_fromAttr(const struct DNG_Attr * attr)
+struct dngHealth
+dngHealth_fromAttr(const struct dngAttr * attr)
 {
 	assert(attr);
-	return DNG_Health_fromBase(DNG_Attr_getTotal(attr));
+	return dngHealth_fromBase(dngAttr_getTotal(attr));
 }
 
-struct DNG_Health
-DNG_Health_fromBase(int amount)
+struct dngHealth
+dngHealth_fromBase(int amount)
 {
-	return (struct DNG_Health){
-		.total = DNG_Attr_fromBase(amount),
+	return (struct dngHealth){
+		.total = dngAttr_fromBase(amount),
 		.lost = 0
 	};
 }
 
 void
-DNG_Health_gain(struct DNG_Health * health, int amount)
+dngHealth_gain(struct dngHealth * health, int amount)
 {
 	assert(health);
-	DNG_Int_decr(&health->lost, amount);
+	dngInt_decr(&health->lost, amount);
 }
 
 int
-DNG_Health_getRemaining(const struct DNG_Health * health)
+dngHealth_getRemaining(const struct dngHealth * health)
 {
 	assert(health);
-	return DNG_Health_getTotal(health) - health->lost;
+	return dngHealth_getTotal(health) - health->lost;
 }
 
 int
-DNG_Health_getTotal(const struct DNG_Health * health)
+dngHealth_getTotal(const struct dngHealth * health)
 {
 	assert(health);
-	return DNG_Attr_getTotal(&health->total);
+	return dngAttr_getTotal(&health->total);
 }
 
 bool
-DNG_Health_hasRemaining(const struct DNG_Health * health)
+dngHealth_hasRemaining(const struct dngHealth * health)
 {
 	assert(health);
-	return DNG_Health_getRemaining(health) > 0;
+	return dngHealth_getRemaining(health) > 0;
 }
 
 void
-DNG_Health_lose(struct DNG_Health * health, int amount)
+dngHealth_lose(struct dngHealth * health, int amount)
 {
 	assert(health);
 	health->lost += amount;
 }
 
 void
-DNG_Health_setBonus(struct DNG_Health * health, int bonus)
+dngHealth_setBonus(struct dngHealth * health, int bonus)
 {
 	assert(health);
-	DNG_Attr_setBonus(&health->total, bonus);
+	dngAttr_setBonus(&health->total, bonus);
 }

@@ -3,18 +3,18 @@
 
 #include <stddef.h>
 
-struct DNG_MemPool;
+struct dngMemPool;
 
-struct DNG_MemPool *
-DNG_MemPool_create(size_t growth_size);
+struct dngMemPool *
+dngMemPool_create(size_t growth_size);
 
 void
-DNG_MemPool_destroy(struct DNG_MemPool *);
+dngMemPool_destroy(struct dngMemPool *);
 
 void *
-DNG_MemPool_alloc(struct DNG_MemPool *, size_t request);
+dngMemPool_alloc(struct dngMemPool *, size_t request);
 
 void
-DNG_MemPool_free(struct DNG_MemPool *, void * address);
+dngMemPool_free(struct dngMemPool *, void * address);
 
 #endif
