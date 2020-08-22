@@ -5,42 +5,25 @@
 
 #include <assert.h>
 
-const int dngAttack_base_chance = 60;
+const int base_chance = 60;
 
-static struct dngAttack_Defense
-getDefense(const struct dngEntity * entity)
+static struct dngAttack_Bonus
+getBonus(const struct dngEntity * entity)
 {
 	assert(entity);
-	return (struct dngAttack_Defense){
-		.armor = entity->attr_s.armor,
-		.dodge = entity->attr_s.dodge
+	return (struct dngAttack_Bonus){
+		.klass = dngClass_getAttackBonus(&entity->klass)
 	};
 }
 
-static int
-getDefenseTotal(const struct dngAttack_Defense * defense)
-{
-	assert(defense);
-	int total = 0;
-	total += dngAttr_getTotal(&defense->armor);
-	total += dngAttr_getTotal(&defense->dodge);
-	return total;
-}
-
-static struct dngAttack_Offense
-getOffense(const struct dngEntity * entity)
+static struct dngAttack_Penalty
+getPenalty(const struct dngEntity * entity)
 {
 	assert(entity);
-	return (struct dngAttack_Offense){
-		.klass = entity->klass
+	return (struct dngAttack_Penalty){
+		.armor = dngAttr_getTotal(&entity->attr_s.armor),
+		.dodge = dngAttr_getTotal(&entity->attr_s.dodge)
 	};
-}
-
-static int
-getOffenseTotal(const struct dngAttack_Offense * offense)
-{
-	assert(offense);
-	return dngClass_getAttackBonus(&offense->klass);
 }
 
 struct dngAttack
@@ -49,8 +32,9 @@ dngAttack_fromPair(struct dngEntity_Pair pair)
 	assert(pair.source);
 	assert(pair.target);
 	return (struct dngAttack){
-		.offense = getOffense(pair.source),
-		.defense = getDefense(pair.target)
+		.base = base_chance,
+		.bonus = getBonus(pair.source),
+		.penalty = getPenalty(pair.target)
 	};
 }
 
@@ -59,9 +43,10 @@ dngAttack_roll(const struct dngAttack * attack)
 {
 	assert(attack);
 
-	int hit_chance = dngAttack_base_chance;
-	hit_chance += getOffenseTotal(&attack->offense);
-	hit_chance -= getDefenseTotal(&attack->defense);
+	int hit_chance = attack->base;
+	hit_chance += attack->bonus.klass;
+	hit_chance -= attack->penalty.armor;
+	hit_chance -= attack->penalty.dodge;
 
 	struct dngDice_Chance chance =
 		dngDice_rollChance(hit_chance);

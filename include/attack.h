@@ -9,18 +9,19 @@ enum dngAttack_Result {
 	dngAttack_MISS
 };
 
-struct dngAttack_Offense {
-	struct dngClass klass;
+struct dngAttack_Bonus {
+	int klass;
 };
 
-struct dngAttack_Defense {
-	struct dngAttr armor;
-	struct dngAttr dodge;
+struct dngAttack_Penalty {
+	int armor;
+	int dodge;
 };
 
 struct dngAttack {
-	struct dngAttack_Offense offense;
-	struct dngAttack_Defense defense;
+	int base;
+	struct dngAttack_Bonus bonus;
+	struct dngAttack_Penalty penalty;
 };
 
 struct dngAttack_Roll {
@@ -28,8 +29,6 @@ struct dngAttack_Roll {
 	int hit_chance;
 	struct dngDice_Roll roll;
 };
-
-const int dngAttack_base_chance;
 
 struct dngAttack
 dngAttack_fromPair(struct dngEntity_Pair);
