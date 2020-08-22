@@ -9,38 +9,32 @@ enum dngAttack_Result {
 	dngAttack_MISS
 };
 
-enum dngAttack_Type {
-	dngAttack_MAGIC,
-	dngAttack_WEAPON
+struct dngAttack_Offense {
+	struct dngClass klass;
 };
 
-struct dngAttack_Bonus {
-	int armor;
-	int dodge;
-	int level;
-	int will;
+struct dngAttack_Defense {
+	struct dngAttr armor;
+	struct dngAttr dodge;
 };
 
-struct dngAttack_Input {
-	enum dngAttack_Type type;
-	struct dngEntity_Pair entities;
+struct dngAttack {
+	struct dngAttack_Offense offense;
+	struct dngAttack_Defense defense;
 };
 
 struct dngAttack_Roll {
-	struct dngAttack_Bonus bonus;
+	enum dngAttack_Result result;
+	int hit_chance;
 	struct dngDice_Roll roll;
 };
 
+const int dngAttack_base_chance;
+
+struct dngAttack
+dngAttack_fromPair(struct dngEntity_Pair);
+
 struct dngAttack_Roll
-dngAttack_roll(const struct dngAttack_Input *);
-
-enum dngAttack_Result
-dngAttack_getResult(const struct dngAttack_Roll *);
-
-int
-dngAttack_getTotalBonus(const struct dngAttack_Bonus *);
-
-int
-dngAttack_getTotalRoll(const struct dngAttack_Roll *);
+dngAttack_roll(const struct dngAttack *);
 
 #endif
