@@ -13,7 +13,7 @@ dngClass_create(enum dngClass_Id id)
 }
 
 int
-dngClass_getBonusAttack(const struct dngClass * klass)
+dngClass_getAttackBonus(const struct dngClass * klass)
 {
 	assert(klass);
 
@@ -28,7 +28,7 @@ dngClass_getBonusAttack(const struct dngClass * klass)
 }
 
 int
-dngClass_getBonusHealth(const struct dngClass * klass)
+dngClass_getHealthBonus(const struct dngClass * klass)
 {
 	assert(klass);
 

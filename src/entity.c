@@ -19,7 +19,7 @@ toHealth(
 	struct dngHealth health =
 		dngHealth_fromAttr(&attr_p->strength);
 
-	int bonus = dngClass_getBonusHealth(klass);
+	int bonus = dngClass_getHealthBonus(klass);
 
 	dngHealth_setBonus(&health, bonus);
 

@@ -40,7 +40,7 @@ static int
 getOffenseTotal(const struct dngAttack_Offense * offense)
 {
 	assert(offense);
-	return dngClass_getBonusAttack(&offense->klass);
+	return dngClass_getAttackBonus(&offense->klass);
 }
 
 struct dngAttack

@@ -15,10 +15,10 @@ struct dngClass
 dngClass_create(enum dngClass_Id);
 
 int
-dngClass_getBonusAttack(const struct dngClass *);
+dngClass_getAttackBonus(const struct dngClass *);
 
 int
-dngClass_getBonusHealth(const struct dngClass *);
+dngClass_getHealthBonus(const struct dngClass *);
 
 void
 dngClass_levelUp(struct dngClass *);
