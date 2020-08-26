@@ -6,8 +6,6 @@
 
 #include <stddef.h>
 
-struct dngDicePool;
-
 struct dngDicePool_Input {
 	int count;
 	struct dngDice dice;
@@ -18,19 +16,20 @@ struct dngDicePool_Roll {
 	struct dngDicePool_Roll * next;
 };
 
-struct dngDicePool_Result {
-	int total;
-	struct dngDicePool_Input input;
-	struct dngDicePool_Roll * roll;
+struct dngDicePool {
+	struct dngPool * pool;
 };
 
 struct dngDicePool
 dngDicePool_create(struct dngMemPool *);
 
+int
+dngDicePool_getTotal(const struct dngDicePool_Roll *);
+
 void
 dngDicePool_reset(struct dngDicePool *);
 
-struct dngDicePool_Result
+struct dngDicePool_Roll *
 dngDicePool_roll(struct dngDicePool *, struct dngDicePool_Input);
 
 #endif
