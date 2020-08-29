@@ -89,13 +89,13 @@ nextNode(T * self)
 }
 
 T *
-dngPool_create(struct dngMemPool * mem, size_t content)
+dngPool_create(struct dngMemPool * mem, size_t content_size)
 {
 	assert(mem);
-	assert(content > 0);
+	assert(content_size > 0);
 	T * pool = dngMemPool_alloc(mem, sizeof(T));
 	*pool = (T){
-		.content_size = padSize(content),
+		.content_size = padSize(content_size),
 		.avlb = NULL,
 		.used = NULL,
 		.used_last = NULL,
