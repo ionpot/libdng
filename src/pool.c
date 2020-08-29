@@ -36,7 +36,6 @@ allocAvlb(T * self, int node_count)
 {
 	assert(self);
 	assert(self->mempool);
-	assert(!self->avlb);
 	assert(node_count > 0);
 
 	size_t size = sizeof(struct Node) + self->content_size;
