@@ -9,7 +9,7 @@
 
 struct Node {
 	struct Node * next;
-	void * content;
+	char content[];
 };
 
 struct dngPool {
@@ -50,10 +50,8 @@ allocAvlb(T * self, int node_count)
 
 	while (node_count-- > 0) {
 		node->next = last;
-		node->content = node + 1;
 		last = node;
-		node = (struct Node *)
-			((char *)node->content + self->content_size);
+		node = (struct Node *)((char *)node + size);
 	}
 
 	return last;
