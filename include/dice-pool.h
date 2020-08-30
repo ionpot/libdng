@@ -27,9 +27,9 @@ int
 dngDicePool_getTotal(const struct dngDicePool_Roll *);
 
 void
-dngDicePool_reset(struct dngDicePool *);
+dngDicePool_reset(struct dngDicePool);
 
 struct dngDicePool_Roll *
-dngDicePool_roll(struct dngDicePool *, struct dngDicePool_Input);
+dngDicePool_roll(struct dngDicePool, struct dngDicePool_Input);
 
 #endif

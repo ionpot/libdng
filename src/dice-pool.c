@@ -31,22 +31,19 @@ dngDicePool_getTotal(const struct dngDicePool_Roll * roll)
 }
 
 void
-dngDicePool_reset(T * self)
+dngDicePool_reset(T self)
 {
-	assert(self);
-	dngPool_reset(&self->pool);
+	dngPool_reset(self.pool);
 }
 
 struct dngDicePool_Roll *
-dngDicePool_roll(T * self, struct dngDicePool_Input input)
+dngDicePool_roll(T self, struct dngDicePool_Input input)
 {
-	assert(self);
-
 	struct dngDicePool_Roll * roll = NULL;
 	struct dngDicePool_Roll * last = NULL;
 
 	while (input.count-- > 0) {
-		roll = dngPool_next(&self->pool);
+		roll = dngPool_next(self.pool);
 		if (!roll)
 			break;
 		roll->result = dngDice_roll(input.dice).result;
