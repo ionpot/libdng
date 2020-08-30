@@ -1,0 +1,5 @@
+set(CFILES attack.c attr-primary.c attr-secondary.c attr.c class.c dice-pool.c dice.c entity.c grid.c health.c int.c mempool.c pool.c race.c weapon.c)
+add_library(dng ${CFILES})
+target_include_directories(dng PUBLIC ../include)
+target_compile_features(dng PUBLIC c_std_99)
+target_compile_options(dng PRIVATE -Wall -Wextra -pedantic -Werror)

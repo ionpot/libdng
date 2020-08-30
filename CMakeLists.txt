@@ -1,0 +1,3 @@
+cmake_minimum_required(VERSION 3.10)
+project(Dungeons VERSION 0.1 LANGUAGES C)
+add_subdirectory(src)
