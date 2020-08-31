@@ -1,6 +1,6 @@
 #include "mempool.h"
 
-#include "def.h"
+#include "int.h"
 
 #include <assert.h>
 #include <stddef.h>
@@ -133,7 +133,7 @@ dngMemPool_alloc(T * self, size_t request)
 {
 	assert(self);
 
-	size_t size_needed = MAX(request, min_node_size);
+	size_t size_needed = dngInt_max(request, min_node_size);
 
 	if (size_needed > self->growth_size) {
 		struct Node * node = addPool(self);
