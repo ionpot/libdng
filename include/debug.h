@@ -9,16 +9,10 @@
 #define DEBUG 1
 #endif
 
-#define debug_print(M, ...) \
-	fprintf(stderr, M, ##__VA_ARGS__)
+#define dngDebug_print(M, ...) \
+	fprintf(stderr, "[%s:%d] " M "\n", __FILE__, __LINE__, ##__VA_ARGS__)
 
-#define debug_prefix(M, ...) \
-	debug_print("[%s:%d] " M, __FILE__, __LINE__, ##__VA_ARGS__)
-
-#define debug_wrap(x) \
-	do { if (DEBUG) x; } while (0)
-
-#define debug(M, ...) \
-	debug_wrap(debug_prefix(M "\n", ##__VA_ARGS__))
+#define dngDebug(M, ...) \
+	do { if (DEBUG) dngDebug_print(M, ##__VA_ARGS__); } while (0)
 
 #endif
