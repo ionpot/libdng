@@ -9,7 +9,6 @@ struct dngDice {
 
 struct dngDice_Roll {
 	int result;
-	int sides;
 };
 
 struct dngDice_Chance {

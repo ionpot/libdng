@@ -59,8 +59,7 @@ struct dngDice_Roll
 dngDice_roll(struct dngDice dice)
 {
 	return (struct dngDice_Roll){
-		.result = rollDice(dice.sides),
-		.sides = dice.sides
+		.result = rollDice(dice.sides)
 	};
 }
 
