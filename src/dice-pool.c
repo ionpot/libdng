@@ -21,7 +21,6 @@ dngDicePool_create(struct dngMemPool * mem)
 int
 dngDicePool_getTotal(const struct dngDicePool_Roll * roll)
 {
-	assert(roll);
 	int total = 0;
 	while (roll) {
 		total += roll->result;
