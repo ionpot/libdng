@@ -24,7 +24,7 @@ struct dngDicePool_Roll {
 };
 
 struct dngDicePool_RollDamage {
-	enum dngDamage_Type type;
+	struct dngDicePool_InputDamage input;
 	struct dngDicePool_Roll * roll;
 	struct dngDicePool_RollDamage * next;
 };

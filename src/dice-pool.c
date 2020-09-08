@@ -79,7 +79,7 @@ dngDicePool_rollDamage(T self, struct dngDicePool_InputDamage input)
 	union Contents * contents = dngPool_next(self.pool);
 	if (contents) {
 		damage = &contents->damage;
-		damage->type = input.type;
+		damage->input = input;
 		damage->roll = dngDicePool_roll(self, input.roll);
 		damage->next = NULL;
 	}
