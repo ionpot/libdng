@@ -25,8 +25,8 @@ struct dngAttack {
 };
 
 struct dngAttack_Roll {
-	enum dngAttack_Result result;
 	int hit_chance;
+	enum dngAttack_Result result;
 	struct dngDice_Roll roll;
 };
 

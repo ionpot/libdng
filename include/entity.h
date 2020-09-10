@@ -11,19 +11,19 @@
 #include <stdbool.h>
 
 struct dngEntity {
-	enum dngRace_Id race;
-	enum dngWeapon_Id weapon;
 	struct dngAttrPrimary attr_p;
 	struct dngAttrSecondary attr_s;
-	struct dngClass klass;
 	struct dngHealth health;
+	struct dngClass klass;
+	enum dngRace_Id race;
+	enum dngWeapon_Id weapon;
 };
 
 struct dngEntity_Input {
+	struct dngAttrPrimary_Input attr;
 	enum dngClass_Id klass;
 	enum dngRace_Id race;
 	enum dngWeapon_Id weapon;
-	struct dngAttrPrimary_Input attr;
 };
 
 struct dngEntity_Pair {

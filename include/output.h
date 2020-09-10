@@ -11,10 +11,10 @@
  * attack: entity -> entity
  */
 struct dngOutput_Attack {
-	enum dngAttack_Result result;
-	enum dngAttack_Type type;
-	struct dngAttack_Roll roll;
 	struct dngEntity_Pair pair;
+	enum dngAttack_Result result;
+	struct dngAttack_Roll roll;
+	enum dngAttack_Type type;
 };
 
 struct dngOutput_Attack
@@ -36,8 +36,8 @@ dngOutput_doCombatEnd(struct dngContext *);
  * damage done to an entity
  */
 struct dngOutput_Damage {
-	struct dngDamage_Roll roll;
 	struct dngEntity_Pair pair;
+	struct dngDamage_Roll roll;
 };
 
 struct dngOutput_Damage

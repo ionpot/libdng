@@ -70,8 +70,8 @@ dngDice_rollChance(int percent)
 		dngDice_roll(dngDice_d100);
 
 	return (struct dngDice_Chance){
-		.success = roll.result <= percent,
 		.percent = percent,
-		.roll = roll
+		.roll = roll,
+		.success = roll.result <= percent
 	};
 }

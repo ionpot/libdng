@@ -6,8 +6,8 @@
 #include <stdbool.h>
 
 struct dngHealth {
-	struct dngAttr total;
 	int lost;
+	struct dngAttr total;
 };
 
 struct dngHealth

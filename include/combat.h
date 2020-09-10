@@ -13,9 +13,9 @@ struct dngCombat_Turn {
 
 struct dngCombat {
 	int round;
+	struct dngCombat_Turn turns[dngGrid_SLOTS];
 	int turn_index;
 	int used;
-	struct dngCombat_Turn turns[dngGrid_SLOTS];
 };
 
 struct dngCombat

@@ -13,9 +13,9 @@ struct Node {
 };
 
 struct dngPool {
+	struct Node * avlb;
 	size_t content_size;
 	struct dngMemPool * mempool;
-	struct Node * avlb;
 	struct Node * used;
 	struct Node * used_last;
 };
@@ -94,11 +94,11 @@ dngPool_create(struct dngMemPool * mem, size_t content_size)
 	assert(content_size > 0);
 	T * pool = dngMemPool_alloc(mem, sizeof(T));
 	*pool = (T){
-		.content_size = padSize(content_size),
 		.avlb = NULL,
+		.content_size = padSize(content_size),
+		.mempool = mem,
 		.used = NULL,
-		.used_last = NULL,
-		.mempool = mem
+		.used_last = NULL
 	};
 	return pool;
 }

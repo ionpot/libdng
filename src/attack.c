@@ -52,10 +52,10 @@ dngAttack_roll(const struct dngAttack * attack)
 		dngDice_rollChance(hit_chance);
 
 	return (struct dngAttack_Roll){
+		.hit_chance = hit_chance,
 		.result = chance.success
 			? dngAttack_HIT
 			: dngAttack_MISS,
-		.hit_chance = hit_chance,
 		.roll = chance.roll
 	};
 }

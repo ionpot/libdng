@@ -17,8 +17,8 @@ struct dngHealth
 dngHealth_fromBase(int amount)
 {
 	return (struct dngHealth){
-		.total = dngAttr_fromBase(amount),
-		.lost = 0
+		.lost = 0,
+		.total = dngAttr_fromBase(amount)
 	};
 }
 

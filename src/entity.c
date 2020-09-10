@@ -44,12 +44,12 @@ dngEntity_fromInput(const struct dngEntity_Input * input)
 		dngAttrPrimary_addInputToBase(&attr_p, race_bonus);
 
 	return (struct dngEntity){
-		.race = input->race,
-		.weapon = input->weapon,
 		.attr_p = attr_p,
 		.attr_s = dngAttrSecondary_fromPrimary(&attr_p),
+		.health = toHealth(&attr_p, &klass),
 		.klass = klass,
-		.health = toHealth(&attr_p, &klass)
+		.race = input->race,
+		.weapon = input->weapon
 	};
 }
 

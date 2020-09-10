@@ -14,19 +14,19 @@ struct dngDicePool_Input {
 };
 
 struct dngDicePool_InputDamage {
-	enum dngDamage_Type type;
 	struct dngDicePool_Input roll;
+	enum dngDamage_Type type;
 };
 
 struct dngDicePool_Roll {
-	int result;
 	struct dngDicePool_Roll * next;
+	int result;
 };
 
 struct dngDicePool_RollDamage {
 	struct dngDicePool_InputDamage input;
-	struct dngDicePool_Roll * roll;
 	struct dngDicePool_RollDamage * next;
+	struct dngDicePool_Roll * roll;
 };
 
 struct dngDicePool {

@@ -12,9 +12,9 @@ struct dngDice_Roll {
 };
 
 struct dngDice_Chance {
-	bool success;
 	int percent;
 	struct dngDice_Roll roll;
+	bool success;
 };
 
 const struct dngDice
