@@ -24,9 +24,6 @@ dngDice_d8,
 dngDice_d20,
 dngDice_d100;
 
-void
-dngDice_init(void);
-
 struct dngDice_Roll
 dngDice_roll(struct dngDice);
 
