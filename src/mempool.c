@@ -9,7 +9,7 @@
 struct Node {
 	struct Node * next;
 	size_t size;
-	unsigned char contents[];
+	char contents[];
 };
 
 struct Pool {
@@ -26,9 +26,6 @@ typedef struct dngMemPool T;
 
 static const size_t min_node_size =
 	sizeof(int);
-
-static const size_t min_split_size =
-	sizeof(struct Node) + min_node_size;
 
 static struct Node *
 extendBy(size_t size, T * self)
@@ -61,14 +58,12 @@ splitNode(struct Node * node, size_t by_size)
 	assert(node);
 	assert(node->size >= by_size);
 
-	size_t new_size = node->size - by_size;
-
-	if (new_size < min_split_size)
+	if (node->size < by_size + sizeof(struct Node) + min_node_size)
 		return node->next;
 
 	struct Node * new_node =
 		(struct Node *)(node->contents + by_size);
-	new_node->size = new_size - sizeof(struct Node);
+	new_node->size = node->size - by_size - sizeof(struct Node);
 	new_node->next = node->next;
 
 	node->size = by_size;
@@ -79,8 +74,8 @@ splitNode(struct Node * node, size_t by_size)
 T *
 dngMemPool_create(size_t initial_size)
 {
-	if (initial_size < min_split_size)
-		return NULL;
+	if (initial_size < min_node_size)
+		initial_size = min_node_size;
 
 	T * self = malloc(
 		sizeof(T)
