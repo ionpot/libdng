@@ -9,6 +9,7 @@
 struct Node {
 	struct Node * next;
 	size_t size;
+	unsigned char contents[];
 };
 
 struct Pool {
@@ -85,7 +86,7 @@ splitNode(struct Node * node, size_t by_size)
 		return node->next;
 
 	struct Node * new_node =
-		(struct Node *)((unsigned char *)(node + 1) + by_size);
+		(struct Node *)(node->contents + by_size);
 	new_node->size = new_size - sizeof(struct Node);
 	new_node->next = node->next;
 
@@ -143,7 +144,7 @@ dngMemPool_alloc(T * self, size_t request)
 
 	if (size_needed > self->growth_size) {
 		struct Node * node = addPool(self);
-		return node ? (void *)(node + 1) : NULL;
+		return node ? (void *)node->contents : NULL;
 	}
 
 	struct Node ** next_avlb = &self->avlb;
@@ -163,7 +164,7 @@ dngMemPool_alloc(T * self, size_t request)
 	struct Node * avlb = splitNode(node, size_needed);
 	*next_avlb = avlb;
 
-	return (void *)(node + 1);
+	return (void *)node->contents;
 }
 
 void
