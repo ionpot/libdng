@@ -24,54 +24,35 @@ struct dngMemPool {
 
 typedef struct dngMemPool T;
 
-static const size_t min_node_size = sizeof(int);
+static const size_t min_node_size =
+	sizeof(int);
+
 static const size_t min_split_size =
 	sizeof(struct Node) + min_node_size;
 
 static struct Node *
-addPoolAfter(struct Node ** after, T * self)
+extendBy(size_t size, T * self)
 {
-	assert(after);
 	assert(self);
 
-	size_t overhead = sizeof(struct Pool) + sizeof(struct Node);
-	struct Pool * pool = malloc(overhead + self->growth_size);
+	struct Pool * pool = malloc(
+		sizeof(struct Pool)
+		+ sizeof(struct Node)
+		+ size
+	);
 
 	if (!pool)
 		return NULL;
 
-	pool->next = self->pools;
+	struct Pool * prev = self->pools;
+	pool->next = prev;
 	self->pools = pool;
 
-	struct Node * node = (void *)(pool + 1);
-	node->size = self->growth_size;
-	node->next = *after;
-	*after = node;
+	struct Node * node = (struct Node *)(pool + 1);
+	node->next = NULL;
+	node->size = size;
 
 	return node;
-}
-
-static struct Node *
-findLastAvlb(T * self)
-{
-	assert(self);
-	struct Node * node = self->avlb;
-	while (node) {
-		if (!node->next)
-			break;
-		node = node->next;
-	}
-	return node;
-}
-
-static struct Node *
-addPool(T * self)
-{
-	assert(self);
-	struct Node * node = findLastAvlb(self);
-	return node
-		? addPoolAfter(&node->next, self)
-		: addPoolAfter(&self->avlb, self);
 }
 
 static struct Node *
@@ -95,28 +76,28 @@ splitNode(struct Node * node, size_t by_size)
 	return new_node;
 }
 
-
-// public
-
 T *
 dngMemPool_create(size_t initial_size)
 {
 	if (initial_size < min_split_size)
 		return NULL;
 
-	size_t overhead = sizeof(T) + sizeof(struct Node);
-	T * self = malloc(overhead + initial_size);
+	T * self = malloc(
+		sizeof(T)
+		+ sizeof(struct Node)
+		+ initial_size
+	);
 
 	if (!self)
 		return NULL;
 
-	struct Node * node = (void *)(self + 1);
+	struct Node * node = (struct Node *)(self + 1);
 	node->next = NULL;
 	node->size = initial_size;
 
+	self->avlb = node;
 	self->growth_size = initial_size;
 	self->pools = NULL;
-	self->avlb = node;
 
 	return self;
 }
@@ -143,7 +124,7 @@ dngMemPool_alloc(T * self, size_t request)
 	size_t size_needed = dngInt_max(request, min_node_size);
 
 	if (size_needed > self->growth_size) {
-		struct Node * node = addPool(self);
+		struct Node * node = extendBy(size_needed, self);
 		return node ? (void *)node->contents : NULL;
 	}
 
@@ -156,7 +137,7 @@ dngMemPool_alloc(T * self, size_t request)
 		node = *next_avlb;
 	}
 	if (!node) {
-		node = addPoolAfter(next_avlb, self);
+		node = extendBy(self->growth_size, self);
 		if (!node)
 			return NULL;
 	}
