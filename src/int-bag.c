@@ -3,11 +3,9 @@
 #include <assert.h>
 #include <stdlib.h>
 
-#define MAX_VALUE 99
+#define MAX_VALUE dngIntBag_MAX_VALUE
 #define REPEAT 3
 #define TOTAL ((MAX_VALUE + 1) * REPEAT)
-
-const int dngIntBag_max_value = MAX_VALUE;
 
 static char numbers[TOTAL];
 static int num_index;
