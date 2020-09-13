@@ -69,8 +69,14 @@ struct dngAttr
 dngEntity_getInitiative(const struct dngEntity * entity)
 {
 	assert(entity);
-	const struct dngAttrPrimary * p = &entity->attr;
-	return dngAttr_add(p->agility, p->intellect);
+	const struct dngAttrPrimary * p =
+		&entity->attr;
+	struct dngAttr attr =
+		dngAttr_add(p->agility, p->intellect);
+	return (struct dngAttr){
+		.base = dngAttr_getTotal(&attr),
+		.bonus = dngWeapon_getInitiative(entity->weapon)
+	};
 }
 
 struct dngAttr
