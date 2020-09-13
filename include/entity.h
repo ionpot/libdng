@@ -2,7 +2,6 @@
 #define LIBDNG_ENTITY_H
 
 #include "attr-primary.h"
-#include "attr-secondary.h"
 #include "class.h"
 #include "health.h"
 #include "race.h"
@@ -11,8 +10,7 @@
 #include <stdbool.h>
 
 struct dngEntity {
-	struct dngAttrPrimary attr_p;
-	struct dngAttrSecondary attr_s;
+	struct dngAttrPrimary attr;
 	struct dngHealth health;
 	struct dngClass klass;
 	enum dngRace_Id race;
@@ -33,6 +31,18 @@ struct dngEntity_Pair {
 
 struct dngEntity
 dngEntity_fromInput(const struct dngEntity_Input *);
+
+struct dngAttr
+dngEntity_getArmor(const struct dngEntity *);
+
+struct dngAttr
+dngEntity_getDodge(const struct dngEntity *);
+
+struct dngAttr
+dngEntity_getInitiative(const struct dngEntity *);
+
+struct dngAttr
+dngEntity_getWill(const struct dngEntity *);
 
 bool
 dngEntity_isAlive(const struct dngEntity *);

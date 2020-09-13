@@ -20,9 +20,11 @@ static struct dngAttack_Penalty
 getPenalty(const struct dngEntity * entity)
 {
 	assert(entity);
+	struct dngAttr armor = dngEntity_getArmor(entity);
+	struct dngAttr dodge = dngEntity_getDodge(entity);
 	return (struct dngAttack_Penalty){
-		.armor = dngAttr_getTotal(&entity->attr_s.armor),
-		.dodge = dngAttr_getTotal(&entity->attr_s.dodge)
+		.armor = dngAttr_getTotal(&armor),
+		.dodge = dngAttr_getTotal(&dodge)
 	};
 }
 
