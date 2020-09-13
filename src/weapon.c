@@ -4,22 +4,17 @@
 
 #include <assert.h>
 #include <stdbool.h>
-#include <stddef.h>
 
-static const struct dngWeapon_Bonus
-dagger_bonus = { .initiative = 2 },
-long_axe_bonus = { .initiative = -2 };
-
-const struct dngWeapon_Bonus *
-dngWeapon_getBonus(enum dngWeapon_Id id)
+int
+dngWeapon_getInitiative(enum dngWeapon_Id id)
 {
 	switch (id) {
 	case dngWeapon_DAGGER:
-		return &dagger_bonus;
+		return 2;
 	case dngWeapon_LONG_AXE:
-		return &long_axe_bonus;
+		return -2;
 	case dngWeapon_SWORD:
-		return NULL;
+		return 0;
 	default:
 		assert(false);
 	}
@@ -38,12 +33,4 @@ dngWeapon_getDice(enum dngWeapon_Id id)
 	default:
 		assert(false);
 	}
-}
-
-struct dngWeapon_Bonus
-dngWeapon_invertBonus(struct dngWeapon_Bonus bonus)
-{
-	return (struct dngWeapon_Bonus){
-		.initiative = bonus.initiative * -1
-	};
 }

@@ -9,17 +9,10 @@ enum dngWeapon_Id {
 	dngWeapon_SWORD
 };
 
-struct dngWeapon_Bonus {
-	int initiative;
-};
-
-const struct dngWeapon_Bonus *
-dngWeapon_getBonus(enum dngWeapon_Id);
+int
+dngWeapon_getInitiative(enum dngWeapon_Id);
 
 struct dngDice
 dngWeapon_getDice(enum dngWeapon_Id);
-
-struct dngWeapon_Bonus
-dngWeapon_invertBonus(struct dngWeapon_Bonus);
 
 #endif
