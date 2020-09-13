@@ -24,7 +24,7 @@ shuffle(char * ls, int size)
 void
 dngIntBag_init(void)
 {
-	for (int i = 0; i < TOTAL; ++i)
+	for (int i = 0; i < TOTAL; i++)
 		numbers[i] = i % (MAX_VALUE + 1);
 
 	num_index = 0;
