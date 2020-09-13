@@ -36,6 +36,70 @@
 			assert(false);\
 	}
 
+const struct dngGrid_Position
+dngGrid_positions[dngGrid_SLOTS] = {
+	(struct dngGrid_Position){
+		.side = dngGrid_SIDE_A,
+		.line = dngGrid_LINE_FRONT,
+		.slot = dngGrid_SLOT_1
+	},
+	(struct dngGrid_Position){
+		.side = dngGrid_SIDE_A,
+		.line = dngGrid_LINE_FRONT,
+		.slot = dngGrid_SLOT_2
+	},
+	(struct dngGrid_Position){
+		.side = dngGrid_SIDE_A,
+		.line = dngGrid_LINE_FRONT,
+		.slot = dngGrid_SLOT_3
+	},
+	(struct dngGrid_Position){
+		.side = dngGrid_SIDE_A,
+		.line = dngGrid_LINE_BACK,
+		.slot = dngGrid_SLOT_1
+	},
+	(struct dngGrid_Position){
+		.side = dngGrid_SIDE_A,
+		.line = dngGrid_LINE_BACK,
+		.slot = dngGrid_SLOT_2
+	},
+	(struct dngGrid_Position){
+		.side = dngGrid_SIDE_A,
+		.line = dngGrid_LINE_BACK,
+		.slot = dngGrid_SLOT_3
+	},
+	(struct dngGrid_Position){
+		.side = dngGrid_SIDE_B,
+		.line = dngGrid_LINE_FRONT,
+		.slot = dngGrid_SLOT_1
+	},
+	(struct dngGrid_Position){
+		.side = dngGrid_SIDE_B,
+		.line = dngGrid_LINE_FRONT,
+		.slot = dngGrid_SLOT_2
+	},
+	(struct dngGrid_Position){
+		.side = dngGrid_SIDE_B,
+		.line = dngGrid_LINE_FRONT,
+		.slot = dngGrid_SLOT_3
+	},
+	(struct dngGrid_Position){
+		.side = dngGrid_SIDE_B,
+		.line = dngGrid_LINE_BACK,
+		.slot = dngGrid_SLOT_1
+	},
+	(struct dngGrid_Position){
+		.side = dngGrid_SIDE_B,
+		.line = dngGrid_LINE_BACK,
+		.slot = dngGrid_SLOT_2
+	},
+	(struct dngGrid_Position){
+		.side = dngGrid_SIDE_B,
+		.line = dngGrid_LINE_BACK,
+		.slot = dngGrid_SLOT_3
+	}
+};
+
 static void
 clearLine(struct dngGrid_Line * line)
 {

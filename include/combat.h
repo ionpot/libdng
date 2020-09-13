@@ -3,26 +3,21 @@
 
 #include "entity.h"
 #include "grid.h"
-
-#include <stdbool.h>
+#include "mempool.h"
 
 struct dngCombat_Turn {
 	struct dngEntity * entity;
 	struct dngGrid_Position position;
-};
-
-struct dngCombat {
 	int round;
-	struct dngCombat_Turn turns[dngGrid_SLOTS];
-	int turn_index;
-	int used;
 };
 
-struct dngCombat
-dngCombat_fromGrid(struct dngGrid);
+struct dngCombat;
 
-bool
-dngCombat_nextRound(struct dngCombat *);
+struct dngCombat *
+dngCombat_create(struct dngMemPool *);
+
+void
+dngCombat_init(struct dngCombat *, const struct dngGrid *);
 
 const struct dngCombat_Turn *
 dngCombat_nextTurn(struct dngCombat *);

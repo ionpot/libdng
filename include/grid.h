@@ -59,6 +59,9 @@ struct dngGrid {
 	struct dngGrid_Side side_b;
 };
 
+const struct dngGrid_Position
+dngGrid_positions[dngGrid_SLOTS];
+
 bool
 dngGrid_canReach(
 	const struct dngGrid *,
