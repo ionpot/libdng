@@ -1,8 +1,8 @@
 #ifndef LIBDNG_DICEPOOL_H
 #define LIBDNG_DICEPOOL_H
 
-#include "damage.h"
 #include "dice.h"
+#include "element.h"
 #include "mempool.h"
 #include "pool.h"
 
@@ -14,8 +14,8 @@ struct dngDicePool_Input {
 };
 
 struct dngDicePool_InputDamage {
+	enum dngElement element;
 	struct dngDicePool_Input roll;
-	enum dngDamage_Type type;
 };
 
 struct dngDicePool_Roll {

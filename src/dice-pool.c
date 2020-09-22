@@ -1,6 +1,5 @@
 #include "dice-pool.h"
 
-#include "damage.h"
 #include "dice.h"
 #include "mempool.h"
 #include "pool.h"
