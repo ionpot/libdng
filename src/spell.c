@@ -6,6 +6,7 @@
 #include "element.h"
 
 #include <assert.h>
+#include <stddef.h>
 
 int
 dngSpell_getTotalDamage(const struct dngSpell_Damage * dmg)
