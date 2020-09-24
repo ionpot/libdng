@@ -17,6 +17,19 @@ dngSpellSlot_create(enum dngSpell_Id id, int limit)
 	};
 }
 
+void
+dngSpellSlot_addLimit(struct dngSpellSlot * slot, int limit)
+{
+	assert(slot);
+	assert(limit >= -1);
+	if (slot->limit == -1)
+		return;
+	if (limit == -1)
+		slot->limit = limit;
+	else
+		slot->limit += limit;
+}
+
 bool
 dngSpellSlot_canUse(const struct dngSpellSlot * slot)
 {

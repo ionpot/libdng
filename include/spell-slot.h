@@ -15,6 +15,9 @@ struct dngSpellSlot {
 struct dngSpellSlot
 dngSpellSlot_create(enum dngSpell_Id, int limit);
 
+void
+dngSpellSlot_addLimit(struct dngSpellSlot *, int limit);
+
 bool
 dngSpellSlot_canUse(const struct dngSpellSlot *);
 
