@@ -6,10 +6,12 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-struct dngSpellSlot
+typedef struct dngSpellSlot T;
+
+T
 dngSpellSlot_create(enum dngSpell_Id id, int limit)
 {
-	return (struct dngSpellSlot){
+	return (T){
 		.id = id,
 		.limit = limit,
 		.next = NULL,
@@ -18,37 +20,37 @@ dngSpellSlot_create(enum dngSpell_Id id, int limit)
 }
 
 void
-dngSpellSlot_addLimit(struct dngSpellSlot * slot, int limit)
+dngSpellSlot_addLimit(T * self, int limit)
 {
-	assert(slot);
+	assert(self);
 	assert(limit >= -1);
-	if (slot->limit == -1)
+	if (self->limit == -1)
 		return;
 	if (limit == -1)
-		slot->limit = limit;
+		self->limit = limit;
 	else
-		slot->limit += limit;
+		self->limit += limit;
 }
 
 bool
-dngSpellSlot_canUse(const struct dngSpellSlot * slot)
+dngSpellSlot_canUse(const T * self)
 {
-	assert(slot);
-	if (slot->limit == -1)
+	assert(self);
+	if (self->limit == -1)
 		return true;
-	return slot->used < slot->limit;
+	return self->used < self->limit;
 }
 
 void
-dngSpellSlot_reset(struct dngSpellSlot * slot)
+dngSpellSlot_reset(T * self)
 {
-	assert(slot);
-	slot->used = 0;
+	assert(self);
+	self->used = 0;
 }
 
 void
-dngSpellSlot_use(struct dngSpellSlot * slot)
+dngSpellSlot_use(T * self)
 {
-	assert(slot);
-	slot->used++;
+	assert(self);
+	self->used++;
 }
