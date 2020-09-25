@@ -21,4 +21,7 @@ dngSpellbook_add(struct dngSpellbook *, enum dngSpell_Id, int limit);
 bool
 dngSpellbook_canCast(const struct dngSpellbook *, enum dngSpell_Id);
 
+void
+dngSpellbook_clear(struct dngSpellbook *);
+
 #endif

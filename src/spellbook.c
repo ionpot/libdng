@@ -67,3 +67,17 @@ dngSpellbook_canCast(const T * self, enum dngSpell_Id id)
 		? dngSpellSlot_canUse(slot)
 		: false;
 }
+
+void
+dngSpellbook_clear(T * self)
+{
+	assert(self);
+	struct dngSpellSlot * slot = self->slot;
+	struct dngSpellSlot * tmp;
+	while (slot) {
+		tmp = slot->next;
+		dngSpellSlots_return(self->slots, slot);
+		slot = tmp;
+	}
+	self->slot = NULL;
+}
