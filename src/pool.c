@@ -103,6 +103,16 @@ dngPool_create(struct dngMemPool * mem, size_t content_size)
 	return pool;
 }
 
+void *
+dngPool_next(T * self)
+{
+	assert(self);
+	struct Node * node = nextNode(self);
+	return node
+		? node->content
+		: NULL;
+}
+
 void
 dngPool_reset(T * self)
 {
@@ -114,14 +124,4 @@ dngPool_reset(T * self)
 		self->used = NULL;
 		self->used_last = NULL;
 	}
-}
-
-void *
-dngPool_next(T * self)
-{
-	assert(self);
-	struct Node * node = nextNode(self);
-	return node
-		? node->content
-		: NULL;
 }

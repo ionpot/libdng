@@ -10,10 +10,10 @@ struct dngPool;
 struct dngPool *
 dngPool_create(struct dngMemPool *, size_t content_size);
 
-void
-dngPool_reset(struct dngPool *);
-
 void *
 dngPool_next(struct dngPool *);
+
+void
+dngPool_reset(struct dngPool *);
 
 #endif
