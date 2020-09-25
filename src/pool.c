@@ -1,5 +1,6 @@
 #include "pool.h"
 
+#include "int.h"
 #include "mempool.h"
 
 #include <assert.h>
@@ -21,15 +22,6 @@ struct dngPool {
 };
 
 typedef struct dngPool T;
-
-static size_t
-padSize(size_t input)
-{
-	assert(input > 0);
-	size_t s = sizeof(int);
-	size_t r = input % s;
-	return input + ((s - r) % s);
-}
 
 static struct Node *
 allocAvlb(T * self, int node_count)
@@ -95,7 +87,7 @@ dngPool_create(struct dngMemPool * mem, size_t content_size)
 	T * pool = dngMemPool_alloc(mem, sizeof(T));
 	*pool = (T){
 		.avlb = NULL,
-		.content_size = padSize(content_size),
+		.content_size = dngInt_padSize(content_size),
 		.mempool = mem,
 		.used = NULL,
 		.used_last = NULL
