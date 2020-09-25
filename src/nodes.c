@@ -22,22 +22,22 @@ struct dngNodes {
 typedef struct dngNodes T;
 
 static struct Node *
-allocNewBatch(T * self)
+allocNewBatch(T * self, int node_count)
 {
 	assert(self);
-	assert(NODES_PER_ALLOC > 0);
+	assert(node_count > 0);
 	size_t size = sizeof(struct Node) + self->content_size;
-	struct Node * first =
-		dngMemPool_alloc(self->mempool, size * NODES_PER_ALLOC);
-	if (!first)
+	struct Node * node =
+		dngMemPool_alloc(self->mempool, size * node_count);
+	if (!node)
 		return NULL;
-	struct Node * node = first;
-	for (int i = NODES_PER_ALLOC - 1; i > 0; i--) {
-		node->next = (struct Node *)(node->contents + self->content_size);
-		node = node->next;
+	struct Node * last = NULL;
+	while (node_count-- > 0) {
+		node->next = last;
+		last = node;
+		node = (struct Node *)(node->contents + self->content_size);
 	}
-	node->next = NULL;
-	return first;
+	return last;
 }
 
 T *
@@ -60,7 +60,7 @@ dngNodes_next(T * self)
 	assert(self);
 	struct Node * node = self->avlb
 		? self->avlb
-		: allocNewBatch(self);
+		: allocNewBatch(self, NODES_PER_ALLOC);
 	if (node) {
 		self->avlb = node->next;
 		return node->contents;
