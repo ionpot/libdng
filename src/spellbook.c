@@ -1,8 +1,8 @@
 #include "spellbook.h"
 
 #include "spell-id.h"
-#include "spell-pool.h"
 #include "spell-slot.h"
+#include "spell-slots.h"
 
 #include <assert.h>
 #include <stdbool.h>
@@ -15,19 +15,19 @@ addNewSlot(T * self, enum dngSpell_Id id, int limit)
 {
 	assert(self);
 	struct dngSpellSlot * slot =
-		dngSpellPool_nextSlot(self->pool);
+		dngSpellSlots_next(self->slots);
 	if (!slot) 
 		return;
 	*slot = dngSpellSlot_create(id, limit);
-	slot->next = self->slots;
-	self->slots = slot;
+	slot->next = self->slot;
+	self->slot = slot;
 }
 
 static struct dngSpellSlot *
 seekSlot(const T * self, enum dngSpell_Id id)
 {
 	assert(self);
-	struct dngSpellSlot * slot = self->slots;
+	struct dngSpellSlot * slot = self->slot;
 	while (slot) {
 		if (slot->id == id)
 			break;
@@ -37,11 +37,11 @@ seekSlot(const T * self, enum dngSpell_Id id)
 }
 
 T
-dngSpellbook_create(struct dngSpellPool pool)
+dngSpellbook_create(struct dngSpellSlots slots)
 {
 	return (T){
-		.pool = pool,
-		.slots = NULL
+		.slots = slots,
+		.slot = NULL
 	};
 }
 
