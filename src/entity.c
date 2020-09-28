@@ -3,6 +3,7 @@
 #include "attr-primary.h"
 #include "class.h"
 #include "health.h"
+#include "spellbook.h"
 
 #include <assert.h>
 #include <stdbool.h>
@@ -47,6 +48,9 @@ dngEntity_fromInput(const struct dngEntity_Input * input)
 		.health = toHealth(&attr, &klass),
 		.klass = klass,
 		.race = input->race,
+		.spellbook = (input->klass == dngClass_WIZARD)
+			? dngSpellbook_forWizard(input->slots)
+			: dngSpellbook_create(input->slots),
 		.weapon = input->weapon
 	};
 }

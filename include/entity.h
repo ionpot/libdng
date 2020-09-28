@@ -5,6 +5,8 @@
 #include "class.h"
 #include "health.h"
 #include "race.h"
+#include "spellbook.h"
+#include "spell-slots.h"
 #include "weapon.h"
 
 #include <stdbool.h>
@@ -14,6 +16,7 @@ struct dngEntity {
 	struct dngHealth health;
 	struct dngClass klass;
 	enum dngRace_Id race;
+	struct dngSpellbook spellbook;
 	enum dngWeapon_Id weapon;
 };
 
@@ -21,6 +24,7 @@ struct dngEntity_Input {
 	struct dngAttrPrimary_Input attr;
 	enum dngClass_Id klass;
 	enum dngRace_Id race;
+	struct dngSpellSlots slots;
 	enum dngWeapon_Id weapon;
 };
 

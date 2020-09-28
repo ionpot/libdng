@@ -45,6 +45,15 @@ dngSpellbook_create(struct dngSpellSlots slots)
 	};
 }
 
+T
+dngSpellbook_forWizard(struct dngSpellSlots slots)
+{
+	T book = dngSpellbook_create(slots);
+	addNewSlot(&book, dngSpell_ELECTRIC_BOLT, 1);
+	addNewSlot(&book, dngSpell_ELEMENTAL_BLAST, -1);
+	return book;
+}
+
 void
 dngSpellbook_add(T * self, enum dngSpell_Id id, int limit)
 {

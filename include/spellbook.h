@@ -15,6 +15,9 @@ struct dngSpellbook {
 struct dngSpellbook
 dngSpellbook_create(struct dngSpellSlots);
 
+struct dngSpellbook
+dngSpellbook_forWizard(struct dngSpellSlots);
+
 void
 dngSpellbook_add(struct dngSpellbook *, enum dngSpell_Id, int limit);
 
