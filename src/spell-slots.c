@@ -4,11 +4,14 @@
 #include "nodes.h"
 #include "spell-slot.h"
 
+#include <assert.h>
+
 typedef struct dngSpellSlots T;
 
 T
 dngSpellSlots_create(struct dngMemPool * mempool)
 {
+	assert(mempool);
 	return (T){
 		.nodes = dngNodes_create(mempool, sizeof(struct dngSpellSlot))
 	};
