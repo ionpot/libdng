@@ -13,6 +13,7 @@ dngWeapon_getInitiative(enum dngWeapon_Id id)
 		return 2;
 	case dngWeapon_LONG_AXE:
 		return -2;
+	case dngWeapon_STAFF:
 	case dngWeapon_SWORD:
 		return 0;
 	default:
@@ -28,6 +29,7 @@ dngWeapon_getDice(enum dngWeapon_Id id)
 		return dngDice_d4;
 	case dngWeapon_LONG_AXE:
 		return dngDice_d8;
+	case dngWeapon_STAFF:
 	case dngWeapon_SWORD:
 		return dngDice_d6;
 	default:
