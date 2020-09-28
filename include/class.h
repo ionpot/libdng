@@ -2,8 +2,8 @@
 #define LIBDNG_CLASS_H
 
 enum dngClass_Id {
-	dngClass_MAGE,
-	dngClass_WARRIOR
+	dngClass_WARRIOR,
+	dngClass_WIZARD
 };
 
 struct dngClass {
