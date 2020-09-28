@@ -85,6 +85,8 @@ dngPool_create(struct dngMemPool * mem, size_t content_size)
 	assert(mem);
 	assert(content_size > 0);
 	T * pool = dngMemPool_alloc(mem, sizeof(T));
+	if (!pool)
+		return NULL;
 	*pool = (T){
 		.avlb = NULL,
 		.content_size = dngInt_padSize(content_size),
