@@ -55,12 +55,11 @@ dngEvent_create(void)
 	};
 }
 
-enum dngEvent_Id
+void
 dngEvent_jump(T * self, enum dngEvent_Id id)
 {
 	assert(self);
 	self->index = seek(id);
-	return current(self);
 }
 
 enum dngEvent_Id

@@ -19,7 +19,7 @@ struct dngEvent {
 struct dngEvent
 dngEvent_create(void);
 
-enum dngEvent_Id
+void
 dngEvent_jump(struct dngEvent *, enum dngEvent_Id);
 
 enum dngEvent_Id
