@@ -26,6 +26,8 @@ struct dngCombat {
 	int used;
 };
 
+typedef struct dngCombat T;
+
 static int
 getInitiative(const struct dngEntity * entity)
 {
@@ -49,14 +51,14 @@ cmpturns(const void * arg_a, const void * arg_b)
 }
 
 static bool
-checkSides(const struct dngCombat * combat)
+checkSides(const T * self)
 {
-	assert(combat);
+	assert(self);
 	bool side_a = false;
 	bool side_b = false;
-	for (int i = 0; i < combat->used; i++) {
+	for (int i = 0; i < self->used; i++) {
 		const struct Turn * turn =
-			combat->turns + i;
+			self->turns + i;
 		bool alive = dngEntity_isAlive(turn->entity);
 		if (turn->position.side == dngGrid_SIDE_A)
 			side_a |= alive;
@@ -71,48 +73,47 @@ checkSides(const struct dngCombat * combat)
 }
 
 static const struct dngCombat_Turn *
-nextTurn(struct dngCombat * combat)
+nextTurn(T * self)
 {
-	assert(combat);
-	assert(combat->used > 0);
-	if (combat->turn < combat->used) {
-		combat->turn++;
+	assert(self);
+	assert(self->used > 0);
+	if (self->turn < self->used) {
+		self->turn++;
 	} else {
-		combat->round++;
-		combat->turn = 0;
+		self->round++;
+		self->turn = 0;
 	}
 	static struct dngCombat_Turn turn;
 	const struct Turn * t =
-		combat->turns + combat->turn;
+		self->turns + self->turn;
 	if (dngEntity_isAlive(t->entity)) {
 		turn.entity = t->entity;
 		turn.position = t->position;
-		turn.round = combat->round;
+		turn.round = self->round;
 		return &turn;
 	}
-	return nextTurn(combat);
+	return nextTurn(self);
 }
 
-struct dngCombat *
+T *
 dngCombat_create(struct dngMemPool * mem)
 {
 	assert(mem);
-	struct dngCombat * combat =
-		dngMemPool_alloc(mem, sizeof(struct dngCombat));
-	if (combat) {
-		combat->round = 0;
-		combat->turn = 0;
-		combat->used = 0;
+	T * self = dngMemPool_alloc(mem, sizeof(T));
+	if (self) {
+		self->round = 0;
+		self->turn = 0;
+		self->used = 0;
 	}
-	return combat;
+	return self;
 }
 
 void
-dngCombat_init(struct dngCombat * combat, const struct dngGrid * grid)
+dngCombat_init(T * self, const struct dngGrid * grid)
 {
-	assert(combat);
+	assert(self);
 	assert(grid);
-	combat->used = 0;
+	self->used = 0;
 	for (int i = 0; i < TURNS; i++) {
 		struct dngGrid_Position pos =
 			dngGrid_positions[i];
@@ -120,22 +121,22 @@ dngCombat_init(struct dngCombat * combat, const struct dngGrid * grid)
 			dngGrid_getEntity(grid, pos);
 		if (!entity)
 			continue;
-		combat->turns[combat->used++] = (struct Turn){
+		self->turns[self->used++] = (struct Turn){
 			.entity = entity,
 			.initiative = dngIntBag_next(),
 			.position = pos
 		};
 	}
-	combat->round = 0;
-	combat->turn = combat->used;
-	qsort(combat->turns, combat->used, sizeof(struct Turn), cmpturns);
+	self->round = 0;
+	self->turn = self->used;
+	qsort(self->turns, self->used, sizeof(struct Turn), cmpturns);
 }
 
 const struct dngCombat_Turn *
-dngCombat_nextTurn(struct dngCombat * combat)
+dngCombat_nextTurn(T * self)
 {
-	assert(combat);
-	return checkSides(combat)
-		? nextTurn(combat)
+	assert(self);
+	return checkSides(self)
+		? nextTurn(self)
 		: NULL;
 }
