@@ -26,5 +26,6 @@ dngSpellSlots_next(T self)
 void
 dngSpellSlots_return(T self, struct dngSpellSlot * slot)
 {
+	assert(slot);
 	dngNodes_return(self.nodes, slot);
 }
