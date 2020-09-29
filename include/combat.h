@@ -27,6 +27,9 @@ dngCombat_hasEnded(const struct dngCombat *);
 bool
 dngCombat_isEndOfRound(const struct dngCombat *);
 
+bool
+dngCombat_isTurnOfSide(const struct dngCombat *, enum dngGrid_SideId);
+
 void
 dngCombat_nextRound(struct dngCombat *);
 

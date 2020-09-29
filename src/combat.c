@@ -35,6 +35,15 @@ getInitiative(const struct dngEntity * entity)
 	return dngAttr_getTotal(&attr);
 }
 
+static const struct Turn *
+getTurn(const T * self)
+{
+	assert(self);
+	assert(self->turn >= 0);
+	assert(self->turn < self->used);
+	return self->turns + self->turn;
+}
+
 static int
 cmpturns(const void * arg_a, const void * arg_b)
 {
@@ -111,9 +120,7 @@ struct dngCombat_Turn
 dngCombat_getTurn(const T * self)
 {
 	assert(self);
-	assert(self->turn < self->used);
-	const struct Turn * turn =
-		self->turns + self->turn;
+	const struct Turn * turn = getTurn(self);
 	return (struct dngCombat_Turn){
 		.entity = turn->entity,
 		.position = turn->position
@@ -137,6 +144,13 @@ dngCombat_isEndOfRound(const T * self)
 	assert(self);
 	assert(self->turn <= self->used);
 	return self->turn == self->used;
+}
+
+bool
+dngCombat_isTurnOfSide(const T * self, enum dngGrid_SideId side)
+{
+	assert(self);
+	return getTurn(self)->position.side == side;
 }
 
 void
