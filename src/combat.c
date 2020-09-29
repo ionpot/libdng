@@ -107,17 +107,17 @@ dngCombat_getRound(const T * self)
 	return self->round;
 }
 
-const struct dngCombat_Turn *
+struct dngCombat_Turn
 dngCombat_getTurn(const T * self)
 {
 	assert(self);
 	assert(self->turn < self->used);
-	static struct dngCombat_Turn turn;
-	const struct Turn * t =
+	const struct Turn * turn =
 		self->turns + self->turn;
-	turn.entity = t->entity;
-	turn.position = t->position;
-	return &turn;
+	return (struct dngCombat_Turn){
+		.entity = turn->entity,
+		.position = turn->position
+	};
 }
 
 bool
