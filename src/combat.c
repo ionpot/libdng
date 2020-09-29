@@ -8,7 +8,6 @@
 
 #include <assert.h>
 #include <stdbool.h>
-#include <stddef.h>
 #include <stdlib.h>
 
 #define TURNS dngGrid_SLOTS
@@ -51,48 +50,17 @@ cmpturns(const void * arg_a, const void * arg_b)
 }
 
 static bool
-checkSides(const T * self)
+hasAlive(const T * self, enum dngGrid_SideId side)
 {
 	assert(self);
-	bool side_a = false;
-	bool side_b = false;
 	for (int i = 0; i < self->used; i++) {
 		const struct Turn * turn =
 			self->turns + i;
-		bool alive = dngEntity_isAlive(turn->entity);
-		if (turn->position.side == dngGrid_SIDE_A)
-			side_a |= alive;
-		else if (turn->position.side == dngGrid_SIDE_B)
-			side_b |= alive;
-		else
-			assert(false);
-		if (side_a && side_b)
-			return true;
+		if (turn->position.side == side)
+			if (dngEntity_isAlive(turn->entity))
+				return true;
 	}
 	return false;
-}
-
-static const struct dngCombat_Turn *
-nextTurn(T * self)
-{
-	assert(self);
-	assert(self->used > 0);
-	if (self->turn < self->used) {
-		self->turn++;
-	} else {
-		self->round++;
-		self->turn = 0;
-	}
-	static struct dngCombat_Turn turn;
-	const struct Turn * t =
-		self->turns + self->turn;
-	if (dngEntity_isAlive(t->entity)) {
-		turn.entity = t->entity;
-		turn.position = t->position;
-		turn.round = self->round;
-		return &turn;
-	}
-	return nextTurn(self);
 }
 
 T *
@@ -132,11 +100,63 @@ dngCombat_init(T * self, const struct dngGrid * grid)
 	qsort(self->turns, self->used, sizeof(struct Turn), cmpturns);
 }
 
+int
+dngCombat_getRound(const T * self)
+{
+	assert(self);
+	return self->round;
+}
+
 const struct dngCombat_Turn *
+dngCombat_getTurn(const T * self)
+{
+	assert(self);
+	assert(self->turn < self->used);
+	static struct dngCombat_Turn turn;
+	const struct Turn * t =
+		self->turns + self->turn;
+	turn.entity = t->entity;
+	turn.position = t->position;
+	return &turn;
+}
+
+bool
+dngCombat_hasEnded(const T * self)
+{
+	assert(self);
+	return !(
+		hasAlive(self, dngGrid_SIDE_A)
+		&&
+		hasAlive(self, dngGrid_SIDE_B)
+	);
+}
+
+bool
+dngCombat_isEndOfRound(const T * self)
+{
+	assert(self);
+	assert(self->turn <= self->used);
+	return self->turn == self->used;
+}
+
+void
+dngCombat_nextRound(T * self)
+{
+	assert(self);
+	assert(self->turn == self->used);
+	self->round++;
+}
+
+void
 dngCombat_nextTurn(T * self)
 {
 	assert(self);
-	return checkSides(self)
-		? nextTurn(self)
-		: NULL;
+	assert(self->turn <= self->used);
+	int i = (self->turn == self->used) ? 0 : self->turn + 1;
+	for (; i < self->used; i++) {
+		const struct Turn * turn = self->turns + i;
+		if (dngEntity_isAlive(turn->entity))
+			break;
+	}
+	self->turn = i;
 }
