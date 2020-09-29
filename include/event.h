@@ -12,4 +12,17 @@ enum dngEvent_Id {
 	dngOutput_NEXT_ROUND
 };
 
+struct dngEvent {
+	int index;
+};
+
+struct dngEvent
+dngEvent_create(void);
+
+enum dngEvent_Id
+dngEvent_jump(struct dngEvent *, enum dngEvent_Id);
+
+enum dngEvent_Id
+dngEvent_next(struct dngEvent *);
+
 #endif
