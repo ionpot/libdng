@@ -8,6 +8,8 @@
 #include <assert.h>
 #include <stdbool.h>
 
+typedef struct dngEntity T;
+
 static struct dngHealth
 toHealth(
 	const struct dngAttrPrimary * attr,
@@ -26,7 +28,7 @@ toHealth(
 	return health;
 }
 
-struct dngEntity
+T
 dngEntity_fromInput(const struct dngEntity_Input * input)
 {
 	assert(input);
@@ -43,7 +45,7 @@ dngEntity_fromInput(const struct dngEntity_Input * input)
 	if (race_bonus)
 		dngAttrPrimary_addInputToBase(&attr, race_bonus);
 
-	return (struct dngEntity){
+	return (T){
 		.attr = attr,
 		.health = toHealth(&attr, &klass),
 		.klass = klass,
@@ -56,43 +58,43 @@ dngEntity_fromInput(const struct dngEntity_Input * input)
 }
 
 struct dngAttr
-dngEntity_getArmor(const struct dngEntity * entity)
+dngEntity_getArmor(const T * self)
 {
-	assert(entity);
+	assert(self);
 	return dngAttr_fromBase(0);
 }
 
 struct dngAttr
-dngEntity_getDodge(const struct dngEntity * entity)
+dngEntity_getDodge(const T * self)
 {
-	assert(entity);
-	return entity->attr.agility;
+	assert(self);
+	return self->attr.agility;
 }
 
 struct dngAttr
-dngEntity_getInitiative(const struct dngEntity * entity)
+dngEntity_getInitiative(const T * self)
 {
-	assert(entity);
+	assert(self);
 	const struct dngAttrPrimary * p =
-		&entity->attr;
+		&self->attr;
 	struct dngAttr attr =
 		dngAttr_add(p->agility, p->intellect);
 	return (struct dngAttr){
 		.base = dngAttr_getTotal(&attr),
-		.bonus = dngWeapon_getInitiative(entity->weapon)
+		.bonus = dngWeapon_getInitiative(self->weapon)
 	};
 }
 
 struct dngAttr
-dngEntity_getWill(const struct dngEntity * entity)
+dngEntity_getWill(const T * self)
 {
-	assert(entity);
-	return entity->attr.intellect;
+	assert(self);
+	return self->attr.intellect;
 }
 
 bool
-dngEntity_isAlive(const struct dngEntity * entity)
+dngEntity_isAlive(const T * self)
 {
-	assert(entity);
-	return dngHealth_getRemaining(&entity->health) > 0;
+	assert(self);
+	return dngHealth_getRemaining(&self->health) > 0;
 }
