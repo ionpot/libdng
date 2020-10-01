@@ -5,6 +5,7 @@
 #include "event.h"
 #include "grid.h"
 #include "int.h"
+#include "int-bag.h"
 #include "mempool.h"
 #include "spell-slots.h"
 
@@ -20,10 +21,13 @@ create(struct dngMemPool * mem)
 	T * self = dngMemPool_alloc(mem, sizeof(T));
 	if (!self)
 		return NULL;
-	self->combat = dngCombat_create(mem);
+	self->bag = dngIntBag_create(mem);
+	if (!self->bag)
+		return NULL;
+	self->combat = dngCombat_create(mem, self->bag);
 	if (!self->combat)
 		return NULL;
-	self->dices = dngDicePool_create(mem);
+	self->dices = dngDicePool_create(mem, self->bag);
 	if (!self->dices.pool)
 		return NULL;
 	self->event = dngEvent_create();

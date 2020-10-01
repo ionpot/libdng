@@ -15,10 +15,12 @@ union Contents {
 };
 
 T
-dngDicePool_create(struct dngMemPool * mem)
+dngDicePool_create(struct dngMemPool * mem, struct dngIntBag * bag)
 {
 	assert(mem);
+	assert(bag);
 	return (T){
+		.bag = bag,
 		.pool = dngPool_create(mem, sizeof(union Contents))
 	};
 }
@@ -63,7 +65,7 @@ dngDicePool_roll(T self, struct dngDicePool_Input input)
 		if (!contents)
 			break;
 		roll = &contents->roll;
-		roll->result = dngDice_roll(input.dice).result;
+		roll->result = dngDice_roll(input.dice, self.bag).result;
 		roll->next = last;
 		last = roll;
 	}

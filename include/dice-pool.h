@@ -30,11 +30,12 @@ struct dngDicePool_RollDamage {
 };
 
 struct dngDicePool {
+	struct dngIntBag * bag;
 	struct dngPool * pool;
 };
 
 struct dngDicePool
-dngDicePool_create(struct dngMemPool *);
+dngDicePool_create(struct dngMemPool *, struct dngIntBag *);
 
 int
 dngDicePool_getTotal(const struct dngDicePool_Roll *);

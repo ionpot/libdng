@@ -1,5 +1,7 @@
 #include "int-bag.h"
 
+#include "mempool.h"
+
 #include <assert.h>
 #include <stdlib.h>
 
@@ -7,8 +9,21 @@
 #define REPEAT 3
 #define TOTAL ((MAX_VALUE + 1) * REPEAT)
 
-static char numbers[TOTAL];
-static int num_index;
+struct dngIntBag {
+	int index;
+	char contents[TOTAL];
+};
+
+typedef struct dngIntBag T;
+
+static void
+init(T * self)
+{
+	assert(self);
+	for (int i = 0; i < TOTAL; i++)
+		self->contents[i] = i % (MAX_VALUE + 1);
+	self->index = 0;
+}
 
 static void
 shuffle(char * ls, int size)
@@ -21,25 +36,27 @@ shuffle(char * ls, int size)
 	}
 }
 
-void
-dngIntBag_init(void)
+T *
+dngIntBag_create(struct dngMemPool * mem)
 {
-	for (int i = 0; i < TOTAL; i++)
-		numbers[i] = i % (MAX_VALUE + 1);
-
-	num_index = 0;
+	assert(mem);
+	T * self = dngMemPool_alloc(mem, sizeof(T));
+	if (self)
+		init(self);
+	return self;
 }
 
 int
-dngIntBag_next(void)
+dngIntBag_next(T * self)
 {
+	assert(self);
+	assert(self->index <= TOTAL);
 	assert(TOTAL > 0);
-
-	if (num_index >= TOTAL)
-		num_index = 0;
-
-	if (num_index == 0)
-		shuffle(numbers, TOTAL);
-
-	return numbers[num_index++];
+	int i = self->index;
+	if (i == TOTAL)
+		i = 0;
+	if (i == 0)
+		shuffle(self->contents, TOTAL);
+	self->index = i + 1;
+	return self->contents[i];
 }

@@ -5,10 +5,12 @@
 #include "dice-pool.h"
 #include "event.h"
 #include "grid.h"
+#include "int-bag.h"
 #include "mempool.h"
 #include "spell-slots.h"
 
 struct dngContext {
+	struct dngIntBag * bag;
 	struct dngCombat * combat;
 	struct dngDicePool dices;
 	struct dngEvent event;

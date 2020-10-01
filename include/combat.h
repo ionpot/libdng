@@ -3,6 +3,7 @@
 
 #include "entity.h"
 #include "grid.h"
+#include "int-bag.h"
 #include "mempool.h"
 
 struct dngCombat_Turn {
@@ -13,7 +14,7 @@ struct dngCombat_Turn {
 struct dngCombat;
 
 struct dngCombat *
-dngCombat_create(struct dngMemPool *);
+dngCombat_create(struct dngMemPool *, struct dngIntBag *);
 
 void
 dngCombat_init(struct dngCombat *, const struct dngGrid *);

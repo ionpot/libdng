@@ -1,6 +1,8 @@
 #ifndef LIBDNG_DICE_H
 #define LIBDNG_DICE_H
 
+#include "int-bag.h"
+
 #include <stdbool.h>
 
 struct dngDice {
@@ -25,9 +27,9 @@ dngDice_d20,
 dngDice_d100;
 
 struct dngDice_Roll
-dngDice_roll(struct dngDice);
+dngDice_roll(struct dngDice, struct dngIntBag *);
 
 struct dngDice_Chance
-dngDice_rollChance(int percent);
+dngDice_rollChance(int percent, struct dngIntBag *);
 
 #endif

@@ -19,6 +19,7 @@ struct Turn {
 };
 
 struct dngCombat {
+	struct dngIntBag * bag;
 	int round;
 	int turn;
 	struct Turn turns[TURNS];
@@ -73,11 +74,13 @@ hasAlive(const T * self, enum dngGrid_SideId side)
 }
 
 T *
-dngCombat_create(struct dngMemPool * mem)
+dngCombat_create(struct dngMemPool * mem, struct dngIntBag * bag)
 {
 	assert(mem);
+	assert(bag);
 	T * self = dngMemPool_alloc(mem, sizeof(T));
 	if (self) {
+		self->bag = bag;
 		self->round = 0;
 		self->turn = 0;
 		self->used = 0;
@@ -100,7 +103,7 @@ dngCombat_init(T * self, const struct dngGrid * grid)
 			continue;
 		self->turns[self->used++] = (struct Turn){
 			.entity = entity,
-			.initiative = dngIntBag_next(),
+			.initiative = dngIntBag_next(self->bag),
 			.position = pos
 		};
 	}
