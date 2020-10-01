@@ -5,6 +5,8 @@
 
 #include <assert.h>
 
+typedef struct dngAttack T;
+
 const int base_chance = 60;
 
 static struct dngAttack_Bonus
@@ -28,12 +30,12 @@ getPenalty(const struct dngEntity * entity)
 	};
 }
 
-struct dngAttack
+T
 dngAttack_fromPair(struct dngEntity_Pair pair)
 {
 	assert(pair.source);
 	assert(pair.target);
-	return (struct dngAttack){
+	return (T){
 		.base = base_chance,
 		.bonus = getBonus(pair.source),
 		.penalty = getPenalty(pair.target)
@@ -41,14 +43,14 @@ dngAttack_fromPair(struct dngEntity_Pair pair)
 }
 
 struct dngAttack_Roll
-dngAttack_roll(const struct dngAttack * attack)
+dngAttack_roll(const T * self)
 {
-	assert(attack);
+	assert(self);
 
-	int hit_chance = attack->base;
-	hit_chance += attack->bonus.klass;
-	hit_chance -= attack->penalty.armor;
-	hit_chance -= attack->penalty.dodge;
+	int hit_chance = self->base;
+	hit_chance += self->bonus.klass;
+	hit_chance -= self->penalty.armor;
+	hit_chance -= self->penalty.dodge;
 
 	struct dngDice_Chance chance =
 		dngDice_rollChance(hit_chance);
