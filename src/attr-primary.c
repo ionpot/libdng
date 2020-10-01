@@ -26,24 +26,3 @@ dngAttrPrimary_addInputToBase(
 	dngAttr_addBase(&attr->intellect, input->intellect);
 	dngAttr_addBase(&attr->strength, input->strength);
 }
-
-struct dngAttrPrimary_Roll
-dngAttrPrimary_roll(void)
-{
-	return (struct dngAttrPrimary_Roll){
-		.agility = dngAttr_roll(),
-		.intellect = dngAttr_roll(),
-		.strength = dngAttr_roll()
-	};
-}
-
-struct dngAttrPrimary_Input
-dngAttrPrimary_roll2input(const struct dngAttrPrimary_Roll * roll)
-{
-	assert(roll);
-	return (struct dngAttrPrimary_Input){
-		.agility = dngAttr_getRollTotal(&roll->agility),
-		.intellect = dngAttr_getRollTotal(&roll->intellect),
-		.strength = dngAttr_getRollTotal(&roll->strength)
-	};
-}

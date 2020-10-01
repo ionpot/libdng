@@ -1,7 +1,5 @@
 #include "attr.h"
 
-#include "dice.h"
-
 #include <assert.h>
 
 struct dngAttr
@@ -37,29 +35,10 @@ dngAttr_addBonus(struct dngAttr * attr, int amount)
 }
 
 int
-dngAttr_getRollTotal(const struct dngAttr_Roll * roll)
-{
-	assert(roll);
-	return roll->roll_1.result
-		+ roll->roll_2.result
-		+ roll->roll_3.result;
-}
-
-int
 dngAttr_getTotal(const struct dngAttr * attr)
 {
 	assert(attr);
 	return attr->base + attr->bonus;
-}
-
-struct dngAttr_Roll
-dngAttr_roll(void)
-{
-	return (struct dngAttr_Roll){
-		.roll_1 = dngDice_roll(dngDice_d6),
-		.roll_2 = dngDice_roll(dngDice_d6),
-		.roll_3 = dngDice_roll(dngDice_d6)
-	};
 }
 
 void

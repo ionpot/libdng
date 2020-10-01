@@ -15,12 +15,6 @@ struct dngAttrPrimary_Input {
 	int strength;
 };
 
-struct dngAttrPrimary_Roll {
-	struct dngAttr_Roll agility;
-	struct dngAttr_Roll intellect;
-	struct dngAttr_Roll strength;
-};
-
 struct dngAttrPrimary
 dngAttrPrimary_fromInput(const struct dngAttrPrimary_Input *);
 
@@ -29,11 +23,5 @@ dngAttrPrimary_addInputToBase(
 	struct dngAttrPrimary *,
 	const struct dngAttrPrimary_Input *
 );
-
-struct dngAttrPrimary_Roll
-dngAttrPrimary_roll(void);
-
-struct dngAttrPrimary_Input
-dngAttrPrimary_roll2input(const struct dngAttrPrimary_Roll *);
 
 #endif
