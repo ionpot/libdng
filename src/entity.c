@@ -57,6 +57,13 @@ dngEntity_fromInput(const struct dngEntity_Input * input)
 	};
 }
 
+void
+dngEntity_clear(struct dngEntity * self)
+{
+	assert(self);
+	dngSpellbook_clear(&self->spellbook);
+}
+
 struct dngAttr
 dngEntity_getArmor(const T * self)
 {

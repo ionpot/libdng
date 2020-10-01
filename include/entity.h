@@ -36,6 +36,9 @@ struct dngEntity_Pair {
 struct dngEntity
 dngEntity_fromInput(const struct dngEntity_Input *);
 
+void
+dngEntity_clear(struct dngEntity *);
+
 struct dngAttr
 dngEntity_getArmor(const struct dngEntity *);
 
