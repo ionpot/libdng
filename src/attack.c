@@ -5,9 +5,9 @@
 
 #include <assert.h>
 
-typedef struct dngAttack T;
+#define BASE_CHANCE 60
 
-const int base_chance = 60;
+typedef struct dngAttack T;
 
 static struct dngAttack_Bonus
 getBonus(const struct dngEntity * entity)
@@ -36,7 +36,7 @@ dngAttack_fromPair(struct dngEntity_Pair pair)
 	assert(pair.source);
 	assert(pair.target);
 	return (T){
-		.base = base_chance,
+		.base = BASE_CHANCE,
 		.bonus = getBonus(pair.source),
 		.penalty = getPenalty(pair.target)
 	};
