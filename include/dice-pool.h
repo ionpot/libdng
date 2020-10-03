@@ -23,9 +23,9 @@ struct dngDicePool_Roll {
 	int result;
 };
 
-struct dngDicePool_RollDamage {
+struct dngDicePool_DamageRoll {
 	struct dngDicePool_InputDamage input;
-	struct dngDicePool_RollDamage * next;
+	struct dngDicePool_DamageRoll * next;
 	struct dngDicePool_Roll * roll;
 };
 
@@ -41,7 +41,7 @@ int
 dngDicePool_getTotal(const struct dngDicePool_Roll *);
 
 int
-dngDicePool_getTotalDamage(const struct dngDicePool_RollDamage *);
+dngDicePool_getTotalDamage(const struct dngDicePool_DamageRoll *);
 
 void
 dngDicePool_reset(struct dngDicePool);
@@ -49,7 +49,7 @@ dngDicePool_reset(struct dngDicePool);
 struct dngDicePool_Roll *
 dngDicePool_roll(struct dngDicePool, struct dngDicePool_Input);
 
-struct dngDicePool_RollDamage *
+struct dngDicePool_DamageRoll *
 dngDicePool_rollDamage(struct dngDicePool, struct dngDicePool_InputDamage);
 
 #endif

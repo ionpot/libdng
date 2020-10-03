@@ -11,7 +11,7 @@ typedef struct dngDicePool T;
 
 union Contents {
 	struct dngDicePool_Roll roll;
-	struct dngDicePool_RollDamage damage;
+	struct dngDicePool_DamageRoll damage;
 };
 
 T
@@ -37,7 +37,7 @@ dngDicePool_getTotal(const struct dngDicePool_Roll * roll)
 }
 
 int
-dngDicePool_getTotalDamage(const struct dngDicePool_RollDamage * damage)
+dngDicePool_getTotalDamage(const struct dngDicePool_DamageRoll * damage)
 {
 	int total = 0;
 	while (damage) {
@@ -73,10 +73,10 @@ dngDicePool_roll(T self, struct dngDicePool_Input input)
 	return roll;
 }
 
-struct dngDicePool_RollDamage *
+struct dngDicePool_DamageRoll *
 dngDicePool_rollDamage(T self, struct dngDicePool_InputDamage input)
 {
-	struct dngDicePool_RollDamage * damage = NULL;
+	struct dngDicePool_DamageRoll * damage = NULL;
 	union Contents * contents = dngPool_next(self.pool);
 	if (contents) {
 		damage = &contents->damage;

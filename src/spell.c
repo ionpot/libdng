@@ -28,11 +28,11 @@ dngSpell_rollElectricBolt(struct dngDicePool pool, struct dngClass klass)
 			.dice = dngDice_d8
 		}
 	};
-	struct dngDicePool_RollDamage * base =
+	struct dngDicePool_DamageRoll * base =
 		dngDicePool_rollDamage(pool, input);
 
 	input.roll.count = klass.level;
-	struct dngDicePool_RollDamage * level =
+	struct dngDicePool_DamageRoll * level =
 		dngDicePool_rollDamage(pool, input);
 
 	return (struct dngSpell_Damage){
