@@ -1,5 +1,6 @@
 #include "dice-pool.h"
 
+#include "attr-primary.h"
 #include "dice.h"
 #include "mempool.h"
 #include "pool.h"
@@ -22,6 +23,17 @@ dngDicePool_create(struct dngMemPool * mem, struct dngIntBag * bag)
 	return (T){
 		.bag = bag,
 		.pool = dngPool_create(mem, sizeof(union Contents))
+	};
+}
+
+struct dngAttrPrimary_Input
+dngDicePool_getAttrPrimaryInput(const struct dngDicePool_AttrRoll * roll)
+{
+	assert(roll);
+	return (struct dngAttrPrimary_Input){
+		.agility = dngDicePool_getTotal(roll->agility),
+		.intellect = dngDicePool_getTotal(roll->intellect),
+		.strength = dngDicePool_getTotal(roll->strength)
 	};
 }
 
@@ -71,6 +83,21 @@ dngDicePool_roll(T self, struct dngDicePool_Input input)
 	}
 
 	return roll;
+}
+
+struct dngDicePool_AttrRoll
+dngDicePool_rollAttr(T self)
+{
+	struct dngDicePool_Input input = {
+		.count = 3,
+		.dice = dngDice_d6
+	};
+	return (struct dngDicePool_AttrRoll){
+		.input = input,
+		.agility = dngDicePool_roll(self, input),
+		.intellect = dngDicePool_roll(self, input),
+		.strength = dngDicePool_roll(self, input)
+	};
 }
 
 struct dngDicePool_DamageRoll *
