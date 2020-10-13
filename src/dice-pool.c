@@ -62,12 +62,15 @@ dngDicePool_getTotalDamage(const struct dngDicePool_DamageRoll * damage)
 void
 dngDicePool_reset(T self)
 {
+	assert(self.pool);
 	dngPool_reset(self.pool);
 }
 
 struct dngDicePool_Roll *
 dngDicePool_roll(T self, struct dngDicePool_Input input)
 {
+	assert(self.pool);
+
 	struct dngDicePool_Roll * roll = NULL;
 	struct dngDicePool_Roll * last = NULL;
 
@@ -88,6 +91,7 @@ dngDicePool_roll(T self, struct dngDicePool_Input input)
 struct dngDicePool_AttrRoll
 dngDicePool_rollAttr(T self)
 {
+	assert(self.pool);
 	struct dngDicePool_Input input = {
 		.count = 3,
 		.dice = dngDice_d6
@@ -103,6 +107,7 @@ dngDicePool_rollAttr(T self)
 struct dngDicePool_DamageRoll *
 dngDicePool_rollDamage(T self, struct dngDicePool_InputDamage input)
 {
+	assert(self.pool);
 	struct dngDicePool_DamageRoll * damage = NULL;
 	union Contents * contents = dngPool_next(self.pool);
 	if (contents) {
