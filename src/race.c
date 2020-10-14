@@ -21,7 +21,6 @@ dngRace_getBonus(enum dngRace_Id id)
 		return NULL;
 	case dngRace_ORC:
 		return &orc_bonus;
-	default:
-		assert(false);
 	}
+	assert(false);
 }

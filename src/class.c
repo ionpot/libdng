@@ -31,15 +31,13 @@ int
 dngClass_getHealthBonus(const struct dngClass * klass)
 {
 	assert(klass);
-
 	switch (klass->id) {
 	case dngClass_WARRIOR:
 		return 4 * klass->level;
 	case dngClass_WIZARD:
 		return 2 * klass->level;
-	default:
-		assert(false);
 	}
+	assert(false);
 }
 
 void

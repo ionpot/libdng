@@ -10,8 +10,6 @@
 		return &side->back;\
 	case dngGrid_LINE_FRONT:\
 		return &side->front;\
-	default:\
-			assert(false);\
 	}
 
 #define macro_switchSide(id, grid)\
@@ -20,8 +18,6 @@
 		return &grid->side_a;\
 	case dngGrid_SIDE_B:\
 		return &grid->side_b;\
-	default:\
-			assert(false);\
 	}
 
 #define macro_switchSlot(id, line)\
@@ -32,8 +28,6 @@
 		return &line->slot_2;\
 	case dngGrid_SLOT_3:\
 		return &line->slot_3;\
-	default:\
-			assert(false);\
 	}
 
 const struct dngGrid_Position
@@ -104,6 +98,7 @@ getLine(
 ) {
 	assert(side);
 	macro_switchLine(line_id, side)
+	assert(false);
 }
 
 static const struct dngGrid_Line *
@@ -113,6 +108,7 @@ getLine_const(
 ) {
 	assert(side);
 	macro_switchLine(line_id, side)
+	assert(false);
 }
 
 static struct dngGrid_Side *
@@ -122,6 +118,7 @@ getSide(
 ) {
 	assert(grid);
 	macro_switchSide(side_id, grid) 
+	assert(false);
 }
 
 static const struct dngGrid_Side *
@@ -131,6 +128,7 @@ getSide_const(
 ) {
 	assert(grid);
 	macro_switchSide(side_id, grid) 
+	assert(false);
 }
 
 static struct dngEntity **
@@ -140,6 +138,7 @@ getSlot(
 ) {
 	assert(line);
 	macro_switchSlot(slot_id, line)
+	assert(false);
 }
 
 static struct dngEntity * const *
@@ -149,6 +148,7 @@ getSlot_const(
 ) {
 	assert(line);
 	macro_switchSlot(slot_id, line)
+	assert(false);
 }
 
 static struct dngEntity **

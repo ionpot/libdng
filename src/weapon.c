@@ -1,5 +1,8 @@
 #include "weapon.h"
 
+#include <assert.h>
+#include <stdbool.h>
+
 int
 dngWeapon_getInitiative(enum dngWeapon_Id id)
 {
@@ -12,4 +15,5 @@ dngWeapon_getInitiative(enum dngWeapon_Id id)
 	case dngWeapon_SWORD:
 		return 0;
 	}
+	assert(false);
 }
