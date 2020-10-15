@@ -5,9 +5,14 @@
 #include "dice-pool.h"
 #include "event.h"
 #include "grid.h"
+#include "input-def.h"
 #include "int-bag.h"
 #include "mempool.h"
 #include "spell-slots.h"
+
+union dngContext_Input {
+	struct dngInput_Attack attack;
+};
 
 struct dngContext {
 	struct dngIntBag * bag;
@@ -15,6 +20,7 @@ struct dngContext {
 	struct dngDicePool dices;
 	struct dngEvent event;
 	struct dngGrid grid;
+	union dngContext_Input input;
 	struct dngMemPool * mempool;
 	struct dngSpellSlots slots;
 };
