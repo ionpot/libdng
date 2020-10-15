@@ -6,7 +6,7 @@
 #include <assert.h>
 #include <stddef.h>
 
-#define NODES_PER_ALLOC 5
+#define NODES_PER_ALLOC 4
 
 struct Node {
 	struct Node * next;

@@ -3,6 +3,7 @@
 
 #include "combat.h"
 #include "dice-pool.h"
+#include "entities.h"
 #include "event.h"
 #include "grid.h"
 #include "input-def.h"
@@ -18,6 +19,7 @@ struct dngContext {
 	struct dngIntBag * bag;
 	struct dngCombat * combat;
 	struct dngDicePool dices;
+	struct dngEntities entities;
 	struct dngEvent event;
 	struct dngGrid grid;
 	union dngContext_Input input;

@@ -2,6 +2,7 @@
 
 #include "combat.h"
 #include "dice-pool.h"
+#include "entities.h"
 #include "event.h"
 #include "grid.h"
 #include "int.h"
@@ -29,6 +30,9 @@ create(struct dngMemPool * mem)
 		return NULL;
 	self->dices = dngDicePool_create(mem, self->bag);
 	if (!self->dices.pool)
+		return NULL;
+	self->entities = dngEntities_create(mem);
+	if (!self->entities.nodes)
 		return NULL;
 	self->event = dngEvent_create();
 	dngGrid_clear(&self->grid);
