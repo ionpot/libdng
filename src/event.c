@@ -24,7 +24,9 @@ static void
 advance(T * self)
 {
 	assert(self);
-	if (self->index < event_count)
+	assert(event_count > 0);
+	static const int max = event_count - 1;
+	if (self->index < max)
 		self->index++;
 }
 
