@@ -3,7 +3,8 @@
 #include "combat.h"
 #include "dice-pool.h"
 #include "entities.h"
-#include "event.h"
+#include "event-id.h"
+#include "event-list.h"
 #include "grid.h"
 #include "int.h"
 #include "int-bag.h"
@@ -34,7 +35,7 @@ create(struct dngMemPool * mem)
 	self->entities = dngEntities_create(mem);
 	if (!self->entities.nodes)
 		return NULL;
-	self->event = dngEvent_create();
+	self->events = dngEventList_create();
 	dngGrid_clear(&self->grid);
 	self->mempool = mem;
 	self->slots = dngSpellSlots_create(mem);
@@ -64,12 +65,12 @@ dngContext_destroy(T * self)
 	dngMemPool_destroy(self->mempool);
 }
 
-enum dngEvent_Id
+enum dngEventId
 dngContext_nextEvent(T * self)
 {
 	assert(self);
-	enum dngEvent_Id id =
-		dngEvent_next(&self->event);
+	enum dngEventId id =
+		dngEventList_next(&self->events);
 	switch (id) {
 	case dngInput_ATTACK:
 		if (dngCombat_isTurnOfSide(self->combat, dngGrid_SIDE_A))
@@ -78,7 +79,7 @@ dngContext_nextEvent(T * self)
 	case dngOutput_COMBAT_END:
 		if (dngCombat_hasEnded(self->combat))
 			break;
-		dngEvent_jump(&self->event, dngOutput_COMBAT_BEGIN);
+		dngEventList_jump(&self->events, dngOutput_COMBAT_BEGIN);
 		goto next;
 	case dngOutput_NEXT_ROUND:
 		if (dngCombat_isEndOfRound(self->combat))
@@ -96,5 +97,5 @@ void
 dngContext_reset(T * self)
 {
 	assert(self);
-	self->event = dngEvent_create();
+	self->events = dngEventList_create();
 }

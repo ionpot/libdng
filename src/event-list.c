@@ -1,11 +1,13 @@
-#include "event.h"
+#include "event-list.h"
+
+#include "event-id.h"
 
 #include <assert.h>
 #include <stdbool.h>
 
-typedef struct dngEvent T;
+typedef struct dngEventList T;
 
-static const enum dngEvent_Id
+static const enum dngEventId
 event_order[] = {
 	dngInput_ENTITY,
 	dngOutput_COMBAT_BEGIN,
@@ -30,7 +32,7 @@ advance(T * self)
 		self->index++;
 }
 
-static enum dngEvent_Id
+static enum dngEventId
 current(T * self)
 {
 	assert(self);
@@ -40,7 +42,7 @@ current(T * self)
 }
 
 static int
-seek(enum dngEvent_Id id)
+seek(enum dngEventId id)
 {
 	for (int i = 0; i < event_count; i++) {
 		if (event_order[i] == id)
@@ -50,7 +52,7 @@ seek(enum dngEvent_Id id)
 }
 
 T
-dngEvent_create(void)
+dngEventList_create(void)
 {
 	return (T){
 		.index = -1
@@ -58,14 +60,14 @@ dngEvent_create(void)
 }
 
 void
-dngEvent_jump(T * self, enum dngEvent_Id id)
+dngEventList_jump(T * self, enum dngEventId id)
 {
 	assert(self);
 	self->index = seek(id);
 }
 
-enum dngEvent_Id
-dngEvent_next(T * self)
+enum dngEventId
+dngEventList_next(T * self)
 {
 	assert(self);
 	advance(self);

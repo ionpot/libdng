@@ -4,7 +4,8 @@
 #include "combat.h"
 #include "dice-pool.h"
 #include "entities.h"
-#include "event.h"
+#include "event-id.h"
+#include "event-list.h"
 #include "grid.h"
 #include "input-def.h"
 #include "int-bag.h"
@@ -20,7 +21,7 @@ struct dngContext {
 	struct dngCombat * combat;
 	struct dngDicePool dices;
 	struct dngEntities entities;
-	struct dngEvent event;
+	struct dngEventList events;
 	struct dngGrid grid;
 	union dngContext_Input input;
 	struct dngMemPool * mempool;
@@ -33,7 +34,7 @@ dngContext_create(void);
 void
 dngContext_destroy(struct dngContext *);
 
-enum dngEvent_Id
+enum dngEventId
 dngContext_nextEvent(struct dngContext *);
 
 void
