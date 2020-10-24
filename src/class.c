@@ -18,9 +18,9 @@ dngClass_getAttackBonus(const struct dngClass * klass)
 	assert(klass);
 
 	switch (klass->id) {
-	case dngClass_WARRIOR:
+	case dngClass_FIGHTER:
 		return 4 * klass->level;
-	case dngClass_WIZARD:
+	case dngClass_MAGE:
 		return 2 * klass->level;
 	default:
 		assert(false);
@@ -32,9 +32,9 @@ dngClass_getHealthBonus(const struct dngClass * klass)
 {
 	assert(klass);
 	switch (klass->id) {
-	case dngClass_WARRIOR:
+	case dngClass_FIGHTER:
 		return 4 * klass->level;
-	case dngClass_WIZARD:
+	case dngClass_MAGE:
 		return 2 * klass->level;
 	}
 	assert(false);

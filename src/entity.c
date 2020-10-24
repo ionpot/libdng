@@ -50,7 +50,7 @@ dngEntity_fromInput(const struct dngEntity_Input * input)
 		.health = toHealth(&attr, &klass),
 		.klass = klass,
 		.race = input->race,
-		.spellbook = (input->klass == dngClass_WIZARD)
+		.spellbook = (input->klass == dngClass_MAGE)
 			? dngSpellbook_forWizard(input->slots)
 			: dngSpellbook_create(input->slots),
 		.weapon = input->weapon
