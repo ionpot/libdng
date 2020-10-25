@@ -1,5 +1,8 @@
 #include "grid.h"
 
+#include "entity.h"
+#include "entities.h"
+
 #include <assert.h>
 #include <stdbool.h>
 #include <stddef.h>
@@ -245,6 +248,18 @@ hasEntity(struct dngGrid_Line line)
 		|| (line.slot_3 != NULL);
 }
 
+static void
+resetLine(struct dngGrid_Line * line, struct dngEntities entities)
+{
+	assert(line);
+	if (line->slot_1)
+		dngEntities_return(entities, line->slot_1);
+	if (line->slot_2)
+		dngEntities_return(entities, line->slot_2);
+	if (line->slot_3)
+		dngEntities_return(entities, line->slot_3);
+}
+
 bool
 dngGrid_canReach(
 	const struct dngGrid * grid,
@@ -331,4 +346,13 @@ dngGrid_putEntity(
 	struct dngEntity ** slot =
 		grid2slot(grid, position);
 	*slot = entity;
+}
+
+void
+dngGrid_resetSide(struct dngGrid_Side * side, struct dngEntities entities)
+{
+	assert(side);
+	resetLine(&side->front, entities);
+	resetLine(&side->back, entities);
+	dngGrid_clearSide(side);
 }

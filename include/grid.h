@@ -2,6 +2,7 @@
 #define LIBDNG_GRID_H
 
 #include "entity.h"
+#include "entities.h"
 
 #include <stdbool.h>
 
@@ -87,5 +88,8 @@ dngGrid_putEntity(
 	struct dngGrid_Position,
 	struct dngEntity *
 );
+
+void
+dngGrid_resetSide(struct dngGrid_Side *, struct dngEntities);
 
 #endif
