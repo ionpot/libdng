@@ -65,11 +65,11 @@ dngContext_destroy(T * self)
 	dngMemPool_destroy(self->mempool);
 }
 
-enum dngEventId
+enum dngEvent_Id
 dngContext_nextEvent(T * self)
 {
 	assert(self);
-	enum dngEventId id =
+	enum dngEvent_Id id =
 		dngEventList_next(&self->events);
 	switch (id) {
 	case dngInput_ATTACK:

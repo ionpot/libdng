@@ -1,7 +1,7 @@
 #ifndef LIBDNG_EVENT_ID_H
 #define LIBDNG_EVENT_ID_H
 
-enum dngEventId {
+enum dngEvent_Id {
 	dngInput_ATTACK,
 	dngInput_ENTITY,
 	dngOutput_ATTACK,

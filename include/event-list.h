@@ -11,9 +11,9 @@ struct dngEventList
 dngEventList_create(void);
 
 void
-dngEventList_jump(struct dngEventList *, enum dngEventId);
+dngEventList_jump(struct dngEventList *, enum dngEvent_Id);
 
-enum dngEventId
+enum dngEvent_Id
 dngEventList_next(struct dngEventList *);
 
 #endif

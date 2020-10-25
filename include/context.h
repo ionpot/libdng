@@ -34,7 +34,7 @@ dngContext_create(void);
 void
 dngContext_destroy(struct dngContext *);
 
-enum dngEventId
+enum dngEvent_Id
 dngContext_nextEvent(struct dngContext *);
 
 void

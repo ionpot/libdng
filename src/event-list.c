@@ -7,7 +7,7 @@
 
 typedef struct dngEventList T;
 
-static const enum dngEventId
+static const enum dngEvent_Id
 event_order[] = {
 	dngInput_ENTITY,
 	dngOutput_COMBAT_BEGIN,
@@ -32,7 +32,7 @@ advance(T * self)
 		self->index++;
 }
 
-static enum dngEventId
+static enum dngEvent_Id
 current(T * self)
 {
 	assert(self);
@@ -42,7 +42,7 @@ current(T * self)
 }
 
 static int
-seek(enum dngEventId id)
+seek(enum dngEvent_Id id)
 {
 	for (int i = 0; i < event_count; i++) {
 		if (event_order[i] == id)
@@ -60,13 +60,13 @@ dngEventList_create(void)
 }
 
 void
-dngEventList_jump(T * self, enum dngEventId id)
+dngEventList_jump(T * self, enum dngEvent_Id id)
 {
 	assert(self);
 	self->index = seek(id);
 }
 
-enum dngEventId
+enum dngEvent_Id
 dngEventList_next(T * self)
 {
 	assert(self);
