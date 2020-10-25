@@ -2,8 +2,10 @@
 
 #include "attr-primary.h"
 #include "dice.h"
+#include "entity.h"
 #include "mempool.h"
 #include "pool.h"
+#include "spell-slots.h"
 
 #include <assert.h>
 #include <stddef.h>
@@ -117,4 +119,19 @@ dngDicePool_rollDamage(T self, struct dngDicePool_InputDamage input)
 		damage->next = NULL;
 	}
 	return damage;
+}
+
+struct dngEntity_Input
+dngDicePool_rollOrcFighter(T self, struct dngSpellSlots slots)
+{
+	assert(self.bag);
+	struct dngDicePool_AttrRoll attr_roll =
+		dngDicePool_rollAttr(self);
+	return (struct dngEntity_Input){
+		.attr = dngDicePool_getAttrPrimaryInput(&attr_roll),
+		.klass = dngClass_FIGHTER,
+		.race = dngRace_ORC,
+		.slots = slots,
+		.weapon = dngDice_rollWeapon(self.bag)
+	};
 }

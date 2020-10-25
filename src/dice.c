@@ -1,10 +1,22 @@
 #include "dice.h"
 
 #include "int-bag.h"
+#include "weapon.h"
 
 #include <assert.h>
 
 typedef struct dngDice T;
+
+static const enum dngWeapon_Id
+weapons[] = {
+	dngWeapon_DAGGER,
+	dngWeapon_LONG_AXE,
+	dngWeapon_STAFF,
+	dngWeapon_SWORD
+};
+
+static const int weapons_length =
+	sizeof(weapons) / sizeof(*weapons);
 
 const T
 dngDice_d4 = { .sides = 4 },
@@ -35,4 +47,13 @@ dngDice_rollChance(int percent, struct dngIntBag * bag)
 		.roll = roll,
 		.success = roll.result <= percent
 	};
+}
+
+enum dngWeapon_Id
+dngDice_rollWeapon(struct dngIntBag * bag)
+{
+	assert(bag);
+	assert(weapons_length > 0);
+	assert(weapons_length <= dngIntBag_MAX_VALUE + 1);
+	return weapons[dngIntBag_next(bag) % weapons_length];
 }

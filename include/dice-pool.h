@@ -3,9 +3,11 @@
 
 #include "attr-primary.h"
 #include "dice.h"
+#include "entity.h"
 #include "element.h"
 #include "mempool.h"
 #include "pool.h"
+#include "spell-slots.h"
 
 #include <stddef.h>
 
@@ -65,5 +67,8 @@ dngDicePool_rollAttr(struct dngDicePool);
 
 struct dngDicePool_DamageRoll *
 dngDicePool_rollDamage(struct dngDicePool, struct dngDicePool_InputDamage);
+
+struct dngEntity_Input
+dngDicePool_rollOrcFighter(struct dngDicePool, struct dngSpellSlots);
 
 #endif

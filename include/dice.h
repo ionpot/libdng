@@ -2,6 +2,7 @@
 #define LIBDNG_DICE_H
 
 #include "int-bag.h"
+#include "weapon.h"
 
 #include <stdbool.h>
 
@@ -31,5 +32,8 @@ dngDice_roll(struct dngDice, struct dngIntBag *);
 
 struct dngDice_Chance
 dngDice_rollChance(int percent, struct dngIntBag *);
+
+enum dngWeapon_Id
+dngDice_rollWeapon(struct dngIntBag *);
 
 #endif
