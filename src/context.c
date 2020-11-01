@@ -76,12 +76,12 @@ dngContext_nextEvent(T * self)
 		if (dngCombat_isTurnOfSide(self->combat, dngGrid_SIDE_A))
 			return id;
 		break;
-	case dngOutput_COMBAT_END:
+	case dngEvent_COMBAT_END:
 		if (dngCombat_hasEnded(self->combat))
 			return id;
-		dngEventList_jump(&self->events, dngOutput_COMBAT_BEGIN);
+		dngEventList_jump(&self->events, dngEvent_COMBAT_BEGIN);
 		break;
-	case dngOutput_NEXT_ROUND:
+	case dngEvent_NEXT_ROUND:
 		if (dngCombat_isEndOfRound(self->combat))
 			return id;
 		break;

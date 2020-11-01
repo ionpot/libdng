@@ -10,13 +10,13 @@ typedef struct dngEventList T;
 static const enum dngEvent_Id
 event_order[] = {
 	dngInput_ENTITY,
-	dngOutput_COMBAT_BEGIN,
-	dngOutput_NEXT_ROUND,
+	dngEvent_COMBAT_BEGIN,
+	dngEvent_NEXT_ROUND,
 	dngInput_ATTACK,
-	dngOutput_ATTACK,
-	dngOutput_DAMAGE,
-	dngOutput_COMBAT_END,
-	dngOutput_END
+	dngEvent_ATTACK,
+	dngEvent_DAMAGE,
+	dngEvent_COMBAT_END,
+	dngEvent_END
 };
 
 static const int event_count =
