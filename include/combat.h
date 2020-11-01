@@ -19,6 +19,9 @@ dngCombat_create(struct dngMemPool *, struct dngIntBag *);
 void
 dngCombat_init(struct dngCombat *, const struct dngGrid *);
 
+int
+dngCombat_getRound(const struct dngCombat *);
+
 struct dngCombat_Turn
 dngCombat_getTurn(const struct dngCombat *);
 

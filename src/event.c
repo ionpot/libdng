@@ -26,3 +26,11 @@ dngEvent_doCombatBegin(struct dngContext * context)
 	dngGrid_putEntity(&context->grid, position, orc);
 	dngCombat_init(context->combat, &context->grid);
 }
+
+int
+dngEvent_doNextRound(struct dngContext * context)
+{
+	assert(context);
+	dngCombat_nextRound(context->combat);
+	return dngCombat_getRound(context->combat);
+}

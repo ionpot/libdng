@@ -6,4 +6,7 @@
 void
 dngEvent_doCombatBegin(struct dngContext *);
 
+int
+dngEvent_doNextRound(struct dngContext *);
+
 #endif
