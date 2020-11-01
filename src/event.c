@@ -12,6 +12,7 @@ void
 dngEvent_doCombatBegin(struct dngContext * context)
 {
 	assert(context);
+	dngDicePool_reset(context->dices);
 	dngGrid_resetSide(&context->grid.side_b, context->entities);
 	struct dngEntity * orc =
 		dngEntities_next(context->entities);
