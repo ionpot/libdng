@@ -74,22 +74,20 @@ dngContext_nextEvent(T * self)
 	switch (id) {
 	case dngInput_ATTACK:
 		if (dngCombat_isTurnOfSide(self->combat, dngGrid_SIDE_A))
-			break;
-		goto next;
+			return id;
+		break;
 	case dngOutput_COMBAT_END:
 		if (dngCombat_hasEnded(self->combat))
-			break;
+			return id;
 		dngEventList_jump(&self->events, dngOutput_COMBAT_BEGIN);
-		goto next;
+		break;
 	case dngOutput_NEXT_ROUND:
 		if (dngCombat_isEndOfRound(self->combat))
-			break;
-		goto next;
-	default:
+			return id;
 		break;
+	default:
+		return id;
 	}
-	return id;
-next:
 	return dngContext_nextEvent(self);
 }
 
