@@ -4,7 +4,6 @@
 #include "combat.h"
 #include "dice-pool.h"
 #include "entities.h"
-#include "event-id.h"
 #include "event-list.h"
 #include "grid.h"
 #include "input-def.h"
@@ -33,9 +32,6 @@ dngContext_create(void);
 
 void
 dngContext_destroy(struct dngContext *);
-
-enum dngEvent_Id
-dngContext_nextEvent(struct dngContext *);
 
 void
 dngContext_reset(struct dngContext *);

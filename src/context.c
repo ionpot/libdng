@@ -3,7 +3,6 @@
 #include "combat.h"
 #include "dice-pool.h"
 #include "entities.h"
-#include "event-id.h"
 #include "event-list.h"
 #include "grid.h"
 #include "int.h"
@@ -63,32 +62,6 @@ dngContext_destroy(T * self)
 {
 	assert(self);
 	dngMemPool_destroy(self->mempool);
-}
-
-enum dngEvent_Id
-dngContext_nextEvent(T * self)
-{
-	assert(self);
-	enum dngEvent_Id id =
-		dngEventList_next(&self->events);
-	switch (id) {
-	case dngInput_ATTACK:
-		if (dngCombat_isTurnOfSide(self->combat, dngGrid_SIDE_A))
-			return id;
-		break;
-	case dngEvent_COMBAT_END:
-		if (dngCombat_hasEnded(self->combat))
-			return id;
-		dngEventList_jump(&self->events, dngEvent_COMBAT_BEGIN);
-		break;
-	case dngEvent_NEXT_ROUND:
-		if (dngCombat_isEndOfRound(self->combat))
-			return id;
-		break;
-	default:
-		return id;
-	}
-	return dngContext_nextEvent(self);
 }
 
 void
