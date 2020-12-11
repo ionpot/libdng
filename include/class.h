@@ -20,6 +20,9 @@ dngClass_getAttackBonus(const struct dngClass *);
 int
 dngClass_getHealthBonus(const struct dngClass *);
 
+int
+dngClass_getLevel(const struct dngClass *, enum dngClass_Id);
+
 void
 dngClass_levelUp(struct dngClass *);
 

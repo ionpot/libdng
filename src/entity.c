@@ -1,9 +1,12 @@
 #include "entity.h"
 
 #include "attr-primary.h"
+#include "attr-primary-input.h"
 #include "class.h"
+#include "entity-input.h"
 #include "health.h"
 #include "spellbook.h"
+#include "weapon.h"
 
 #include <assert.h>
 #include <stdbool.h>
@@ -29,7 +32,7 @@ toHealth(
 }
 
 T
-dngEntity_fromInput(const struct dngEntity_Input * input)
+dngEntity_fromInput(const struct dngEntityInput * input)
 {
 	assert(input);
 
@@ -37,13 +40,12 @@ dngEntity_fromInput(const struct dngEntity_Input * input)
 		dngClass_create(input->klass);
 
 	struct dngAttrPrimary attr =
-		dngAttrPrimary_fromInput(&input->attr);
+		dngAttrPrimary_fromInput(input->attr);
 
-	const struct dngAttrPrimary_Input * race_bonus =
+	const struct dngAttrPrimaryInput race_bonus =
 		dngRace_getBonus(input->race);
 
-	if (race_bonus)
-		dngAttrPrimary_addInputToBase(&attr, race_bonus);
+	dngAttrPrimary_addInputToBase(&attr, race_bonus);
 
 	return (T){
 		.attr = attr,

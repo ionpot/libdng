@@ -41,6 +41,13 @@ dngClass_getHealthBonus(const T * self)
 	assert(false);
 }
 
+int
+dngClass_getLevel(const T * self, enum dngClass_Id id)
+{
+	assert(self);
+	return (id == self->id) ? self->level : 0;
+}
+
 void
 dngClass_levelUp(T * self)
 {

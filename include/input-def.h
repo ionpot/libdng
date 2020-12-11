@@ -2,7 +2,7 @@
 #define LIBDNG_INPUT_DEF_H
 
 #include "attack.h"
-#include "attr-primary.h"
+#include "attr-primary-input.h"
 #include "class.h"
 #include "context.h"
 #include "grid.h"
@@ -21,7 +21,7 @@ struct dngInput_Attack {
 };
 
 struct dngInput_NewEntity {
-	struct dngAttrPrimary_Input attr;
+	struct dngAttrPrimaryInput attr;
 	enum dngClass_Id klass;
 	struct dngGrid_Position position;
 	enum dngWeapon_Id weapon;

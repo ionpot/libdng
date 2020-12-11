@@ -4,6 +4,7 @@
 #include "context.h"
 #include "dice-pool.h"
 #include "entity.h"
+#include "entity-input.h"
 #include "entities.h"
 #include "event-list.h"
 #include "grid.h"
@@ -18,8 +19,8 @@ dngEvent_doCombatBegin(struct dngContext * context)
 	dngGrid_resetSide(&context->grid.side_b, context->entities);
 	struct dngEntity * orc =
 		dngEntities_next(context->entities);
-	struct dngEntity_Input input =
-		dngDicePool_rollOrcFighter(context->dices, context->slots);
+	struct dngEntityInput input =
+		dngEntityInput_rollOrcFighter(context->dices, context->slots);
 	struct dngGrid_Position position = {
 		.line = dngGrid_LINE_FRONT,
 		.side = dngGrid_SIDE_B,

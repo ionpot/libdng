@@ -2,6 +2,7 @@
 
 #include "context.h"
 #include "entity.h"
+#include "entity-input.h"
 #include "entities.h"
 #include "grid.h"
 #include "input-def.h"
@@ -22,7 +23,7 @@ dngInput_forEntity(struct dngContext * context, struct dngInput_NewEntity input)
 	struct dngEntity * entity = dngEntities_next(context->entities);
 	if (!entity)
 		return;
-	struct dngEntity_Input entity_input = {
+	struct dngEntityInput entity_input = {
 		.attr = input.attr,
 		.klass = input.klass,
 		.race = dngRace_HUMAN,

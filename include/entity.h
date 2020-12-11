@@ -3,11 +3,11 @@
 
 #include "attr-primary.h"
 #include "class.h"
+#include "entity-input.h"
 #include "health.h"
 #include "race.h"
 #include "spellbook.h"
-#include "spell-slots.h"
-#include "weapon.h"
+#include "weapon-id.h"
 
 #include <stdbool.h>
 
@@ -20,21 +20,13 @@ struct dngEntity {
 	enum dngWeapon_Id weapon;
 };
 
-struct dngEntity_Input {
-	struct dngAttrPrimary_Input attr;
-	enum dngClass_Id klass;
-	enum dngRace_Id race;
-	struct dngSpellSlots slots;
-	enum dngWeapon_Id weapon;
-};
-
 struct dngEntity_Pair {
 	struct dngEntity * source;
 	struct dngEntity * target;
 };
 
 struct dngEntity
-dngEntity_fromInput(const struct dngEntity_Input *);
+dngEntity_fromInput(const struct dngEntityInput *);
 
 void
 dngEntity_clear(struct dngEntity *);

@@ -1,14 +1,14 @@
 #ifndef LIBDNG_RACE_H
 #define LIBDNG_RACE_H
 
-#include "attr-primary.h"
+#include "attr-primary-input.h"
 
 enum dngRace_Id {
 	dngRace_HUMAN,
 	dngRace_ORC
 };
 
-const struct dngAttrPrimary_Input *
+struct dngAttrPrimaryInput
 dngRace_getBonus(enum dngRace_Id);
 
 #endif

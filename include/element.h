@@ -2,8 +2,7 @@
 #define LIBDNG_ELEMENT_H
 
 enum dngElement {
-	dngElement_AIR,
-	dngElement_PHYSICAL
+	dngElement_AIR
 };
 
 #endif
