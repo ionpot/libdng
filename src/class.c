@@ -3,46 +3,47 @@
 #include <assert.h>
 #include <stdbool.h>
 
-struct dngClass
+typedef struct dngClass T;
+
+T
 dngClass_create(enum dngClass_Id id)
 {
-	return (struct dngClass){
+	return (T){
 		.id = id,
 		.level = 1
 	};
 }
 
 int
-dngClass_getAttackBonus(const struct dngClass * klass)
+dngClass_getAttackBonus(const T * self)
 {
-	assert(klass);
-
-	switch (klass->id) {
+	assert(self);
+	switch (self->id) {
 	case dngClass_FIGHTER:
-		return 4 * klass->level;
+		return 4 * self->level;
 	case dngClass_MAGE:
-		return 2 * klass->level;
+		return 2 * self->level;
 	default:
 		assert(false);
 	}
 }
 
 int
-dngClass_getHealthBonus(const struct dngClass * klass)
+dngClass_getHealthBonus(const T * self)
 {
-	assert(klass);
-	switch (klass->id) {
+	assert(self);
+	switch (self->id) {
 	case dngClass_FIGHTER:
-		return 4 * klass->level;
+		return 4 * self->level;
 	case dngClass_MAGE:
-		return 2 * klass->level;
+		return 2 * self->level;
 	}
 	assert(false);
 }
 
 void
-dngClass_levelUp(struct dngClass * klass)
+dngClass_levelUp(T * self)
 {
-	assert(klass);
-	klass->level += 1;
+	assert(self);
+	self->level += 1;
 }
