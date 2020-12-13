@@ -29,8 +29,8 @@ create(struct dngMemPool * mem)
 	self->combat = dngCombat_create(mem, self->bag);
 	if (!self->combat)
 		return NULL;
-	self->dices = dngDicePool_create(mem, self->bag);
-	if (!self->dices.pool)
+	self->dice = dngDicePool_create(mem, self->bag);
+	if (!self->dice.pool)
 		return NULL;
 	self->entities = dngEntities_create(mem);
 	if (!self->entities.nodes)

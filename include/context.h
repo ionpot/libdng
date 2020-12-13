@@ -19,7 +19,7 @@ union dngContext_Input {
 struct dngContext {
 	struct dngIntBag * bag;
 	struct dngCombat * combat;
-	struct dngDicePool dices;
+	struct dngDicePool dice;
 	struct dngEntities entities;
 	struct dngEventList events;
 	struct dngGrid grid;

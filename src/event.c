@@ -16,7 +16,7 @@ dngEvent_doCombatBegin(struct dngContext * context)
 {
 	assert(context);
 
-	dngDicePool_reset(context->dices);
+	dngDicePool_reset(context->dice);
 	dngGrid_resetSide(&context->grid.side_b, context->entities);
 
 	struct dngEntity * orc =
@@ -26,9 +26,9 @@ dngEvent_doCombatBegin(struct dngContext * context)
 		goto no_mem;
 
 	struct dngEntityInput input =
-		dngEntityInput_rollOrcFighter(context->dices, context->slots);
+		dngEntityInput_rollOrcFighter(context->dice, context->slots);
 
-	if (dngPool_noMem(context->dices.pool))
+	if (dngPool_noMem(context->dice.pool))
 		goto no_mem;
 	if (dngNodes_noMem(context->slots.nodes))
 		goto no_mem;
