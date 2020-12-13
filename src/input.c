@@ -6,6 +6,7 @@
 #include "entities.h"
 #include "grid.h"
 #include "input-def.h"
+#include "nodes.h"
 
 #include <assert.h>
 
@@ -22,7 +23,7 @@ dngInput_forEntity(struct dngContext * context, struct dngInput_NewEntity input)
 	assert(context);
 	struct dngEntity * entity = dngEntities_next(context->entities);
 	if (!entity)
-		return;
+		goto no_mem;
 	struct dngEntityInput entity_input = {
 		.attr = input.attr,
 		.klass = input.klass,
@@ -31,5 +32,10 @@ dngInput_forEntity(struct dngContext * context, struct dngInput_NewEntity input)
 		.weapon = input.weapon
 	};
 	*entity = dngEntity_fromInput(&entity_input);
+	if (dngNodes_noMem(context->slots.nodes))
+		goto no_mem;
 	dngGrid_putEntity(&context->grid, input.position, entity);
+	return;
+no_mem:
+	dngContext_setNoMem(context);
 }
