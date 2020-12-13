@@ -8,6 +8,8 @@
 #include "entities.h"
 #include "event-list.h"
 #include "grid.h"
+#include "nodes.h"
+#include "pool.h"
 
 #include <assert.h>
 
