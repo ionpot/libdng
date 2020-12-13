@@ -15,20 +15,38 @@ void
 dngEvent_doCombatBegin(struct dngContext * context)
 {
 	assert(context);
+
 	dngDicePool_reset(context->dices);
 	dngGrid_resetSide(&context->grid.side_b, context->entities);
+
 	struct dngEntity * orc =
 		dngEntities_next(context->entities);
+
+	if (!orc)
+		goto no_mem;
+
 	struct dngEntityInput input =
 		dngEntityInput_rollOrcFighter(context->dices, context->slots);
+
+	if (dngPool_noMem(context->dices.pool))
+		goto no_mem;
+	if (dngNodes_noMem(context->slots.nodes))
+		goto no_mem;
+
+	*orc = dngEntity_fromInput(&input);
+
 	struct dngGrid_Position position = {
 		.line = dngGrid_LINE_FRONT,
 		.side = dngGrid_SIDE_B,
 		.slot = dngGrid_SLOT_2
 	};
-	*orc = dngEntity_fromInput(&input);
 	dngGrid_putEntity(&context->grid, position, orc);
 	dngCombat_init(context->combat, &context->grid);
+
+	return;
+
+no_mem:
+	dngContext_setNoMem(context);
 }
 
 int

@@ -4,6 +4,7 @@
 #include "mempool.h"
 
 #include <assert.h>
+#include <stdbool.h>
 #include <stddef.h>
 
 #define NODES_PER_ALLOC 5
@@ -17,6 +18,7 @@ struct dngPool {
 	struct Node * avlb;
 	size_t content_size;
 	struct dngMemPool * mempool;
+	bool no_mem;
 	struct Node * used;
 	struct Node * used_last;
 };
@@ -91,6 +93,7 @@ dngPool_create(struct dngMemPool * mem, size_t content_size)
 		.avlb = NULL,
 		.content_size = dngInt_padSize(content_size),
 		.mempool = mem,
+		.no_mem = false,
 		.used = NULL,
 		.used_last = NULL
 	};
@@ -102,9 +105,17 @@ dngPool_next(T * self)
 {
 	assert(self);
 	struct Node * node = nextNode(self);
+	self->no_mem = !node;
 	return node
 		? node->content
 		: NULL;
+}
+
+bool
+dngPool_noMem(const T * self)
+{
+	assert(self);
+	return self->no_mem;
 }
 
 void

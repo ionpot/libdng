@@ -9,6 +9,7 @@
 #include "int-bag.h"
 #include "mempool.h"
 #include "spell-slots.h"
+#include "status.h"
 
 #include <assert.h>
 #include <stddef.h>
@@ -40,6 +41,7 @@ create(struct dngMemPool * mem)
 	self->slots = dngSpellSlots_create(mem);
 	if (!self->slots.nodes)
 		return NULL;
+	self->status = dngStatus_OK;
 	return self;
 }
 
@@ -69,4 +71,11 @@ dngContext_reset(T * self)
 {
 	assert(self);
 	self->events = dngEventList_create();
+}
+
+void
+dngContext_setNoMem(struct dngContext * context)
+{
+	assert(context);
+	context->status = dngStatus_NO_MEM;
 }

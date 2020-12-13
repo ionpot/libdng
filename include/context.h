@@ -10,6 +10,7 @@
 #include "int-bag.h"
 #include "mempool.h"
 #include "spell-slots.h"
+#include "status.h"
 
 union dngContext_Input {
 	struct dngInput_Attack attack;
@@ -25,6 +26,7 @@ struct dngContext {
 	union dngContext_Input input;
 	struct dngMemPool * mempool;
 	struct dngSpellSlots slots;
+	enum dngStatus status;
 };
 
 struct dngContext *
@@ -35,5 +37,8 @@ dngContext_destroy(struct dngContext *);
 
 void
 dngContext_reset(struct dngContext *);
+
+void
+dngContext_setNoMem(struct dngContext *);
 
 #endif
