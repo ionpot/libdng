@@ -1,15 +1,10 @@
 #ifndef LIBDNG_COMBAT_H
 #define LIBDNG_COMBAT_H
 
-#include "entity.h"
 #include "grid.h"
+#include "grid-slot.h"
 #include "int-bag.h"
 #include "mempool.h"
-
-struct dngCombat_Turn {
-	struct dngEntity * entity;
-	struct dngGrid_Position position;
-};
 
 struct dngCombat;
 
@@ -22,7 +17,7 @@ dngCombat_init(struct dngCombat *, const struct dngGrid *);
 int
 dngCombat_getRound(const struct dngCombat *);
 
-struct dngCombat_Turn
+struct dngGridSlot
 dngCombat_getTurn(const struct dngCombat *);
 
 bool

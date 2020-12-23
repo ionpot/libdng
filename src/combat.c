@@ -3,6 +3,7 @@
 #include "attr.h"
 #include "entity.h"
 #include "grid.h"
+#include "grid-slot.h"
 #include "int-bag.h"
 #include "mempool.h"
 
@@ -119,12 +120,12 @@ dngCombat_getRound(const T * self)
 	return self->round;
 }
 
-struct dngCombat_Turn
+struct dngGridSlot
 dngCombat_getTurn(const T * self)
 {
 	assert(self);
 	const struct Turn * turn = getTurn(self);
-	return (struct dngCombat_Turn){
+	return (struct dngGridSlot){
 		.entity = turn->entity,
 		.position = turn->position
 	};
