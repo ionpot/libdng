@@ -9,4 +9,7 @@ struct dngGridSlot {
 	struct dngGrid_Position position;
 };
 
+struct dngGridSlot
+dngGridSlot_fromPosition(const struct dngGrid *, struct dngGrid_Position);
+
 #endif

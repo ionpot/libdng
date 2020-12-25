@@ -14,9 +14,8 @@
 #define TURNS dngGrid_SLOTS
 
 struct Turn {
-	struct dngEntity * entity;
 	int initiative;
-	struct dngGrid_Position position;
+	struct dngGridSlot slot;
 };
 
 struct dngCombat {
@@ -38,12 +37,33 @@ getInitiative(const struct dngEntity * entity)
 }
 
 static const struct Turn *
+getTurnAt(const T * self, int i)
+{
+	assert(self);
+	assert(i >= 0);
+	assert(i < self->used);
+	return self->turns + i;
+}
+
+static struct dngGridSlot
+getSlotAt(const T * self, int i)
+{
+	assert(self);
+	return getTurnAt(self, i)->slot;
+}
+
+static const struct Turn *
 getTurn(const T * self)
 {
 	assert(self);
-	assert(self->turn >= 0);
-	assert(self->turn < self->used);
-	return self->turns + self->turn;
+	return getTurnAt(self, self->turn);
+}
+
+static struct dngGridSlot
+getSlot(const T * self)
+{
+	assert(self);
+	return getTurn(self)->slot;
 }
 
 static int
@@ -51,8 +71,8 @@ cmpturns(const void * arg_a, const void * arg_b)
 {
 	const struct Turn * turn_a = arg_a;
 	const struct Turn * turn_b = arg_b;
-	int a = getInitiative(turn_a->entity);
-	int b = getInitiative(turn_b->entity);
+	int a = getInitiative(turn_a->slot.entity);
+	int b = getInitiative(turn_b->slot.entity);
 	if (a == b) {
 		a = turn_a->initiative;
 		b = turn_b->initiative;
@@ -65,10 +85,9 @@ hasAlive(const T * self, enum dngGrid_SideId side)
 {
 	assert(self);
 	for (int i = 0; i < self->used; i++) {
-		const struct Turn * turn =
-			self->turns + i;
-		if (turn->position.side == side)
-			if (dngEntity_isAlive(turn->entity))
+		struct dngGridSlot slot = getSlotAt(self, i);
+		if (slot.position.side == side)
+			if (dngEntity_isAlive(slot.entity))
 				return true;
 	}
 	return false;
@@ -96,16 +115,13 @@ dngCombat_init(T * self, const struct dngGrid * grid)
 	assert(grid);
 	self->used = 0;
 	for (int i = 0; i < TURNS; i++) {
-		struct dngGrid_Position pos =
-			dngGrid_positions[i];
-		struct dngEntity * entity =
-			dngGrid_getEntity(grid, pos);
-		if (!entity)
+		struct dngGridSlot slot =
+			dngGridSlot_fromPosition(grid, dngGrid_positions[i]);
+		if (!slot.entity)
 			continue;
 		self->turns[self->used++] = (struct Turn){
-			.entity = entity,
 			.initiative = dngIntBag_next(self->bag),
-			.position = pos
+			.slot = slot
 		};
 	}
 	self->round = 0;
@@ -124,11 +140,7 @@ struct dngGridSlot
 dngCombat_getTurn(const T * self)
 {
 	assert(self);
-	const struct Turn * turn = getTurn(self);
-	return (struct dngGridSlot){
-		.entity = turn->entity,
-		.position = turn->position
-	};
+	return getSlot(self);
 }
 
 bool
@@ -154,7 +166,7 @@ bool
 dngCombat_isTurnOfSide(const T * self, enum dngGrid_SideId side)
 {
 	assert(self);
-	return getTurn(self)->position.side == side;
+	return getSlot(self).position.side == side;
 }
 
 void
@@ -172,8 +184,8 @@ dngCombat_nextTurn(T * self)
 	assert(self->turn <= self->used);
 	int i = (self->turn == self->used) ? 0 : self->turn + 1;
 	for (; i < self->used; i++) {
-		const struct Turn * turn = self->turns + i;
-		if (dngEntity_isAlive(turn->entity))
+		struct dngGridSlot slot = getSlotAt(self, i);
+		if (dngEntity_isAlive(slot.entity))
 			break;
 	}
 	self->turn = i;
