@@ -20,6 +20,7 @@ struct Turn {
 
 struct dngCombat {
 	struct dngIntBag * bag;
+	const struct dngGrid * grid;
 	int round;
 	int turn;
 	struct Turn turns[TURNS];
@@ -27,6 +28,19 @@ struct dngCombat {
 };
 
 typedef struct dngCombat T;
+
+static int
+getIndexOfEntity(const T * self, const struct dngEntity * entity)
+{
+	assert(self);
+	assert(entity);
+	assert(self->used <= TURNS);
+	for (int i = 0; i < self->used; i++) {
+		if (self->turns[i].slot.entity == entity)
+			return i;
+	}
+	return -1;
+}
 
 static int
 getInitiative(const struct dngEntity * entity)
@@ -102,6 +116,7 @@ dngCombat_create(struct dngMemPool * mem, struct dngIntBag * bag)
 	T * self = dngMemPool_alloc(mem, sizeof(T));
 	if (self) {
 		self->bag = bag;
+		self->grid = NULL;
 		self->round = 0;
 		self->turn = 0;
 		self->used = 0;
@@ -114,6 +129,7 @@ dngCombat_init(T * self, const struct dngGrid * grid)
 {
 	assert(self);
 	assert(grid);
+	self->grid = grid;
 	self->used = 0;
 	for (int i = 0; i < TURNS; i++) {
 		struct dngGridSlot slot =
@@ -128,6 +144,27 @@ dngCombat_init(T * self, const struct dngGrid * grid)
 	self->round = 0;
 	self->turn = self->used;
 	qsort(self->turns, self->used, sizeof(struct Turn), cmpturns);
+}
+
+struct dngEntity *
+dngCombat_findFirstReachable(const T * self, struct dngGridSlot source)
+{
+	assert(self);
+	assert(self->grid);
+	assert(self->used > 0);
+	assert(self->used <= TURNS);
+	int offset = getIndexOfEntity(self, source.entity);
+	assert(offset >= 0);
+	int count = self->used - 1;
+	for (int i = 1; i < count; i++) {
+		struct dngGridSlot target
+			= getSlotAt(self, (offset + i) % self->used);
+		if (target.position.side == source.position.side)
+			continue;
+		if (dngGrid_canReach(self->grid, source.position, target.position))
+			return target.entity;
+	}
+	return NULL;
 }
 
 int
