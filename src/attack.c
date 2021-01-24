@@ -1,53 +1,55 @@
 #include "attack.h"
 
-#include "entity.h"
+#include "chance.h"
+#include "evasion.h"
+#include "hit-chance.h"
+#include "int-bag.h"
+#include "spell-action.h"
+#include "weapon-action.h"
 
 #include <assert.h>
-
-#define BASE_CHANCE 60
+#include <stdbool.h>
 
 typedef struct dngAttack T;
 
-static struct dngAttack_Bonus
-getBonus(const struct dngEntity * entity)
+T
+dngAttack_fromSpell(struct dngSpellAction spell)
 {
-	assert(entity);
-	return (struct dngAttack_Bonus){
-		.klass = dngClass_getAttackBonus(&entity->klass)
-	};
-}
-
-static struct dngAttack_Penalty
-getPenalty(const struct dngEntity * entity)
-{
-	assert(entity);
-	struct dngAttr armor = dngEntity_getArmor(entity);
-	struct dngAttr dodge = dngEntity_getDodge(entity);
-	return (struct dngAttack_Penalty){
-		.armor = dngAttr_getTotal(armor),
-		.dodge = dngAttr_getTotal(dodge)
+	return (T){
+		.evasion = dngEvasion_fromSpell(spell),
+		.hit_chance = dngHitChance_withSpell()
 	};
 }
 
 T
-dngAttack_fromPair(struct dngEntity_Pair pair)
+dngAttack_fromWeapon(struct dngWeaponAction weapon)
 {
-	assert(pair.source);
-	assert(pair.target);
 	return (T){
-		.base = BASE_CHANCE,
-		.bonus = getBonus(pair.source),
-		.penalty = getPenalty(pair.target)
+		.evasion = dngEvasion_fromWeapon(weapon),
+		.hit_chance = dngHitChance_withWeapon(weapon)
 	};
 }
 
-int
-dngAttack_getPercent(const T * self)
+enum dngAttack_Result
+dngAttack_getResult(const T * self, struct dngAttack_Roll roll)
 {
 	assert(self);
-	int percent = self->base;
-	percent += self->bonus.klass;
-	percent -= self->penalty.armor;
-	percent -= self->penalty.dodge;
-	return percent;
+	struct dngChance hit_chance =
+		dngHitChance_getTotal(self->hit_chance);
+	struct dngChance evasion =
+		dngEvasion_getTotal(self->evasion);
+	if (dngChance_isSuccess(hit_chance, roll.attack))
+		if (!dngChance_isSuccess(evasion, roll.evasion))
+			return dngAttack_HIT;
+	return dngAttack_MISS;
+}
+
+struct dngAttack_Roll
+dngAttack_roll(struct dngIntBag * bag)
+{
+	assert(bag);
+	return (struct dngAttack_Roll){
+		.attack = dngChance_roll(bag),
+		.evasion = dngChance_roll(bag)
+	};
 }

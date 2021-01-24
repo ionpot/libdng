@@ -1,32 +1,37 @@
 #ifndef LIBDNG_ATTACK_H
 #define LIBDNG_ATTACK_H
 
-#include "entity.h"
+#include "evasion.h"
+#include "hit-chance.h"
+#include "int-bag.h"
+#include "spell-action.h"
+#include "weapon-action.h"
 
 enum dngAttack_Result {
 	dngAttack_HIT,
 	dngAttack_MISS
 };
 
-struct dngAttack_Bonus {
-	int klass;
-};
-
-struct dngAttack_Penalty {
-	int armor;
-	int dodge;
+struct dngAttack_Roll {
+	int attack;
+	int evasion;
 };
 
 struct dngAttack {
-	int base;
-	struct dngAttack_Bonus bonus;
-	struct dngAttack_Penalty penalty;
+	struct dngEvasion evasion;
+	struct dngHitChance hit_chance;
 };
 
 struct dngAttack
-dngAttack_fromPair(struct dngEntity_Pair);
+dngAttack_fromSpell(struct dngSpellAction);
 
-int
-dngAttack_getPercent(const struct dngAttack *);
+struct dngAttack
+dngAttack_fromWeapon(struct dngWeaponAction);
+
+enum dngAttack_Result
+dngAttack_getResult(const struct dngAttack *, struct dngAttack_Roll);
+
+struct dngAttack_Roll
+dngAttack_roll(struct dngIntBag *);
 
 #endif
