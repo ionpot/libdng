@@ -2,18 +2,18 @@
 #define LIBDNG_CONTEXT_H
 
 #include "combat.h"
+#include "combat-action.h"
 #include "dice-pool.h"
 #include "entities.h"
 #include "event-list.h"
 #include "grid.h"
-#include "input-def.h"
 #include "int-bag.h"
 #include "mempool.h"
 #include "spell-slots.h"
 #include "status.h"
 
 union dngContext_Input {
-	struct dngInput_Attack attack;
+	struct dngCombatAction action;
 };
 
 struct dngContext {

@@ -1,5 +1,6 @@
 #include "input.h"
 
+#include "combat-action.h"
 #include "context.h"
 #include "entity.h"
 #include "entity-input.h"
@@ -11,10 +12,10 @@
 #include <assert.h>
 
 void
-dngInput_forAttack(struct dngContext * context, struct dngInput_Attack input)
+dngInput_forCombatAction(struct dngContext * context, struct dngCombatAction input)
 {
 	assert(context);
-	context->input.attack = input;
+	context->input.action = input;
 }
 
 void

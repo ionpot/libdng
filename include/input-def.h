@@ -1,24 +1,10 @@
 #ifndef LIBDNG_INPUT_DEF_H
 #define LIBDNG_INPUT_DEF_H
 
-#include "attack.h"
 #include "attr-primary-input.h"
 #include "class.h"
-#include "context.h"
 #include "grid.h"
-#include "spell-id.h"
-#include "weapon.h"
-
-enum dngInput_AttackType {
-	dngInput_AttackType_SPELL,
-	dngInput_AttackType_WEAPON
-};
-
-struct dngInput_Attack {
-	enum dngSpell_Id spell;
-	struct dngGrid_Position target;
-	enum dngInput_AttackType type;
-};
+#include "weapon-id.h"
 
 struct dngInput_NewEntity {
 	struct dngAttrPrimaryInput attr;
