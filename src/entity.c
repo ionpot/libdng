@@ -22,7 +22,7 @@ toHealth(
 	assert(klass);
 
 	struct dngHealth health =
-		dngHealth_fromAttr(&attr->strength);
+		dngHealth_fromAttr(attr->strength);
 
 	int bonus = dngClass_getHealthBonus(klass);
 
@@ -112,5 +112,5 @@ bool
 dngEntity_isAlive(const T * self)
 {
 	assert(self);
-	return dngHealth_getRemaining(&self->health) > 0;
+	return dngHealth_getRemaining(self->health) > 0;
 }

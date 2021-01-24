@@ -11,7 +11,7 @@ struct dngHealth {
 };
 
 struct dngHealth
-dngHealth_fromAttr(const struct dngAttr *);
+dngHealth_fromAttr(struct dngAttr);
 
 struct dngHealth
 dngHealth_fromBase(int);
@@ -20,13 +20,13 @@ void
 dngHealth_gain(struct dngHealth *, int);
 
 int
-dngHealth_getRemaining(const struct dngHealth *);
+dngHealth_getRemaining(struct dngHealth);
 
 int
-dngHealth_getTotal(const struct dngHealth *);
+dngHealth_getTotal(struct dngHealth);
 
 bool
-dngHealth_hasRemaining(const struct dngHealth *);
+dngHealth_hasRemaining(struct dngHealth);
 
 void
 dngHealth_lose(struct dngHealth *, int);

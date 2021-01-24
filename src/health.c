@@ -9,10 +9,9 @@
 typedef struct dngHealth T;
 
 T
-dngHealth_fromAttr(const struct dngAttr * attr)
+dngHealth_fromAttr(struct dngAttr attr)
 {
-	assert(attr);
-	return dngHealth_fromBase(dngAttr_getTotal(*attr));
+	return dngHealth_fromBase(dngAttr_getTotal(attr));
 }
 
 T
@@ -32,23 +31,20 @@ dngHealth_gain(T * self, int amount)
 }
 
 int
-dngHealth_getRemaining(const T * self)
+dngHealth_getRemaining(T self)
 {
-	assert(self);
-	return dngHealth_getTotal(self) - self->lost;
+	return dngHealth_getTotal(self) - self.lost;
 }
 
 int
-dngHealth_getTotal(const T * self)
+dngHealth_getTotal(T self)
 {
-	assert(self);
-	return dngAttr_getTotal(self->total);
+	return dngAttr_getTotal(self.total);
 }
 
 bool
-dngHealth_hasRemaining(const T * self)
+dngHealth_hasRemaining(T self)
 {
-	assert(self);
 	return dngHealth_getRemaining(self) > 0;
 }
 
