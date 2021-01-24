@@ -84,6 +84,7 @@ static bool
 hasAlive(const T * self, enum dngGrid_SideId side)
 {
 	assert(self);
+	assert(self->used <= TURNS);
 	for (int i = 0; i < self->used; i++) {
 		struct dngGridSlot slot = getSlotAt(self, i);
 		if (slot.position.side == side)
@@ -182,6 +183,7 @@ dngCombat_nextTurn(T * self)
 {
 	assert(self);
 	assert(self->turn <= self->used);
+	assert(self->used <= TURNS);
 	int i = (self->turn == self->used) ? 0 : self->turn + 1;
 	for (; i < self->used; i++) {
 		struct dngGridSlot slot = getSlotAt(self, i);
