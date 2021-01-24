@@ -2,47 +2,49 @@
 
 #include <assert.h>
 
-struct dngAttr
+typedef struct dngAttr T;
+
+T
 dngAttr_fromBase(int amount)
 {
-	return (struct dngAttr){
+	return (T){
 		.base = amount,
 		.bonus = 0
 	};
 }
 
-struct dngAttr
-dngAttr_add(struct dngAttr a, struct dngAttr b)
+T
+dngAttr_add(T a, T b)
 {
-	return (struct dngAttr){
+	return (T){
 		.base = a.base + b.base,
 		.bonus = a.bonus + b.bonus
 	};
 }
 
 void
-dngAttr_addBase(struct dngAttr * attr, int amount)
+dngAttr_addBase(T * self, int amount)
 {
-	assert(attr);
-	attr->base += amount;
+	assert(self);
+	self->base += amount;
 }
 
 void
-dngAttr_addBonus(struct dngAttr * attr, int amount)
+dngAttr_addBonus(T * self, int amount)
 {
-	assert(attr);
-	attr->bonus += amount;
+	assert(self);
+	self->bonus += amount;
 }
 
 int
-dngAttr_getTotal(struct dngAttr attr)
+dngAttr_getTotal(T self)
 {
-	return attr.base + attr.bonus;
+	return self.base + self.bonus;
 }
 
 void
-dngAttr_setBonus(struct dngAttr * attr, int bonus)
+dngAttr_setBonus(T * self, int bonus)
 {
-	assert(attr);
-	attr->bonus = bonus;
+	assert(self);
+	self->bonus = bonus;
 }

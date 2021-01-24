@@ -4,10 +4,12 @@
 
 #include <assert.h>
 
-struct dngAttrPrimary
+typedef struct dngAttrPrimary T;
+
+T
 dngAttrPrimary_fromInput(struct dngAttrPrimaryInput input)
 {
-	return (struct dngAttrPrimary){
+	return (T){
 		.agility = dngAttr_fromBase(input.agility),
 		.intellect = dngAttr_fromBase(input.intellect),
 		.strength = dngAttr_fromBase(input.strength)
@@ -15,12 +17,10 @@ dngAttrPrimary_fromInput(struct dngAttrPrimaryInput input)
 }
 
 void
-dngAttrPrimary_addInputToBase(
-	struct dngAttrPrimary * attr,
-	struct dngAttrPrimaryInput input
-) {
-	assert(attr);
-	dngAttr_addBase(&attr->agility, input.agility);
-	dngAttr_addBase(&attr->intellect, input.intellect);
-	dngAttr_addBase(&attr->strength, input.strength);
+dngAttrPrimary_addInputToBase(T * self, struct dngAttrPrimaryInput input)
+{
+	assert(self);
+	dngAttr_addBase(&self->agility, input.agility);
+	dngAttr_addBase(&self->intellect, input.intellect);
+	dngAttr_addBase(&self->strength, input.strength);
 }

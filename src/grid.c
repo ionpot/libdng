@@ -33,6 +33,8 @@
 		return &line->slot_3;\
 	}
 
+typedef struct dngGrid T;
+
 const struct dngGrid_Position
 dngGrid_positions[dngGrid_SLOTS] = {
 	{ 	.side = dngGrid_SIDE_A,
@@ -115,22 +117,18 @@ getLine_const(
 }
 
 static struct dngGrid_Side *
-getSide(
-	struct dngGrid * grid,
-	enum dngGrid_SideId side_id
-) {
-	assert(grid);
-	macro_switchSide(side_id, grid) 
+getSide(T * self, enum dngGrid_SideId side_id)
+{
+	assert(self);
+	macro_switchSide(side_id, self) 
 	assert(false);
 }
 
 static const struct dngGrid_Side *
-getSide_const(
-	const struct dngGrid * grid,
-	enum dngGrid_SideId side_id
-) {
-	assert(grid);
-	macro_switchSide(side_id, grid) 
+getSide_const(const T * self, enum dngGrid_SideId side_id)
+{
+	assert(self);
+	macro_switchSide(side_id, self) 
 	assert(false);
 }
 
@@ -155,26 +153,22 @@ getSlot_const(
 }
 
 static struct dngEntity **
-grid2slot(
-	struct dngGrid * grid,
-	struct dngGrid_Position position
-) {
-	assert(grid);
+grid2slot(T * self, struct dngGrid_Position position)
+{
+	assert(self);
 	struct dngGrid_Side * side =
-		getSide(grid, position.side);
+		getSide(self, position.side);
 	struct dngGrid_Line * line =
 		getLine(side, position.line);
 	return getSlot(line, position.slot);
 }
 
 static struct dngEntity * const *
-grid2slot_const(
-	const struct dngGrid * grid,
-	struct dngGrid_Position position
-) {
-	assert(grid);
+grid2slot_const(const T * self, struct dngGrid_Position position)
+{
+	assert(self);
 	const struct dngGrid_Side * side =
-		getSide_const(grid, position.side);
+		getSide_const(self, position.side);
 	const struct dngGrid_Line * line =
 		getLine_const(side, position.line);
 	return getSlot_const(line, position.slot);
@@ -258,14 +252,14 @@ resetLine(struct dngGrid_Line * line, struct dngEntities entities)
 
 bool
 dngGrid_canReach(
-	const struct dngGrid * grid,
+	const T * self,
 	struct dngGrid_Position s_pos,
 	struct dngGrid_Position t_pos
 ) {
-	assert(grid);
+	assert(self);
 
 	const struct dngGrid_Side * s_side =
-		getSide_const(grid, s_pos.side);
+		getSide_const(self, s_pos.side);
 
 	const struct dngGrid_Line * s_line =
 		getLine_const(s_side, s_pos.line);
@@ -281,7 +275,7 @@ dngGrid_canReach(
 	}
 
 	const struct dngGrid_Side * t_side =
-		getSide_const(grid, t_pos.side);
+		getSide_const(self, t_pos.side);
 
 	const struct dngGrid_Line * t_line =
 		getLine_const(t_side, t_pos.line);
@@ -306,11 +300,11 @@ dngGrid_canReach(
 }
 
 void
-dngGrid_clear(struct dngGrid * grid)
+dngGrid_clear(T * self)
 {
-	assert(grid);
-	dngGrid_clearSide(&grid->side_a);
-	dngGrid_clearSide(&grid->side_b);
+	assert(self);
+	dngGrid_clearSide(&self->side_a);
+	dngGrid_clearSide(&self->side_b);
 }
 
 void
@@ -322,23 +316,21 @@ dngGrid_clearSide(struct dngGrid_Side * side)
 }
 
 struct dngEntity *
-dngGrid_getEntity(
-	const struct dngGrid * grid,
-	struct dngGrid_Position position
-) {
-	assert(grid);
-	return *grid2slot_const(grid, position);
+dngGrid_getEntity(const T * self, struct dngGrid_Position position)
+{
+	assert(self);
+	return *grid2slot_const(self, position);
 }
 
 void
 dngGrid_putEntity(
-	struct dngGrid * grid,
+	T * self,
 	struct dngGrid_Position position,
 	struct dngEntity * entity
 ) {
-	assert(grid);
+	assert(self);
 	struct dngEntity ** slot =
-		grid2slot(grid, position);
+		grid2slot(self, position);
 	*slot = entity;
 }
 
