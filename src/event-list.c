@@ -12,8 +12,8 @@ event_order[] = {
 	dngInput_ENTITY,
 	dngEvent_COMBAT_BEGIN,
 	dngEvent_NEXT_ROUND,
-	dngInput_ATTACK,
-	dngEvent_ATTACK,
+	dngInput_COMBAT_ACTION,
+	dngEvent_COMBAT_ACTION,
 	dngEvent_DAMAGE,
 	dngEvent_COMBAT_END,
 	dngEvent_END

@@ -66,7 +66,7 @@ dngEvent_next(struct dngContext * context)
 	enum dngEvent_Id id =
 		dngEventList_next(&context->events);
 	switch (id) {
-	case dngInput_ATTACK:
+	case dngInput_COMBAT_ACTION:
 		if (dngCombat_isTurnOfSide(context->combat, dngGrid_SIDE_A))
 			return id;
 		break;
