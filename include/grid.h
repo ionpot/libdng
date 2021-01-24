@@ -66,8 +66,8 @@ dngGrid_positions[dngGrid_SLOTS];
 bool
 dngGrid_canReach(
 	const struct dngGrid *,
-	const struct dngGrid_Position * source,
-	const struct dngGrid_Position * target
+	struct dngGrid_Position source,
+	struct dngGrid_Position target
 );
 
 void

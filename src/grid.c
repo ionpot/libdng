@@ -194,19 +194,17 @@ line2bool(
 static bool
 canReachSameLine(
 	const struct dngGrid_Line * line,
-	const struct dngGrid_Position * s_pos,
-	const struct dngGrid_Position * t_pos
+	struct dngGrid_Position s_pos,
+	struct dngGrid_Position t_pos
 ) {
 	assert(line);
-	assert(s_pos);
-	assert(t_pos);
-	assert(s_pos->side == t_pos->side);
-	assert(s_pos->line == t_pos->line);
+	assert(s_pos.side == t_pos.side);
+	assert(s_pos.line == t_pos.line);
 
-	if (s_pos->slot == dngGrid_SLOT_2)
+	if (s_pos.slot == dngGrid_SLOT_2)
 		return true;
 
-	if (t_pos->slot == dngGrid_SLOT_2)
+	if (t_pos.slot == dngGrid_SLOT_2)
 		return true;
 
 	return line->slot_2 == NULL;
@@ -215,25 +213,23 @@ canReachSameLine(
 static bool
 canReachLine(
 	const struct dngGrid_Line * t_line,
-	const struct dngGrid_Position * s_pos,
-	const struct dngGrid_Position * t_pos
+	struct dngGrid_Position s_pos,
+	struct dngGrid_Position t_pos
 ) {
 	assert(t_line);
-	assert(s_pos);
-	assert(t_pos);
-	assert(!(s_pos->side == t_pos->side
-				&& s_pos->line == t_pos->line));
+	assert(!(s_pos.side == t_pos.side
+				&& s_pos.line == t_pos.line));
 
-	if (s_pos->slot == dngGrid_SLOT_2)
+	if (s_pos.slot == dngGrid_SLOT_2)
 		return true;
 
-	if (t_pos->slot == dngGrid_SLOT_2)
+	if (t_pos.slot == dngGrid_SLOT_2)
 		return true;
 
-	if (s_pos->slot == t_pos->slot)
+	if (s_pos.slot == t_pos.slot)
 		return true;
 
-	if (!line2bool(t_line, s_pos->slot))
+	if (!line2bool(t_line, s_pos.slot))
 		if (!t_line->slot_2)
 			return true;
 
@@ -263,37 +259,35 @@ resetLine(struct dngGrid_Line * line, struct dngEntities entities)
 bool
 dngGrid_canReach(
 	const struct dngGrid * grid,
-	const struct dngGrid_Position * s_pos,
-	const struct dngGrid_Position * t_pos
+	struct dngGrid_Position s_pos,
+	struct dngGrid_Position t_pos
 ) {
 	assert(grid);
-	assert(s_pos);
-	assert(t_pos);
 
 	const struct dngGrid_Side * s_side =
-		getSide_const(grid, s_pos->side);
+		getSide_const(grid, s_pos.side);
 
 	const struct dngGrid_Line * s_line =
-		getLine_const(s_side, s_pos->line);
+		getLine_const(s_side, s_pos.line);
 
-	if (s_pos->side == t_pos->side) {
-		if (s_pos->line == t_pos->line) {
+	if (s_pos.side == t_pos.side) {
+		if (s_pos.line == t_pos.line) {
 			return canReachSameLine(s_line, s_pos, t_pos);
 		}
 		const struct dngGrid_Line * t_line =
-			getLine_const(s_side, t_pos->line);
+			getLine_const(s_side, t_pos.line);
 
 		return canReachLine(t_line, s_pos, t_pos);
 	}
 
 	const struct dngGrid_Side * t_side =
-		getSide_const(grid, t_pos->side);
+		getSide_const(grid, t_pos.side);
 
 	const struct dngGrid_Line * t_line =
-		getLine_const(t_side, t_pos->line);
+		getLine_const(t_side, t_pos.line);
 
-	if (s_pos->line == dngGrid_LINE_FRONT) {
-		if (t_pos->line == dngGrid_LINE_BACK) {
+	if (s_pos.line == dngGrid_LINE_FRONT) {
+		if (t_pos.line == dngGrid_LINE_BACK) {
 			if (hasEntity(t_side->front))
 				return false;
 		}
@@ -303,7 +297,7 @@ dngGrid_canReach(
 	if (hasEntity(s_side->front))
 		return false;
 
-	if (t_pos->line == dngGrid_LINE_BACK) {
+	if (t_pos.line == dngGrid_LINE_BACK) {
 		if (hasEntity(t_side->front))
 			return false;
 	}
