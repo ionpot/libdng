@@ -34,6 +34,9 @@ dngEntity_clear(struct dngEntity *);
 struct dngAttr
 dngEntity_getArmor(const struct dngEntity *);
 
+int
+dngEntity_getClassLevel(const struct dngEntity *, enum dngClass_Id);
+
 struct dngAttr
 dngEntity_getDodge(const struct dngEntity *);
 

@@ -73,6 +73,13 @@ dngEntity_getArmor(const T * self)
 	return dngAttr_fromBase(0);
 }
 
+int
+dngEntity_getClassLevel(const T * self, enum dngClass_Id id)
+{
+	assert(self);
+	return dngClass_getLevel(&self->klass, id);
+}
+
 struct dngAttr
 dngEntity_getDodge(const T * self)
 {

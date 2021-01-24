@@ -4,10 +4,10 @@
 #include "dice.h"
 #include "dice-pool.h"
 #include "dice-rolls.h"
-#include "element.h"
 #include "entity.h"
 #include "source.h"
-#include "weapon-id.h"
+#include "spell-action.h"
+#include "weapon-action.h"
 
 struct dngDamage_Bonus {
 	int intellect;
@@ -20,17 +20,20 @@ struct dngDamage {
 	enum dngSource source;
 };
 
-struct dngDamage
-dngDamage_ofElectricBolt(const struct dngEntity *);
+void
+dngDamage_apply(int total, struct dngEntity *);
 
 struct dngDamage
-dngDamage_ofElementalBlast(enum dngElement, const struct dngEntity *);
+dngDamage_ofElectricBolt(struct dngSpellAction);
 
 struct dngDamage
-dngDamage_ofEquipped(const struct dngEntity *);
+dngDamage_ofElementalBlast(struct dngSpellAction);
 
 struct dngDamage
-dngDamage_ofWeapon(enum dngWeapon_Id, const struct dngEntity *);
+dngDamage_ofSpell(struct dngSpellAction);
+
+struct dngDamage
+dngDamage_ofWeapon(struct dngWeaponAction);
 
 int
 dngDamage_getTotal(const struct dngDamage *, const struct dngDiceRolls *);

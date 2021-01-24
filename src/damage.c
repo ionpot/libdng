@@ -6,13 +6,15 @@
 #include "dice.h"
 #include "dice-pool.h"
 #include "dice-rolls.h"
-#include "element.h"
 #include "entity.h"
+#include "health.h"
 #include "source.h"
+#include "spell-action.h"
 #include "weapon.h"
-#include "weapon-id.h"
+#include "weapon-action.h"
 
 #include <assert.h>
+#include <stdbool.h>
 
 typedef struct dngDamage T;
 
@@ -46,12 +48,19 @@ getStrengthBonus(const struct dngEntity * entity)
 	return bonus;
 }
 
-T
-dngDamage_ofElectricBolt(const struct dngEntity * entity)
+void
+dngDamage_apply(int total, struct dngEntity * target)
 {
-	assert(entity);
+	assert(target);
+	dngHealth_lose(&target->health, total);
+}
+
+T
+dngDamage_ofElectricBolt(struct dngSpellAction spell)
+{
+	assert(spell.caster);
 	struct dngDice base = dngDice_of(2, dngDie_d8);
-	base.count += dngClass_getLevel(&entity->klass, dngClass_MAGE);
+	base.count += dngEntity_getClassLevel(spell.caster, dngClass_MAGE);
 	return (T){
 		.base = base,
 		.bonus = no_bonus,
@@ -60,32 +69,36 @@ dngDamage_ofElectricBolt(const struct dngEntity * entity)
 }
 
 T
-dngDamage_ofElementalBlast(
-	enum dngElement element,
-	const struct dngEntity * entity
-) {
-	assert(entity);
+dngDamage_ofElementalBlast(struct dngSpellAction spell) {
+	assert(spell.caster);
+	struct dngSpellAction_ElementalBlast params =
+		spell.params.elemental_blast;
 	return (T){
 		.base = dngDice_of(1, dngDie_d4),
-		.bonus = getIntellectBonus(entity),
-		.source = dngSource_fromElement(element)
+		.bonus = getIntellectBonus(spell.caster),
+		.source = dngSource_fromElement(params.element)
 	};
 }
 
 T
-dngDamage_ofEquipped(const struct dngEntity * entity)
+dngDamage_ofSpell(struct dngSpellAction spell)
 {
-	assert(entity);
-	return dngDamage_ofWeapon(entity->weapon, entity);
+	switch (spell.id) {
+	case dngSpell_ELECTRIC_BOLT:
+		return dngDamage_ofElectricBolt(spell);
+	case dngSpell_ELEMENTAL_BLAST:
+		return dngDamage_ofElementalBlast(spell);
+	}
+	assert(false);
 }
 
 T
-dngDamage_ofWeapon(enum dngWeapon_Id id, const struct dngEntity * entity)
+dngDamage_ofWeapon(struct dngWeaponAction weapon)
 {
-	assert(entity);
+	assert(weapon.user);
 	return (T){
-		.base = dngDice_of(1, dngWeapon_getDie(id)),
-		.bonus = getStrengthBonus(entity),
+		.base = dngDice_of(1, dngWeapon_getDie(weapon.id)),
+		.bonus = getStrengthBonus(weapon.user),
 		.source = dngSource_PHYSICAL
 	};
 }
