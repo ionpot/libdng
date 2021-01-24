@@ -33,7 +33,7 @@ getInitiative(const struct dngEntity * entity)
 {
 	assert(entity);
 	struct dngAttr attr = dngEntity_getInitiative(entity);
-	return dngAttr_getTotal(&attr);
+	return dngAttr_getTotal(attr);
 }
 
 static const struct Turn *

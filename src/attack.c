@@ -24,8 +24,8 @@ getPenalty(const struct dngEntity * entity)
 	struct dngAttr armor = dngEntity_getArmor(entity);
 	struct dngAttr dodge = dngEntity_getDodge(entity);
 	return (struct dngAttack_Penalty){
-		.armor = dngAttr_getTotal(&armor),
-		.dodge = dngAttr_getTotal(&dodge)
+		.armor = dngAttr_getTotal(armor),
+		.dodge = dngAttr_getTotal(dodge)
 	};
 }
 

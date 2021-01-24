@@ -35,10 +35,9 @@ dngAttr_addBonus(struct dngAttr * attr, int amount)
 }
 
 int
-dngAttr_getTotal(const struct dngAttr * attr)
+dngAttr_getTotal(struct dngAttr attr)
 {
-	assert(attr);
-	return attr->base + attr->bonus;
+	return attr.base + attr.bonus;
 }
 
 void

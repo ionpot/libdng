@@ -19,7 +19,7 @@ void
 dngAttr_addBonus(struct dngAttr *, int);
 
 int
-dngAttr_getTotal(const struct dngAttr *);
+dngAttr_getTotal(struct dngAttr);
 
 void
 dngAttr_setBonus(struct dngAttr *, int);

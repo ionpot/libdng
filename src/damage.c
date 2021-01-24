@@ -25,7 +25,7 @@ no_bonus = {
 int
 getAttrBonus(struct dngAttr attr)
 {
-	return dngAttr_getTotal(&attr) / 2;
+	return dngAttr_getTotal(attr) / 2;
 }
 
 static struct dngDamage_Bonus

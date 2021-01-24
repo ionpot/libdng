@@ -10,7 +10,7 @@ struct dngHealth
 dngHealth_fromAttr(const struct dngAttr * attr)
 {
 	assert(attr);
-	return dngHealth_fromBase(dngAttr_getTotal(attr));
+	return dngHealth_fromBase(dngAttr_getTotal(*attr));
 }
 
 struct dngHealth
@@ -40,7 +40,7 @@ int
 dngHealth_getTotal(const struct dngHealth * health)
 {
 	assert(health);
-	return dngAttr_getTotal(&health->total);
+	return dngAttr_getTotal(health->total);
 }
 
 bool

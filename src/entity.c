@@ -89,7 +89,7 @@ dngEntity_getInitiative(const T * self)
 	struct dngAttr attr =
 		dngAttr_add(p->agility, p->intellect);
 	return (struct dngAttr){
-		.base = dngAttr_getTotal(&attr),
+		.base = dngAttr_getTotal(attr),
 		.bonus = dngWeapon_getInitiative(self->weapon)
 	};
 }
