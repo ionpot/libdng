@@ -182,6 +182,13 @@ no_mem:
 }
 
 void
+dngStep_doCombatEnd(struct dngContext * context)
+{
+	assert(context);
+	nextStep(context);
+}
+
+void
 dngStep_doCombatNextRound(struct dngContext * context)
 {
 	assert(context);

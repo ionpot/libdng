@@ -37,6 +37,9 @@ void
 dngStep_doCombatBegin(struct dngContext *);
 
 void
+dngStep_doCombatEnd(struct dngContext *);
+
+void
 dngStep_doCombatNextRound(struct dngContext *);
 
 void
