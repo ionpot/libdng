@@ -3,13 +3,13 @@
 #include "combat.h"
 #include "dice-pool.h"
 #include "entities.h"
-#include "event-list.h"
 #include "grid.h"
 #include "int.h"
 #include "int-bag.h"
 #include "mempool.h"
 #include "spell-slots.h"
 #include "status.h"
+#include "steps.h"
 
 #include <assert.h>
 #include <stddef.h>
@@ -35,13 +35,13 @@ create(struct dngMemPool * mem)
 	self->entities = dngEntities_create(mem);
 	if (!self->entities.nodes)
 		return NULL;
-	self->events = dngEventList_create();
 	dngGrid_clear(&self->grid);
 	self->mempool = mem;
 	self->slots = dngSpellSlots_create(mem);
 	if (!self->slots.nodes)
 		return NULL;
 	self->status = dngStatus_OK;
+	self->steps = dngSteps_create();
 	return self;
 }
 
@@ -70,7 +70,7 @@ void
 dngContext_reset(T * self)
 {
 	assert(self);
-	self->events = dngEventList_create();
+	self->steps = dngSteps_create();
 }
 
 void

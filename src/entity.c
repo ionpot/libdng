@@ -32,18 +32,16 @@ toHealth(
 }
 
 T
-dngEntity_fromInput(const struct dngEntityInput * input)
+dngEntity_fromInput(struct dngEntityInput input)
 {
-	assert(input);
-
 	struct dngClass klass =
-		dngClass_create(input->klass);
+		dngClass_create(input.klass);
 
 	struct dngAttrPrimary attr =
-		dngAttrPrimary_fromInput(input->attr);
+		dngAttrPrimary_fromInput(input.attr);
 
 	const struct dngAttrPrimaryInput race_bonus =
-		dngRace_getBonus(input->race);
+		dngRace_getBonus(input.race);
 
 	dngAttrPrimary_addInputToBase(&attr, race_bonus);
 
@@ -51,11 +49,11 @@ dngEntity_fromInput(const struct dngEntityInput * input)
 		.attr = attr,
 		.health = toHealth(&attr, &klass),
 		.klass = klass,
-		.race = input->race,
-		.spellbook = (input->klass == dngClass_MAGE)
-			? dngSpellbook_forWizard(input->slots)
-			: dngSpellbook_create(input->slots),
-		.weapon = input->weapon
+		.race = input.race,
+		.spellbook = (input.klass == dngClass_MAGE)
+			? dngSpellbook_forWizard(input.slots)
+			: dngSpellbook_create(input.slots),
+		.weapon = input.weapon
 	};
 }
 

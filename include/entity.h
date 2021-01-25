@@ -26,7 +26,7 @@ struct dngEntity_Pair {
 };
 
 struct dngEntity
-dngEntity_fromInput(const struct dngEntityInput *);
+dngEntity_fromInput(struct dngEntityInput);
 
 void
 dngEntity_clear(struct dngEntity *);
