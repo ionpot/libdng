@@ -23,7 +23,7 @@ static const union dngStep_CombatAction_Info
 no_combat_action_info;
 
 static enum dngStep_Id
-checkStep(struct dngContext * context, enum dngStep_Id id)
+checkStep(const struct dngContext * context, enum dngStep_Id id)
 {
 	assert(context);
 	switch (id) {
