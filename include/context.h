@@ -2,7 +2,6 @@
 #define LIBDNG_CONTEXT_H
 
 #include "combat.h"
-#include "combat-action.h"
 #include "dice-pool.h"
 #include "entities.h"
 #include "grid.h"
@@ -12,17 +11,12 @@
 #include "status.h"
 #include "steps.h"
 
-union dngContext_Input {
-	struct dngCombatAction action;
-};
-
 struct dngContext {
 	struct dngIntBag * bag;
 	struct dngCombat * combat;
 	struct dngDicePool dice;
 	struct dngEntities entities;
 	struct dngGrid grid;
-	union dngContext_Input input;
 	struct dngMemPool * mempool;
 	struct dngSpellSlots slots;
 	enum dngStatus status;
