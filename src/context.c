@@ -74,8 +74,8 @@ dngContext_reset(T * self)
 }
 
 void
-dngContext_setNoMem(struct dngContext * context)
+dngContext_setNoMem(T * self)
 {
-	assert(context);
-	context->status = dngStatus_NO_MEM;
+	assert(self);
+	self->status = dngStatus_NO_MEM;
 }
