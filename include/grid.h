@@ -90,6 +90,9 @@ dngGrid_putEntity(
 );
 
 void
+dngGrid_reset(struct dngGrid *, struct dngEntities);
+
+void
 dngGrid_resetSide(struct dngGrid_Side *, struct dngEntities);
 
 #endif

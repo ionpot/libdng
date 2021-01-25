@@ -70,6 +70,8 @@ void
 dngContext_reset(T * self)
 {
 	assert(self);
+	dngDicePool_reset(self->dice);
+	dngGrid_reset(&self->grid, self->entities);
 	self->steps = dngSteps_create();
 }
 

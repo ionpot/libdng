@@ -239,15 +239,23 @@ hasEntity(struct dngGrid_Line line)
 }
 
 static void
+resetEntity(struct dngEntity * entity, struct dngEntities entities)
+{
+	assert(entity);
+	dngEntity_clear(entity);
+	dngEntities_return(entities, entity);
+}
+
+static void
 resetLine(struct dngGrid_Line * line, struct dngEntities entities)
 {
 	assert(line);
 	if (line->slot_1)
-		dngEntities_return(entities, line->slot_1);
+		resetEntity(line->slot_1, entities);
 	if (line->slot_2)
-		dngEntities_return(entities, line->slot_2);
+		resetEntity(line->slot_2, entities);
 	if (line->slot_3)
-		dngEntities_return(entities, line->slot_3);
+		resetEntity(line->slot_3, entities);
 }
 
 bool
@@ -332,6 +340,15 @@ dngGrid_putEntity(
 	struct dngEntity ** slot =
 		grid2slot(self, position);
 	*slot = entity;
+}
+
+void
+dngGrid_reset(T * self, struct dngEntities entities)
+{
+	assert(self);
+	dngGrid_resetSide(&self->side_a, entities);
+	dngGrid_resetSide(&self->side_b, entities);
+	dngGrid_clear(self);
 }
 
 void
