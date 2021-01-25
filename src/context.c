@@ -12,6 +12,7 @@
 #include "steps.h"
 
 #include <assert.h>
+#include <stdbool.h>
 #include <stddef.h>
 
 typedef struct dngContext T;
@@ -64,6 +65,13 @@ dngContext_destroy(T * self)
 {
 	assert(self);
 	dngMemPool_destroy(self->mempool);
+}
+
+bool
+dngContext_isOk(const T * self)
+{
+	assert(self);
+	return self->status == dngStatus_OK;
 }
 
 void

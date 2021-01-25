@@ -11,6 +11,8 @@
 #include "status.h"
 #include "steps.h"
 
+#include <stdbool.h>
+
 struct dngContext {
 	struct dngIntBag * bag;
 	struct dngCombat * combat;
@@ -28,6 +30,9 @@ dngContext_create(void);
 
 void
 dngContext_destroy(struct dngContext *);
+
+bool
+dngContext_isOk(const struct dngContext *);
 
 void
 dngContext_reset(struct dngContext *);
