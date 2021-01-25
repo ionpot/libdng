@@ -55,6 +55,13 @@ next:
 	return checkStep(context, dngSteps_next(id));
 }
 
+static bool
+isStep(const struct dngContext * context, enum dngStep_Id id)
+{
+	assert(context);
+	return dngSteps_get(context->steps) == id;
+}
+
 static void
 nextStep(struct dngContext * context)
 {
@@ -105,6 +112,7 @@ struct dngStep_CombatAction
 dngStep_doCombatActionAI(struct dngContext * context)
 {
 	assert(context);
+	assert(isStep(context, dngStep_COMBAT_ACTION_AI));
 	dngDicePool_reset(context->dice);
 	struct dngCombatAction action =
 		dngAI_pickAction(context->combat);
@@ -127,6 +135,7 @@ dngStep_doCombatActionPlayer(
 	struct dngCombatAction input
 ) {
 	assert(context);
+	assert(isStep(context, dngStep_COMBAT_ACTION_PLAYER));
 	dngDicePool_reset(context->dice);
 	struct dngStep_CombatAction output = {
 		.action = input,
@@ -145,6 +154,7 @@ void
 dngStep_doCombatBegin(struct dngContext * context)
 {
 	assert(context);
+	assert(isStep(context, dngStep_COMBAT_BEGIN));
 
 	dngDicePool_reset(context->dice);
 	dngGrid_resetSide(&context->grid.side_b, context->entities);
@@ -185,6 +195,7 @@ void
 dngStep_doCombatEnd(struct dngContext * context)
 {
 	assert(context);
+	assert(isStep(context, dngStep_COMBAT_END));
 	nextStep(context);
 }
 
@@ -192,6 +203,7 @@ void
 dngStep_doCombatNextRound(struct dngContext * context)
 {
 	assert(context);
+	assert(isStep(context, dngStep_COMBAT_NEXT_ROUND));
 	dngCombat_nextRound(context->combat);
 	nextStep(context);
 }
@@ -200,6 +212,7 @@ void
 dngStep_doCombatNextTurn(struct dngContext * context)
 {
 	assert(context);
+	assert(isStep(context, dngStep_COMBAT_NEXT_TURN));
 	dngCombat_nextTurn(context->combat);
 	nextStep(context);
 }
@@ -210,6 +223,7 @@ dngStep_doPlayerEntity(
 	struct dngStep_PlayerEntity input
 ) {
 	assert(context);
+	assert(isStep(context, dngStep_PLAYER_ENTITY));
 
 	struct dngEntity * entity =
 		dngEntities_next(context->entities);
