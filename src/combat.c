@@ -221,11 +221,13 @@ dngCombat_nextTurn(T * self)
 	assert(self);
 	assert(self->turn <= self->used);
 	assert(self->used <= TURNS);
-	int i = (self->turn == self->used) ? 0 : self->turn + 1;
-	for (; i < self->used; i++) {
-		struct dngGridSlot slot = getSlotAt(self, i);
-		if (dngEntity_isAlive(slot.entity))
-			break;
+	for (int i = 1; i < self->used; i++) {
+		int index = (self->turn + i) % self->used;
+		struct dngGridSlot slot = getSlotAt(self, index);
+		if (dngEntity_isAlive(slot.entity)) {
+			self->turn = index;
+			return;
+		}
 	}
-	self->turn = i;
+	assert(false);
 }

@@ -189,6 +189,14 @@ dngStep_doCombatNextRound(struct dngContext * context)
 	nextStep(context);
 }
 
+void
+dngStep_doCombatNextTurn(struct dngContext * context)
+{
+	assert(context);
+	dngCombat_nextTurn(context->combat);
+	nextStep(context);
+}
+
 struct dngEntity *
 dngStep_doPlayerEntity(
 	struct dngContext * context,

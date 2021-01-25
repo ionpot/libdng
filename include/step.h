@@ -39,6 +39,9 @@ dngStep_doCombatBegin(struct dngContext *);
 void
 dngStep_doCombatNextRound(struct dngContext *);
 
+void
+dngStep_doCombatNextTurn(struct dngContext *);
+
 struct dngEntity *
 dngStep_doPlayerEntity(struct dngContext *, struct dngStep_PlayerEntity);
 
